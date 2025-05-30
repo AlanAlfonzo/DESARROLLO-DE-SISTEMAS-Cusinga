@@ -75,35 +75,35 @@
     </div>
   </section>
   <script>
-      document.querySelector("#nombre").innerText = "Juan";
-      document.querySelector("#apellido").innerText = "Cetro";
-      document.querySelector("#dni").innerText = "47806274";
-      document.querySelector("#mail").innerText = "juancetroet32@gmail.com";
-      document.querySelector("#telefono").innerText = "1131349152";
-      document.querySelector("#año").innerText = "6to";
-      document.querySelector("#curso").innerText = "2da";
-      document.querySelector("#turno").innerText = "Vespertino";
+      document.getElementById("nombre").innerText = "Juan";
+      document.getElementById("apellido").innerText = "Cetro";
+      document.getElementById("dni").innerText = "47806274";
+      document.getElementById("mail").innerText = "juancetroet32@gmail.com";
+      document.getElementById("telefono").innerText = "1131349152";
+      document.getElementById("año").innerText = "6to";
+      document.getElementById("curso").innerText = "2da";
+      document.getElementById("turno").innerText = "Vespertino";
 
       actualizarBotonesActivos("cuenta");
 
-      document.querySelector("#cuenta").addEventListener("click", () => {
-        document.querySelector(".datos").style.display= "flex";
-        document.querySelector(".asist").style.display= "none";
-        document.querySelector(".notas").style.display= "none";
+      document.getElementById("cuenta").addEventListener("click", () => {
+        document.getElementById("inicio").style.display= "flex";
+        document.getElementById("asistencias").style.display= "none";
+        document.getElementById("notitas").style.display= "none";
         actualizarBotonesActivos("cuenta");
       });
 
-      document.querySelector("#asis").addEventListener("click", () => {
-        document.querySelector(".datos").style.display= "none";
-        document.querySelector(".notas").style.display= "none";
-        document.querySelector(".asist").style.display= "block";
+      document.getElementById("asis").addEventListener("click", () => {
+        document.getElementById("inicio").style.display= "none";
+        document.getElementById("notitas").style.display= "none";
+        document.getElementById("asistencias").style.display= "block";
         actualizarBotonesActivos("asis");
       });
 
-      document.querySelector("#notas").addEventListener("click", () => {
-        document.querySelector(".notas").style.display= "block";
-        document.querySelector(".asist").style.display= "none";
-        document.querySelector(".datos").style.display= "none";
+      document.getElementById("notas").addEventListener("click", () => {
+        document.getElementById("notitas").style.display= "block";
+        document.getElementById("asistencias").style.display= "none";
+        document.getElementById("inicio").style.display= "none";
         actualizarBotonesActivos("notas");
       });
       
