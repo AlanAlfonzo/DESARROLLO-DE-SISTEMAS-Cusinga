@@ -30,26 +30,47 @@
       <button id="cerrar-ses" type="button">Cerrar Sesion</button>
     </div>
     <div id="inicio" class="datos">
+      <h2>Mi Cuenta</h2>
+  
       <div class="fila-datos">
-        <p>Nombre: <span id="nombre"></span></p>
-        <p>Apellido: <span id="apellido"></span></p>
+        <p>Nombre:</p>
+        <span id="nombre"></span>
       </div>
       <div class="fila-datos">
-        <p>DNI: <span id="dni"></span></p>
-        <p>Email: <span id="mail"></span></p>
+        <p>Apellido:</p>
+        <span id="apellido"></span>
       </div>
       <div class="fila-datos">
-        <p>Telefono: <span id="telefono"></span></p>
-        <p>Año: <span id="ano"></span></p>
-        <p>Curso: <span id="curso"></span></p>
+        <p>DNI:</p>
+        <span id="dni"></span>
+      </div>
+      <div class="fila-datos">
+        <p>Email:</p>
+        <span id="mail"></span>
+      </div>
+      <div class="fila-datos">
+        <p>Telefono:</p>
+        <span id="telefono"></span>
+      </div>
+      <div class="fila-datos">
+        <p>Año:</p>
+        <span id="año"></span>
+      </div>
+      <div class="fila-datos">
+        <p>Curso:</p>
+        <span id="curso"></span>
+      </div>
+      <div class="fila-datos">
+        <p>Turno:</p>
+        <span id="turno"></span>
       </div>
     </div>
     
-    <div id="asistencias" class="asist oculto">
+    <div id="asistencias" class="asist">
       <h2>hola soy las asistencias</h2>
     </div>
 
-    <div id="notitas" class="notas oculto">
+    <div id="notitas" class="notas">
       <h2>hola soy notitas uwu</h2>
     </div>
   </section>
@@ -59,27 +80,42 @@
       document.querySelector("#dni").innerText = "47806274";
       document.querySelector("#mail").innerText = "juancetroet32@gmail.com";
       document.querySelector("#telefono").innerText = "1131349152";
-      document.querySelector("#ano").innerText = "6to";
+      document.querySelector("#año").innerText = "6to";
       document.querySelector("#curso").innerText = "2da";
+      document.querySelector("#turno").innerText = "Vespertino";
+
+      actualizarBotonesActivos("cuenta");
 
       document.querySelector("#cuenta").addEventListener("click", () => {
-        document.querySelector(".datos").classList.remove("oculto");
-        document.querySelector(".asist").classList.add("oculto");
-        document.querySelector(".notas").classList.add("oculto");
+        document.querySelector(".datos").style.display= "flex";
+        document.querySelector(".asist").style.display= "none";
+        document.querySelector(".notas").style.display= "none";
+        actualizarBotonesActivos("cuenta");
       });
 
       document.querySelector("#asis").addEventListener("click", () => {
-        document.querySelector(".datos").classList.add("oculto");
-        document.querySelector(".notas").classList.add("oculto");
-        document.querySelector(".asist").classList.remove("oculto");
+        document.querySelector(".datos").style.display= "none";
+        document.querySelector(".notas").style.display= "none";
+        document.querySelector(".asist").style.display= "block";
+        actualizarBotonesActivos("asis");
       });
 
       document.querySelector("#notas").addEventListener("click", () => {
-        document.querySelector(".notas").classList.remove("oculto");
-        document.querySelector(".asist").classList.add("oculto");
-        document.querySelector(".datos").classList.add("oculto");
+        document.querySelector(".notas").style.display= "block";
+        document.querySelector(".asist").style.display= "none";
+        document.querySelector(".datos").style.display= "none";
+        actualizarBotonesActivos("notas");
       });
-
+      
+      function actualizarBotonesActivos(idActivo) {
+        document.querySelectorAll("#cuenta, #asis, #notas").forEach(boton => {
+          if (boton.id === idActivo) {
+            boton.classList.add("activo");
+          }else {
+            boton.classList.remove("activo");
+          }
+        });
+      }
 
   </script>
   <footer>
