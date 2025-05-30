@@ -4,14 +4,14 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Escuela San Martín</title>
-  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="../src/styles/stylePan.css">
 </head>
 <body>
   <header>
     <div class="contenedor-header">
       <nav class="botones">
         <a href="/">INICIO</a>
-        <a href="/especialidades.html">ESPECIALIDADES</a>
+        <a href="/especialidades">ESPECIALIDADES</a>
         <a href="#contacto">CONTACTO</a>
         <a href="/panel">PANEL</a>
       </nav>
@@ -22,10 +22,66 @@
     </div>
   </header>
 
-  <section id="inicio" class="seccion">
+  <section class="panel">
+    <div class="opciones">
+      <button id="cuenta" type="button">MI CUENTA</button>
+      <button id="asis" type="button">ASISTENCIAS</button>
+      <button id="notas" type="button">NOTAS</button>
+      <button id="cerrar-ses" type="button">Cerrar Sesion</button>
+    </div>
+    <div id="inicio" class="datos">
+      <div class="fila-datos">
+        <p>Nombre: <span id="nombre"></span></p>
+        <p>Apellido: <span id="apellido"></span></p>
+      </div>
+      <div class="fila-datos">
+        <p>DNI: <span id="dni"></span></p>
+        <p>Email: <span id="mail"></span></p>
+      </div>
+      <div class="fila-datos">
+        <p>Telefono: <span id="telefono"></span></p>
+        <p>Año: <span id="ano"></span></p>
+        <p>Curso: <span id="curso"></span></p>
+      </div>
+    </div>
     
-  </section>
+    <div id="asistencias" class="asist oculto">
+      <h2>hola soy las asistencias</h2>
+    </div>
 
+    <div id="notitas" class="notas oculto">
+      <h2>hola soy notitas uwu</h2>
+    </div>
+  </section>
+  <script>
+      document.querySelector("#nombre").innerText = "Juan";
+      document.querySelector("#apellido").innerText = "Cetro";
+      document.querySelector("#dni").innerText = "47806274";
+      document.querySelector("#mail").innerText = "juancetroet32@gmail.com";
+      document.querySelector("#telefono").innerText = "1131349152";
+      document.querySelector("#ano").innerText = "6to";
+      document.querySelector("#curso").innerText = "2da";
+
+      document.querySelector("#cuenta").addEventListener("click", () => {
+        document.querySelector(".datos").classList.remove("oculto");
+        document.querySelector(".asist").classList.add("oculto");
+        document.querySelector(".notas").classList.add("oculto");
+      });
+
+      document.querySelector("#asis").addEventListener("click", () => {
+        document.querySelector(".datos").classList.add("oculto");
+        document.querySelector(".notas").classList.add("oculto");
+        document.querySelector(".asist").classList.remove("oculto");
+      });
+
+      document.querySelector("#notas").addEventListener("click", () => {
+        document.querySelector(".notas").classList.remove("oculto");
+        document.querySelector(".asist").classList.add("oculto");
+        document.querySelector(".datos").classList.add("oculto");
+      });
+
+
+  </script>
   <footer>
     <p>&copy; 2025 Escuela Secundaria San Martín. Todos los derechos reservados.</p>
   </footer>
