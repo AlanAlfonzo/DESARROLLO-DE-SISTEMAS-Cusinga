@@ -1,0 +1,183 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
+
+* {
+  font-family: "Montserrat", sans-serif;
+  font-optical-sizing: auto;
+  font-style: normal;
+  
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  background-color: #f4f6f8;
+}
+
+header {
+  background-color: #003366;
+  color: white;
+  padding: 2vh;
+}
+
+.contenedor-header {
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  flex-wrap: wrap;
+}
+
+nav {
+  position: absolute;
+  display: flex;
+  left: 50%;
+  transform: translateX(-50%);
+  gap: 3.5vh;
+}
+
+nav a {
+  color: white;
+  text-decoration: none;
+  transition: 0.3s;
+}
+
+nav a:hover {
+  transform: scale(1.2);
+}
+
+.logueo {
+  display: flex;
+  gap: 1vh;
+}
+
+#reg, #log {
+  padding: 1vh 2vh;
+  border-radius: 10px;
+  border: none;
+  font-weight: bold;
+  cursor: pointer;
+  text-decoration: none;
+  transition: background-color 0.4s, color 0.4s;
+}
+
+#reg {
+  background-color: aliceblue;
+  color: #003366;
+}
+
+#reg:hover {
+  background-color: #2f2f2f;
+  color: white;
+}
+
+#log {
+  background-color: #0088ff;
+  color: white;
+}
+
+#log:hover {
+  background-color: #2f2f2f;
+  color: white;
+}
+
+.panel {
+  display: flex;
+  justify-content: center;
+  margin-top: 3vh;
+  gap: 3vh;
+}
+
+.opciones {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  align-items: center;
+  width: 30vh;
+  height: 30vh;
+  background-color: white;
+  border-radius: 10px;
+  box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.opciones button {
+  width: 30vh;
+  height: 10vh;
+  background: rgba(0,0,0,0);
+  border: 0px;
+  transition: background-color 0.2s ease;
+}
+
+.opciones button:hover {
+  background-color: rgb(218, 217, 217);
+  cursor: pointer;
+}
+
+button.activo {
+  background-color: rgb(235, 235, 235);
+}
+
+#cerrar-ses {
+  color: red;
+}
+
+.datos {
+  display: flex;
+  flex-direction: column;
+  gap: 3vh;
+  width: 100vh;
+  height: 80vh;
+  padding: 5vh;
+  background-color: white;
+  border-radius: 10px;
+  box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.fila-datos {
+  display: flex;
+  padding: 1vh 0;
+  gap: 7rem;
+}
+
+.fila-datos p {
+  width: 18%;
+  margin: 0;
+  text-align: left;
+  font-weight: bold;
+  color: #333;
+  border-bottom: 1px solid #e0e0e0;
+}
+
+.fila-datos span {
+  color: #555;
+  border-bottom: 1px solid #e0e0e0;
+  width: 60%;
+}
+
+.asist {
+  width: 100vh;
+  height: 80vh;
+  padding: 5vh;
+  background-color: white;
+  border-radius: 10px;
+  box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.1);
+  display: none;
+}
+
+.notas {
+  width: 100vh;
+  height: 80vh;
+  padding: 5vh;
+  background-color: white;
+  border-radius: 10px;
+  box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.1);
+  display: none;
+}
+
+footer {
+  background-color: #003366;
+  color: white;
+  text-align: center;
+  padding: 20px;
+  margin-top: 30px;
+  top: 0vh;
+}

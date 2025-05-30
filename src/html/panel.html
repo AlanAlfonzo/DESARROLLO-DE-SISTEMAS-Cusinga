@@ -4,14 +4,14 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Escuela San Martín</title>
-  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="../src/styles/stylePan.css">
 </head>
 <body>
   <header>
     <div class="contenedor-header">
       <nav class="botones">
         <a href="/">INICIO</a>
-        <a href="/especialidades.html">ESPECIALIDADES</a>
+        <a href="/especialidades">ESPECIALIDADES</a>
         <a href="#contacto">CONTACTO</a>
         <a href="/panel">PANEL</a>
       </nav>
@@ -22,10 +22,102 @@
     </div>
   </header>
 
-  <section id="inicio" class="seccion">
+  <section class="panel">
+    <div class="opciones">
+      <button id="cuenta" type="button">MI CUENTA</button>
+      <button id="asis" type="button">ASISTENCIAS</button>
+      <button id="notas" type="button">NOTAS</button>
+      <button id="cerrar-ses" type="button">Cerrar Sesion</button>
+    </div>
+    <div id="inicio" class="datos">
+      <h2>Mi Cuenta</h2>
+  
+      <div class="fila-datos">
+        <p>Nombre:</p>
+        <span id="nombre"></span>
+      </div>
+      <div class="fila-datos">
+        <p>Apellido:</p>
+        <span id="apellido"></span>
+      </div>
+      <div class="fila-datos">
+        <p>DNI:</p>
+        <span id="dni"></span>
+      </div>
+      <div class="fila-datos">
+        <p>Email:</p>
+        <span id="mail"></span>
+      </div>
+      <div class="fila-datos">
+        <p>Telefono:</p>
+        <span id="telefono"></span>
+      </div>
+      <div class="fila-datos">
+        <p>Año:</p>
+        <span id="año"></span>
+      </div>
+      <div class="fila-datos">
+        <p>Curso:</p>
+        <span id="curso"></span>
+      </div>
+      <div class="fila-datos">
+        <p>Turno:</p>
+        <span id="turno"></span>
+      </div>
+    </div>
     
-  </section>
+    <div id="asistencias" class="asist">
+      <h2>hola soy las asistencias</h2>
+    </div>
 
+    <div id="notitas" class="notas">
+      <h2>hola soy notitas uwu</h2>
+    </div>
+  </section>
+  <script>
+      document.getElementById("nombre").innerText = "Juan";
+      document.getElementById("apellido").innerText = "Cetro";
+      document.getElementById("dni").innerText = "47806274";
+      document.getElementById("mail").innerText = "juancetroet32@gmail.com";
+      document.getElementById("telefono").innerText = "1131349152";
+      document.getElementById("año").innerText = "6to";
+      document.getElementById("curso").innerText = "2da";
+      document.getElementById("turno").innerText = "Vespertino";
+
+      actualizarBotonesActivos("cuenta");
+
+      document.getElementById("cuenta").addEventListener("click", () => {
+        document.getElementById("inicio").style.display= "flex";
+        document.getElementById("asistencias").style.display= "none";
+        document.getElementById("notitas").style.display= "none";
+        actualizarBotonesActivos("cuenta");
+      });
+
+      document.getElementById("asis").addEventListener("click", () => {
+        document.getElementById("inicio").style.display= "none";
+        document.getElementById("notitas").style.display= "none";
+        document.getElementById("asistencias").style.display= "block";
+        actualizarBotonesActivos("asis");
+      });
+
+      document.getElementById("notas").addEventListener("click", () => {
+        document.getElementById("notitas").style.display= "block";
+        document.getElementById("asistencias").style.display= "none";
+        document.getElementById("inicio").style.display= "none";
+        actualizarBotonesActivos("notas");
+      });
+      
+      function actualizarBotonesActivos(idActivo) {
+        document.querySelectorAll("#cuenta, #asis, #notas").forEach(boton => {
+          if (boton.id === idActivo) {
+            boton.classList.add("activo");
+          }else {
+            boton.classList.remove("activo");
+          }
+        });
+      }
+
+  </script>
   <footer>
     <p>&copy; 2025 Escuela Secundaria San Martín. Todos los derechos reservados.</p>
   </footer>
