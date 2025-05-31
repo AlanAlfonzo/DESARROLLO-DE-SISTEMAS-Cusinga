@@ -45,9 +45,10 @@
         <p>DNI:</p>
         <span id="dni"></span>
       </div>
-      <div class="fila-datos">
+      <div class="fila-datos-mail">
         <p>Email:</p>
         <span id="mail"></span>
+        <button type="button" class="boton-mail" id="emailCambiar"><i class="fas fa-pen-to-square"></i></button>
       </div>
       <div class="fila-datos">
         <p>Telefono:</p>
@@ -68,7 +69,7 @@
       <div class="fila-datos-contraseña">
         <p>Contraseña:</p>
         <span id="contraseña">********</span>
-        <button type="button" class="boton"><i class="fas fa-pen-to-square"></i></button>
+        <button type="button" class="boton-contraseña" id="passwordCambiar"><i class="fas fa-pen-to-square"></i></button>
       </div>
     </div>
     
@@ -80,7 +81,30 @@
       <h2>hola soy notitas uwu</h2>
     </div>
   </section>
+  <footer>
+    <p>&copy; 2025 Escuela Secundaria San Martín. Todos los derechos reservados.</p>
+  </footer>
+  <div id="cambioPassword" class="cambio-password" style="display: none;">
+        <div class="cambio-password-contenido">
+            <button id="boton-cerrar-password" type="button">X</button>
+            <h2>Cambiar Contraseña</h2>
+            <input type="password" placeholder="Contraseña Actual" class="contra" required >
+            <input type="password" placeholder="Nueva Contraseña" class="contra" required >
+            <input type="password" placeholder="Confirmar Contraseña" class="contra" required >
+            <button id="boton-actualizar-password" type="button">Actualizar</button>
+        </div>
+    </div>
+  <div id="cambioMail" class="cambio-mail" style="display: none;">
+      <div class="cambio-mail-contenido">
+          <button id="boton-cerrar-mail" type="button">X</button>
+          <h2>Cambiar Email</h2>
+          <input type="email" placeholder="Nuevo email" class="email" required>
+          <button id="boton-actualizar-mail" type="button">Actualizar</button>
+      </div>
+  </div>
   <script preload>
+
+      // Datos en el panel :D
       document.getElementById("nombre").innerText = "Juan";
       document.getElementById("apellido").innerText = "Cetro";
       document.getElementById("dni").innerText = "47806274";
@@ -90,6 +114,8 @@
       document.getElementById("curso").innerText = "2da";
       document.getElementById("turno").innerText = "Vespertino";
 
+
+      //Botones del Panel B)
       actualizarBotonesActivos("cuenta");
 
       document.getElementById("cuenta").addEventListener("click", () => {
@@ -123,9 +149,29 @@
         });
       }
 
+      //Cambio contraseña :O
+      document.getElementById("passwordCambiar").addEventListener("click", function () {
+            document.getElementById('cambioPassword').style.display = 'flex'
+        })
+      document.getElementById("boton-actualizar-password").addEventListener("click", function () {
+            document.getElementById('cambioPassword').style.display = 'none'
+        })
+      document.getElementById("boton-cerrar-password").addEventListener("click", function () {
+            document.getElementById('cambioPassword').style.display = 'none'
+        })
+
+
+    //Cambio email :O
+      document.getElementById("emailCambiar").addEventListener("click", function () {
+            document.getElementById('cambioMail').style.display = 'flex'
+        })
+      document.getElementById("boton-actualizar-mail").addEventListener("click", function () {
+            document.getElementById('cambioMail').style.display = 'none'
+        })
+      document.getElementById("boton-cerrar-mail").addEventListener("click", function () {
+            document.getElementById('cambioMail').style.display = 'none'
+        })
+
   </script>
-  <footer>
-    <p>&copy; 2025 Escuela Secundaria San Martín. Todos los derechos reservados.</p>
-  </footer>
 </body>
 </html>
