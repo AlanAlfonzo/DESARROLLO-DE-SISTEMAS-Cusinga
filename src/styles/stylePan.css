@@ -4,21 +4,25 @@
   font-family: "Montserrat", sans-serif;
   font-optical-sizing: auto;
   font-style: normal;
-  
 }
 
 body {
   margin: 0;
   padding: 0;
   background-color: #f4f6f8;
+  margin-top: 6rem;
 }
 
 header {
+  position: fixed;        
+  top: 0;
+  left: 0;
+  width: 100%;
   background-color: #003366;
   color: white;
-  padding: 2vh;
+  padding: 1rem 0;
+  z-index: 1;  
 }
-
 .contenedor-header {
   margin: 0 auto;
   display: flex;
@@ -48,10 +52,11 @@ nav a:hover {
 .logueo {
   display: flex;
   gap: 1vh;
+  padding-right: 1rem;
 }
 
 #reg, #log {
-  padding: 1vh 2vh;
+  padding: 0.5rem 1rem;
   border-radius: 10px;
   border: none;
   font-weight: bold;
