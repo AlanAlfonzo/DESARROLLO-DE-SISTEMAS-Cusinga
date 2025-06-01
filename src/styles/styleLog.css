@@ -1,0 +1,214 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
+
+* {
+  font-family: "Montserrat", sans-serif;
+  font-optical-sizing: auto;
+  font-style: normal;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  background-color: #f4f6f8;
+}
+
+header {
+  position: fixed;        
+  top: 0;
+  left: 0;
+  width: 100%;
+  background-color: #003366;
+  color: white;
+  padding: 1rem 0;
+  z-index: 1;  
+}
+.contenedor-header {
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  flex-wrap: wrap;
+}
+
+nav {
+  position: absolute;
+  display: flex;
+  left: 50%;
+  transform: translateX(-50%);
+  gap: 3.5vh;
+}
+
+nav a {
+  color: white;
+  text-decoration: none;
+  transition: 0.3s;
+}
+
+nav a:hover {
+  transform: scale(1.2);
+}
+
+.logueo {
+  display: flex;
+  gap: 1vh;
+  padding-right: 1rem;
+}
+
+#reg, #log {
+  padding: 0.5rem 1rem;
+  border-radius: 10px;
+  border: none;
+  font-weight: bold;
+  cursor: pointer;
+  text-decoration: none;
+  transition: background-color 0.4s, color 0.4s;
+}
+
+#reg {
+  background-color: aliceblue;
+  color: #003366;
+}
+
+#reg:hover {
+  background-color: #2f2f2f;
+  color: white;
+}
+
+#log {
+  background-color: #0088ff;
+  color: white;
+}
+
+#log:hover {
+  background-color: #2f2f2f;
+  color: white;
+}
+
+main {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  background-size: cover;
+  background: linear-gradient(rgba(255, 255, 255, 0.5), rgba(255, 255, 255, 0.5)),
+    url("../img/fondo_login.jpg") no-repeat center center fixed;
+  background-size: cover;
+  margin-top: 3rem;
+}
+
+.main-login {
+  flex: 1;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+
+.form-login {
+  width: 40vh;
+  padding: 2vh;
+  background-color: #f3f3f3;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  font-family: sans-serif;
+}
+
+.form-login h2 {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.form-login label {
+  display: block;
+  margin-bottom: 1vh;
+  font-weight: bold;
+  margin-top: 3vh;
+}
+
+.form-login input {
+  width: 95%;
+  padding: 1vh;
+  margin-bottom: 15px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+.form-login button {
+  width: 20vh;
+  padding: 10px;
+  background-color: rgb(192, 192, 192);
+  color: #003366;
+  font-weight: bold;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-left: 25%;
+  margin-top: 1vh;
+}
+
+.form-login button:hover {
+  background-color: #003366;
+  color: #ffffff;
+  font-weight: bold;
+}
+
+.modal {
+  position: fixed;
+  z-index: 9999;
+  left: 0;
+  top: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  display: none;
+}
+
+.modal-contenido {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: white;
+  height: 40vh;
+  width: 45vh;
+  border-radius: 10px;
+  text-align: center;
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+  z-index: 1000;
+}
+
+.modal-contenido h2 {
+  position: relative;
+  font-size: 4vh;
+  top: 13vh;
+}
+
+.modal-contenido button {
+  position: relative;
+  margin: auto 1vh;
+  top: 16vh;
+  background-color: rgb(221, 220, 220);
+  color: #003366;
+  padding: 1vh;
+  border: 0px;
+  border-radius: 10px;
+  font-size: 2vh;
+  width: 12vh;
+}
+
+.modal-contenido button:hover {
+  background-color: #003366;
+  color: white;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+footer {
+  background-color: #003366;
+  color: white;
+  text-align: center;
+  padding: 20px;
+}

@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="../src/styles/styleLog.css">
+</head>
+
+<body>
+    <header>
+        <div class="contenedor-header">
+            <nav class="botones">
+                <a href="/">INICIO</a>
+                <a href="/especialidades.html">ESPECIALIDADES</a>
+                <a href="#contacto">CONTACTO</a>
+                <a href="panel">PANEL</a>
+            </nav>
+            <div class="logueo">
+                <a href="/register" id="reg">REGISTRARSE</a>
+                <a href="/login" id="log">LOGIN</a>
+            </div>
+        </div>
+    </header>
+    <main>
+        <div class="main-login">
+            <div class="form-login">
+                <h2>Inicie Sesion</h2>
+                <label for="email">Email:</label>
+                <input type="email" id="email" placeholder="MailEjemplo@gmail.com" name="email" required>
+
+                <label for="password">Contraseña:</label>
+                <input type="password" id="password" placeholder="Ingrese su contraseña" name="password" required>
+
+                <button type="submit" onclick="iniciarSesion()">Log in</button>
+            </div>
+        </div>
+    </main>
+    <footer>
+        <p>&copy; 2025 Escuela Secundaria San Martín. Todos los derechos reservados.</p>
+    </footer>
+    <div id="cartel" class="modal" style="display: none;">
+        <div class="modal-contenido">
+            <h2>¿Cómo inicias?</h2>
+            <button id="boton-alumn" onclick="cerrarCartel()">Alumno</button>
+            <button id="boton-profe" onclick="cerrarCartel()">Profesor</button>
+        </div>
+    </div>
+    <script>
+
+        document.addEventListener("DOMContentLoaded", function () {
+            document.getElementById('cartel').style.display = 'flex'
+        })
+
+        function cerrarCartel() {
+            document.getElementById('cartel').style.display = 'none'
+            sessionStorage.setItem('rol', event.target.id)
+        }
+
+        function iniciarSesion() {
+            const mail = document.getElementById('email')
+            const password = document.getElementById('password')
+            const rol = () => {
+                if (sessionStorage.getItem('rol') === 'boton-alumn') {
+                    return 'alumno'
+                } else if (sessionStorage.getItem('rol') === 'boton-profe') {
+                    return 'profesor'
+                } else {
+                    return null
+                }
+            }
+            if(mail.indexOf(' ') == -1 && password.indexOf(' ') == -1){
+                fetch('http://localhost:3000/login', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        mail: mail.value,
+                        password: password.value,
+                        rol: rol()
+                    })
+                })
+                    .then(response => response.json())
+                    .then(data => {
+                        console.log(data.body['status']);
+                    })
+            }
+        }
+
+    </script>
+</body>
+
+</html>
