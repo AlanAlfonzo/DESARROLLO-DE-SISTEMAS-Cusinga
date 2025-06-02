@@ -1,13 +1,16 @@
 const { DataTypes } = require('sequelize');
 const sequelize = require('../../config/mySql.js');
-const { mapFinderOptions } = require('sequelize/lib/utils');
 
 const profPerfiles = sequelize.define('profPerfiles', {
     idProfe: {
         type: DataTypes.INTEGER,
         primaryKey: true,
         unique: true,
-        allowNull: false
+        allowNull: false,
+        references: {
+            model: 'usuarios',
+            key: 'idUsuario'
+        }
     },
     nombres: {
         type: DataTypes.STRING,
@@ -36,6 +39,21 @@ const profPerfiles = sequelize.define('profPerfiles', {
     tableName: 'profPerfiles',
     timestamps: true,
     underscored: true
+});
+
+const Materias = require('./materias.js');
+profPerfiles.hasMany(Materias, {
+    foreignKey: 'idProfe'
+});
+
+const Asistencia = require('./asistencias.js');
+profPerfiles.hasMany(Asistencia, {
+    foreignKey: 'idProfe'
+});
+
+const Notas = require('./notas.js');
+profPerfiles.hasMany(Notas, {
+    foreignKey: 'idProfe'
 });
 
 module.exports = profPerfiles;

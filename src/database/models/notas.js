@@ -7,13 +7,29 @@ const Notas = sequelize.define('Notas', {
         primaryKey: true,
         autoIncrement: true
     },
-    idAlu: {
+    idProfe: {
         type: DataTypes.INTEGER,
-        allowNull: false
+        allowNull: false,
+        references: {
+            model: 'profPerfiles',
+            key: 'idProfe'
+        }
+    },
+    idAlumno: {
+        type: DataTypes.INTEGER,
+        allowNull: false,
+        references: {
+            model: 'alumPerfiles',
+            key: 'idAlumno'
+        }
     },
     idMate: {
         type: DataTypes.INTEGER,
-        allowNull: false
+        allowNull: false,
+        references: {
+            model: 'materias',
+            key: 'idMaterias'
+        }
     },
 }, {
     tableName: 'notas',

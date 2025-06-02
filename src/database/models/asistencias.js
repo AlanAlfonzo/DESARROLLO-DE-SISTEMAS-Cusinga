@@ -5,6 +5,10 @@ const Asistencia = sequelize.define('Asistencia', {
     idAlumno: {
         type: DataTypes.INTEGER,
         allowNull: false,
+        references: {
+            model: 'alumPerfiles',
+            key: 'idAlumno'
+        }
     },
     idProfe: {
         type: DataTypes.INTEGER,

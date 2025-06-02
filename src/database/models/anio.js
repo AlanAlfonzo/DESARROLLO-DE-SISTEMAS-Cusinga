@@ -15,7 +15,7 @@ const Anio = sequelize.define('Anio', {
     cursos: {
         type: DataTypes.INTEGER,
         allowNull: false,
-        unique: true
+        unique: truea
     },
     turno: {
         type: DataTypes.STRING,

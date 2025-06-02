@@ -2,18 +2,26 @@ const { DataTypes } = require('sequelize')
 const sequelize = require('../../config/mySql.js')
 
 const Materias = sequelize.define('Materias', {
-    idMate: {
+    idMateria: {
         type: DataTypes.INTEGER,
         primaryKey: true,
         autoIncrement: true
     },
     idProfe: {
         type: DataTypes.INTEGER,
-        allowNull: false
+        allowNull: false,
+        references: {
+            model: 'profPerfiles',
+            key: 'idProfe'
+        }
     },
-    anio: {
-        type: DataTypes.enum,
-        allowNull: false
+    idAnio: { 
+        type: DataTypes.enum(['1', '2', '3', '4', '5', '6']),
+        allowNull: false,
+        references: {
+            model: 'anios',
+            key: 'idAnio'
+        }
     },
     curso: {
         type: DataTypes.INTEGER,
@@ -24,6 +32,8 @@ const Materias = sequelize.define('Materias', {
         allowNull: false,
         unique: true
     }
-}, {})
+}, {
+
+})
 
 module.exports = Materias
