@@ -448,6 +448,43 @@ button.activo {
   font-weight: bold;
 }
 
+/* ----------------------------------ASISTENCIAS--------------------------------------------- */
+
+.escrolleable {
+  display: block;
+  overflow-y: auto;
+  height: 100%;
+}
+
+.tb-asistencias {
+  width: 100%;
+  margin: 0 auto;
+  border-collapse: collapse;
+}
+
+th, td {
+  border: 1px solid #ccc;
+  padding: 10px;
+  text-align: left;
+}
+
+thead {
+  position: sticky;
+  top: 0;
+  z-index: 0.5;
+  background-color: #003366;
+  color: white;
+}
+
+tbody tr {
+  background-color: #e2e2e2;
+}
+
+tbody tr:nth-child(even) {
+  background-color: #f9f9f9;
+}
+
+
 /* ----------------------------------FOOTER--------------------------------------------- */
 
 footer {
