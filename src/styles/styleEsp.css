@@ -1,0 +1,214 @@
+@import url('https://fonts.googleapis.com/css2?family=Josefin+Sans:ital,wght@0,100..700;1,100..700&family=Quicksand:wght@300..700&family=Share+Tech&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
+
+* {
+  font-family: "Montserrat", sans-serif;
+  font-optical-sizing: auto;
+  font-style: normal;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  background-color: #f4f6f8;
+  margin-top: 6rem;
+}
+
+header {
+  position: fixed;        
+  top: 0;
+  left: 0;
+  width: 100%;
+  background-color: #003366;
+  color: white;
+  padding: 1rem 0;
+  z-index: 1;  
+}
+.contenedor-header {
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  flex-wrap: wrap;
+}
+
+nav {
+  position: absolute;
+  display: flex;
+  left: 50%;
+  transform: translateX(-50%);
+  gap: 3.5vh;
+}
+
+nav a {
+  color: white;
+  text-decoration: none;
+  transition: 0.3s;
+}
+
+nav a:hover {
+  transform: scale(1.2);
+}
+
+.logueo {
+  display: flex;
+  gap: 1vh;
+  padding-right: 1rem;
+}
+
+#reg, #log {
+  padding: 0.5rem 1rem;
+  border-radius: 10px;
+  border: none;
+  font-weight: bold;
+  cursor: pointer;
+  text-decoration: none;
+  transition: background-color 0.4s, color 0.4s;
+}
+
+
+
+#reg {
+  background-color: aliceblue;
+  color: #003366;
+}
+
+#reg:hover {
+  background-color: #2f2f2f;
+  color: white;
+}
+
+#log {
+  background-color: #0088ff;
+  color: white;
+}
+
+#log:hover {
+  background-color: #2f2f2f;
+  color: white;
+}
+
+.seccion h2 {
+  font-size: 2.5rem;
+  margin-bottom: 1rem;
+  font-weight: 700;
+  color: #38bdf8;
+  text-align: center;
+  font-family: 'Share Tech', sans-serif;
+}
+
+.seccion p {
+  font-family: 'Share Tech', sans-serif;
+  font-size: 1.125rem;
+  line-height: 1.8;
+  max-width: 800px;
+  margin: 0 auto 2rem auto;
+  text-align: center;
+  color: #cbd5e1;
+}
+
+.contenedorESPECIALIDADES {
+    background-color: #f9fafb;
+    padding: 1rem 2rem;
+    border-radius: 1rem;
+    max-width: 1100px;
+    margin: auto;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.06);
+    color: #1f2937;
+    font-family: 'Share Tech', sans-serif;
+
+}
+
+section#computacion.seccion{
+ border-radius: 20px;
+  overflow: hidden;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+}
+
+section#mecanica.seccion{
+ border-radius: 20px;
+  overflow: hidden;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+}
+
+section#automotores.seccion{
+ border-radius: 20px;
+  overflow: hidden;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+}
+
+
+#computacion {
+  background-color: rgba(76, 87, 136, 0.658);
+  background: linear-gradient(135deg, #002c6e, #004a94, #33669969), url('../img/compu.jpg');
+  background-size: cover;
+  background-position: center;
+  border-radius: 2rem;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.548);
+   font-family: 'Josefin Sans', sans-serif;
+}
+
+#mecanica {
+  background-image: url('../img/industia.jpg');
+  background-size: cover;
+  background-position: center;
+  background-color: rgba(76, 87, 136, 0.658);
+  background: linear-gradient(135deg, #002c6e, #004a94, #33669969), url('../img/compu.jpg');
+  background-size: cover;
+  background-position: center;
+  border-radius: 2rem;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.548);
+   font-family: 'Josefin Sans', sans-serif;
+}
+
+#automotores {
+  background-image: url('../img/aitos.jpg');
+  background-size: cover;
+  background-position: center;
+  background-color: rgba(76, 87, 136, 0.658);
+  background: linear-gradient(135deg, #002c6e, #004a94, #33669969), url('../img/compu.jpg');
+  background-size: cover;
+  background-position: center;
+  border-radius: 2rem;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.548);
+  font-family: 'Josefin Sans', sans-serif;
+}
+
+#computacion{
+  color: white;
+  text-align: center;
+  border-radius: 20px;
+}
+
+ #mecanica h2, #automotores h2{
+    padding-top: 2rem;
+ } 
+
+  #mecanica , #automotores, #computacion {
+    margin-bottom: 2rem;
+  }
+
+footer {
+  background-color: #003366;
+  color: white;
+  text-align: center;
+  padding: 20px;
+  margin-top: 30px;
+  top: 0vh;
+}
+
+.imagen-container {
+  margin: 2rem auto;
+  padding: 0.2rem;
+  background: white;
+  border-radius: 1rem;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+  max-width: 900px;
+}
+
+.espimg {
+  width: 100%;
+  height: auto;
+  display: block;
+  border-radius: 12px;
+}
