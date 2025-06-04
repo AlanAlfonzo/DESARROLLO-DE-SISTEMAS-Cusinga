@@ -13,6 +13,10 @@ const Asistencia = sequelize.define('Asistencia', {
     idProfe: {
         type: DataTypes.INTEGER,
         allowNull: false,
+        references: {
+            model: 'profPerfiles',
+            key: 'idProfe'
+        }
     },
     fecha: {
         type: DataTypes.DATE,
@@ -29,7 +33,6 @@ const Asistencia = sequelize.define('Asistencia', {
 }, {
     tableName: 'asistencias',
     timestamps: false,
-    underscored: true
-});
+})
 
 module.exports = Asistencia;

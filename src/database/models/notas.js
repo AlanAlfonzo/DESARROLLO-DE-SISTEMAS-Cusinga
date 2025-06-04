@@ -28,13 +28,12 @@ const Notas = sequelize.define('Notas', {
         allowNull: false,
         references: {
             model: 'materias',
-            key: 'idMaterias'
+            key: 'idMateria'
         }
     },
 }, {
     tableName: 'notas',
     timestamps: false,
-    underscored: true
 });
 
 

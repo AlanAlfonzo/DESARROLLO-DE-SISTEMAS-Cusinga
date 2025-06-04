@@ -16,10 +16,10 @@ const Materias = sequelize.define('Materias', {
         }
     },
     idAnio: { 
-        type: DataTypes.enum(['1', '2', '3', '4', '5', '6']),
+        type: DataTypes.INTEGER,
         allowNull: false,
         references: {
-            model: 'anios',
+            model: 'anio',
             key: 'idAnio'
         }
     },
@@ -33,7 +33,8 @@ const Materias = sequelize.define('Materias', {
         unique: true
     }
 }, {
-
+    tableName: 'materias',
+    timestamps: false,
 })
 
 module.exports = Materias

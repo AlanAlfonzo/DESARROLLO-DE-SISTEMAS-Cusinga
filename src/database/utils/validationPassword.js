@@ -1,7 +1,7 @@
 
 function validatePassword(password) {
     const minLength = 6;
-    const maxLength = 16;
+    const maxLength = 22;
     const hasUpperCase = /[A-Z]/.test(password);
     const hasLowerCase = /[a-z]/.test(password);
     const hasDigit = /\d/.test(password);

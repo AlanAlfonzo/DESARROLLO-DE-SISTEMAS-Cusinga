@@ -4,6 +4,7 @@ const sequelize = require('../../config/mySql.js')
 const Roles = sequelize.define('Roles', {
     idRol: {
         type: DataTypes.INTEGER,
+        allowNull: false,
         primaryKey: true,
         autoIncrement: true
     },
@@ -13,14 +14,8 @@ const Roles = sequelize.define('Roles', {
         unique: true
     }
 }, {
-    tableName: 'roles',
+    tableName: 'Roles',
     timestamps: false,
-    underscored: true
-})
-
-const Usuarios = require('./usuarios.js') 
-Roles.hasOne(Users, { // se crea la relacion de roles con usuarios
-    foreignKey: 'idRol'
 })
 
 module.exports = Roles

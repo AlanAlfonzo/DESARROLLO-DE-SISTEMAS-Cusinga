@@ -1,7 +1,7 @@
-const { validateString } = require('../../utils/validationString.js');
+const { validatePassword } = require('../utils/validationPassword.js');
+const { validateString } = require('../utils/validationString.js');
 const sequelize = require('../../config/mySql.js');
 const { DataTypes } = require('sequelize');
-const { validatePassword } = require('../../utils/validationPassword.js');
 
 const Usuarios = sequelize.define('Usuarios', {
     idUsuario: {
@@ -13,7 +13,7 @@ const Usuarios = sequelize.define('Usuarios', {
         type: DataTypes.INTEGER,
         allowNull: false,
         references: {
-            model: 'roles',
+            model: 'Roles',
             key: 'idRol'
         }
     },
@@ -45,7 +45,7 @@ const Usuarios = sequelize.define('Usuarios', {
         }
     },
     validacion: {
-        type: DataTypes.ENUM(['pendiente', 'validado', 'rechazado']),
+        type: DataTypes.ENUM('pendiente', 'validado', 'rechazado'),
         allowNull: false,
         defaultValue: 'pendiente'
     },
@@ -57,22 +57,7 @@ const Usuarios = sequelize.define('Usuarios', {
 }, {
     tableName: 'usuarios',
     timestamps: false,
-    underscored: true
 });
-
-const Roles = require('./roles.js');
-Usuarios.belongsTo(Roles, {
-    foreignKey: 'idRole'
-});
-
-const profPerfiles = require('./profPerfiles.js');
-Usuarios.hasOne(profPerfiles, {
-    foreignKey: 'idProfe'
-});
-
-const alumPerfiles = require('./alumPerfiles.js');
-Usuarios.hasOne(alumPerfiles, {
-    foreignKey: 'idAlumno'
-});
+//CREATE TABLE IF NOT EXISTS `usuarios` (`id_usuario` INTEGER auto_increment , `id_rol` INTEGER NOT NULL, `username` VARCHAR(255) NOT NULL UNIQUE, `password` VARCHAR(255) NOT NULL, `email` VARCHAR(255) NOT NULL UNIQUE, `validacion` ENUM('pendiente', 'validado', 'rechazado') NOT NULL DEFAULT 'pendiente', `last_updated` DATETIME, PRIMARY KEY (`id_usuario`), FOREIGN KEY (`id_rol`) REFERENCES `Roles` (`idRol`) ON DELETE CASCADE ON UPDATE CASCADE) ENGINE=InnoDB;
 
 module.exports = Usuarios;

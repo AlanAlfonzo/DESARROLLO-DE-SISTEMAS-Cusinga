@@ -1,21 +1,17 @@
 const sequelize = require('../../config/mySql.js');
-const { DataTypes } = requerie('sequelize');
+const { DataTypes } = require('sequelize');
 
 const Anio = sequelize.define('Anio', {
-    id: {
-        type: DataTypes.INTEGER,
-        primaryKey: true,
-        autoIncrement: true
-    },
-    anio: {
+    idAnio: {
         type: DataTypes.INTEGER,
         allowNull: false,
-        unique: true
+        primaryKey: true,
+        autoIncrement: true,
     },
     cursos: {
         type: DataTypes.INTEGER,
         allowNull: false,
-        unique: truea
+        unique: true
     },
     turno: {
         type: DataTypes.STRING,
@@ -30,8 +26,6 @@ const Anio = sequelize.define('Anio', {
 }, {
     tableName: 'anio',
     timestamps: false,
-    underscored: true
 })
-
 
 module.exports = Anio;
