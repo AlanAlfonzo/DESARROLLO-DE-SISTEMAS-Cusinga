@@ -14,15 +14,16 @@ body {
 }
 
 header {
-  position: fixed;        
+  position: fixed;
   top: 0;
   left: 0;
   width: 100%;
   background-color: #003366;
   color: white;
   padding: 1rem 0;
-  z-index: 1;  
+  z-index: 1;
 }
+
 .contenedor-header {
   margin: 0 auto;
   display: flex;
@@ -55,7 +56,8 @@ nav a:hover {
   padding-right: 1rem;
 }
 
-#reg, #log {
+#reg,
+#log {
   padding: 0.5rem 1rem;
   border-radius: 10px;
   border: none;
@@ -90,6 +92,7 @@ nav a:hover {
   justify-content: center;
   margin-top: 3vh;
   gap: 3vh;
+  align-items: baseline;
 }
 
 .opciones {
@@ -107,7 +110,7 @@ nav a:hover {
 .opciones button {
   width: 30vh;
   height: 10vh;
-  background: rgba(0,0,0,0);
+  background: rgba(0, 0, 0, 0);
   border: 0px;
   transition: background-color 0.2s ease;
 }
@@ -127,16 +130,20 @@ button.activo {
 
 /* ----------------------------------MI CUENTA------------------------------------- */
 
-.datos {
+
+.container {
   display: flex;
   flex-direction: column;
   gap: 3vh;
   width: 100vh;
   height: 80vh;
-  padding: 5vh;
+  padding-inline: 5vh;
+  padding-top: 2vh;
   background-color: white;
-  border-radius: 10px;
-  box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.1);
+  margin-top: 9vh;
+  margin-bottom: 2vh;
+  border-radius: 2vh;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
 .fila-datos {
@@ -220,7 +227,7 @@ button.activo {
   border-bottom: 1px solid #e0e0e0;
 }
 
-.boton-mail{
+.boton-mail {
   position: absolute;
   right: 1rem;
   bottom: 0.2rem;
@@ -234,19 +241,14 @@ button.activo {
   transition: 0.1s;
 }
 
-.boton-contraseña:hover, .boton-mail:hover {
+.boton-contraseña:hover,
+.boton-mail:hover {
   color: #000000;
   border-radius: 25%;
   background-color: rgb(204, 204, 204);
 }
 
 .asist {
-  width: 100vh;
-  height: 80vh;
-  padding: 5vh;
-  background-color: white;
-  border-radius: 10px;
-  box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.1);
   display: none;
 }
 
@@ -311,7 +313,8 @@ button.activo {
 
 .cambio-password-contenido .contra:focus {
   outline: none;
-  border-color: rgb(128, 128, 128);;
+  border-color: rgb(128, 128, 128);
+  ;
 }
 
 .cambio-password-contenido #boton-actualizar-password {
@@ -405,7 +408,8 @@ button.activo {
 
 .cambio-mail-contenido .email:focus {
   outline: none;
-  border-color: rgb(128, 128, 128);;
+  border-color: rgb(128, 128, 128);
+  ;
 }
 
 .cambio-mail-contenido #boton-actualizar-mail {
@@ -448,13 +452,112 @@ button.activo {
   font-weight: bold;
 }
 
-/* ----------------------------------FOOTER--------------------------------------------- */
+/* ----------------------------------ASISTENCIAS--------------------------------------------- */
 
+body {
+  font-family: Arial, sans-serif;
+  background: #f4f6f8;
+  margin: 0;
+  padding: 0;
+}
+
+h1 {
+  text-align: center;
+  color: #333;
+}
+
+.student-info {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.summary {
+  display: flex;
+  justify-content: space-around;
+  margin-bottom: 30px;
+}
+
+.card {
+  background: #e9f5ff;
+  padding: 20px;
+  border-radius: 8px;
+  text-align: center;
+  flex: 1;
+  margin: 0 10px;
+}
+
+.card h2 {
+  margin: 0;
+  font-size: 2em;
+  color: #007acc;
+}
+
+.card p {
+  margin: 5px 0 0;
+  font-weight: bold;
+}
+
+form.filter-form {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.filter-form input,
+.filter-form select {
+  padding: 8px 12px;
+  margin: 0 5px 10px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+}
+
+.filter-form button {
+  padding: 8px 16px;
+  background-color: #007acc;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.filter-form button:hover {
+  background-color: #005fa3;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+th,
+td {
+  padding: 12px;
+  border: 1px solid #ddd;
+  text-align: center;
+}
+
+th {
+  background-color: #007acc;
+  color: white;
+}
+
+tr:nth-child(even) {
+  background-color: #f9f9f9;
+}
+
+.present {
+  color: green;
+  font-weight: bold;
+}
+
+.absent {
+  color: red;
+  font-weight: bold;
+}
+
+/*-----------------------------------FOOTER--------------------------------------------- */
 footer {
   background-color: #003366;
   color: white;
   text-align: center;
   padding: 20px;
-  margin-top: 30px;
-  top: 0vh;
 }
