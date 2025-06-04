@@ -7,32 +7,34 @@
 }
 
 body {
-  font-family: Arial, sans-serif;
   margin: 0;
   padding: 0;
   background-color: #f4f6f8;
 }
 
 header {
+  position: fixed;        
+  top: 0;
+  left: 0;
+  width: 100%;
   background-color: #003366;
   color: white;
-  padding: 2vh;
+  padding: 1rem 0;
+  z-index: 1;  
 }
-
 .contenedor-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
   margin: 0 auto;
-  position: relative;
+  display: flex;
+  align-items: center;
   justify-content: flex-end;
+  flex-wrap: wrap;
 }
 
 nav {
   position: absolute;
+  display: flex;
   left: 50%;
   transform: translateX(-50%);
-  display: flex;
   gap: 3.5vh;
 }
 
@@ -49,44 +51,41 @@ nav a:hover {
 .logueo {
   display: flex;
   gap: 1vh;
-  left: 200vh;
+  padding-right: 1rem;
+}
+
+#reg, #log {
+  padding: 0.5rem 1rem;
+  border-radius: 10px;
+  border: none;
+  font-weight: bold;
+  cursor: pointer;
+  text-decoration: none;
+  transition: background-color 0.4s, color 0.4s;
 }
 
 #reg {
   background-color: aliceblue;
-  padding: 1vh;
   color: #003366;
-  border-radius: 10px;
-  border: none;
-  font-weight: bold;
-  cursor: pointer;
-  transition: 0.4s;
-  text-decoration: none;
 }
 
 #reg:hover {
-  background-color: rgb(48, 48, 48);
-  color: #ffffff;
+  background-color: #2f2f2f;
+  color: white;
 }
 
 #log {
-  background-color: rgb(0, 136, 255);
-  padding: 1vh;
-  color: #ffffff;
-  border-radius: 10px;
-  border: none;
-  font-weight: bold;
-  cursor: pointer;
-  transition: 0.4s;
-  text-decoration: none;
+  background-color: #0088ff;
+  color: white;
 }
 
 #log:hover {
-  background-color: rgb(48, 48, 48);
-  color: #ffffff;
+  background-color: #2f2f2f;
+  color: white;
 }
 
 main {
+  margin-top: 3rem;
   display: flex;
   flex-direction: column;
   min-height: 100vh;
@@ -98,7 +97,6 @@ main {
 
 
 .main-login {
-  flex: 1;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -136,18 +134,22 @@ main {
 .form-login button {
   width: 20vh;
   padding: 10px;
-  background-color: #2ecc71;
-  color: white;
+  background-color: rgb(221, 220, 220);
+  color: #003366;
   border: none;
   border-radius: 5px;
   font-weight: bold;
   cursor: pointer;
   margin-left: 25%;
   margin-top: 2vh;
+  transition: 0.1s;
 }
 
 .form-login button:hover {
-  background-color: #27ae60;
+  background-color: #003366;
+  color: white;
+  cursor: pointer;
+  font-weight: bold;
 }
 
 .modal {
