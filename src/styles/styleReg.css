@@ -142,7 +142,7 @@ main {
   cursor: pointer;
   margin-left: 25%;
   margin-top: 2vh;
-  transition: 0.1s;
+  transition: 0.2s;
 }
 
 .form-login button:hover {
