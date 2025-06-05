@@ -8,20 +8,21 @@ const Anio = sequelize.define('Anio', {
         primaryKey: true,
         autoIncrement: true,
     },
-    cursos: {
+    anio:{
         type: DataTypes.INTEGER,
         allowNull: false,
-        unique: true
+    },
+    cursos: {
+        type: DataTypes.INTEGER,
+        allowNull: false
     },
     turno: {
-        type: DataTypes.STRING,
-        allowNull: false,
-        unique: true
+        type: DataTypes.ENUM(['maniana', 'tarde', 'noche']),
+        allowNull: false
     },
     especialidad: {
         type: DataTypes.STRING,
-        allowNull: false,
-        unique: true
+        allowNull: false
     }
 }, {
     tableName: 'anio',

@@ -11,12 +11,36 @@ console.clear()
 
 async function initSQLDatabase() {
     await sequelize.authenticate()
-    await sequelize.sync({ force: false })
+    await sequelize.sync({ force: true })
+}
+
+async function insertDataInDB() {
+    const turnos = ['maniana', 'tarde', 'noche']
+    const especialidades = ['computacion', 'mecanica', 'automotores']
+    await Roles.create({ nombre: 'alumno' })
+    await Roles.create({ nombre: 'preceptor' })
+    await Roles.create({ nombre: 'profesor' })
+    for(let i = 1; i < 7; i++){
+        for(let x = 1; x < 7; x++){
+            for(let q = 0; q<3; q++){
+                for(let a = 0; a<3; a++){
+                    await Anio.create({anio: i, cursos: x, turno: turnos[q], especialidad: especialidades[a]})
+                }
+            }
+        }
+    }
+    await Usuarios.create({ idRol: 1, username: 'juanito', password: "Alberto1@", email: 'alberto@gmail.com' })
+
 }
 
 initSQLDatabase()
-    .then(() => console.log('Database connection established successfully!'))
-    .catch((err) => console.log(err))
+.then(() => {
+    console.log('Database connection established successfully!')
+    insertDataInDB()
+})
+.catch((err) => console.log(err))
+
+
 
 app.use(express.urlencoded({ extended: true }))
 app.use(express.static(path.join(__dirname)))
@@ -58,13 +82,5 @@ app.post('/register-user', (req, res) => {
 })
 
 app.listen(port, async () => {
-    // const result = await Roles.findOne({where: {nombre: 'alumno'}}) -> consulta select from con where
-    // const result = await Roles.findByPk(1) -> consulta por PK directo
-    //await Roles.create({ nombre: 'alumno'})
-    //await Roles.create({ nombre: 'preceptor'})
-    //await Roles.create({ nombre: 'profesor'})
-    await Usuarios.create({idRol: 1, username: 'juanito', password: "Alberto1@", email: 'alberto@gmail.com'})
-    //console.log(result)
-    //console.log(await Usuarios.findByPk(1))
-
+console.log(`Express en linea en localhost:${port}`)
 })
