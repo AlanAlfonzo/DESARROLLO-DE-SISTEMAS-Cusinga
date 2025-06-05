@@ -154,3 +154,11 @@ footer {
   margin-top: 30px;
   top: 0vh;
 }
+
+/* responsive */
+
+@media (max-width: 600px) {
+  body {
+    background-color: red;
+  }
+}

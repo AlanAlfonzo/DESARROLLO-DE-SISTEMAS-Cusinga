@@ -10,19 +10,20 @@ body {
   margin: 0;
   padding: 0;
   background-color: #f4f6f8;
-  margin-top: 6rem;
+  margin-top: 2rem;
 }
 
 header {
-  position: fixed;        
+  position: fixed;
   top: 0;
   left: 0;
   width: 100%;
   background-color: #003366;
   color: white;
   padding: 1rem 0;
-  z-index: 1;  
+  z-index: 1;
 }
+
 .contenedor-header {
   margin: 0 auto;
   display: flex;
@@ -90,6 +91,7 @@ nav a:hover {
   justify-content: center;
   margin-top: 3vh;
   gap: 3vh;
+  align-items: baseline;
 }
 
 .opciones {
@@ -107,7 +109,7 @@ nav a:hover {
 .opciones button {
   width: 30vh;
   height: 10vh;
-  background: rgba(0,0,0,0);
+  background: rgba(0, 0, 0, 0);
   border: 0px;
   transition: background-color 0.2s ease;
 }
@@ -127,16 +129,25 @@ button.activo {
 
 /* ----------------------------------MI CUENTA------------------------------------- */
 
-.datos {
+.datos h2 {
+  text-align: center;
+  color: #333;
+  margin-bottom: 0;
+}
+
+.container {
   display: flex;
   flex-direction: column;
   gap: 3vh;
   width: 100vh;
   height: 80vh;
-  padding: 5vh;
+  padding-inline: 5vh;
+  padding-top: 2vh;
   background-color: white;
-  border-radius: 10px;
-  box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.1);
+  margin-top: 9vh;
+  margin-bottom: 5vh;
+  border-radius: 2vh;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
 .fila-datos {
@@ -220,7 +231,7 @@ button.activo {
   border-bottom: 1px solid #e0e0e0;
 }
 
-.boton-mail{
+.boton-mail {
   position: absolute;
   right: 1rem;
   bottom: 0.2rem;
@@ -234,29 +245,18 @@ button.activo {
   transition: 0.1s;
 }
 
-.boton-contraseña:hover, .boton-mail:hover {
+.boton-contraseña:hover,
+.boton-mail:hover {
   color: #000000;
   border-radius: 25%;
   background-color: rgb(204, 204, 204);
 }
 
 .asist {
-  width: 100vh;
-  height: 80vh;
-  padding: 5vh;
-  background-color: white;
-  border-radius: 10px;
-  box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.1);
   display: none;
 }
 
 .notas {
-  width: 100vh;
-  height: 80vh;
-  padding: 5vh;
-  background-color: white;
-  border-radius: 10px;
-  box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.1);
   display: none;
 }
 
@@ -292,6 +292,7 @@ button.activo {
   flex-direction: column;
   align-items: center;
   gap: 1.3rem;
+  animation: aparecer 0.2s linear;
 }
 
 .cambio-password-contenido h2 {
@@ -311,7 +312,8 @@ button.activo {
 
 .cambio-password-contenido .contra:focus {
   outline: none;
-  border-color: rgb(128, 128, 128);;
+  border-color: rgb(128, 128, 128);
+  ;
 }
 
 .cambio-password-contenido #boton-actualizar-password {
@@ -386,6 +388,7 @@ button.activo {
   flex-direction: column;
   align-items: center;
   gap: 1.3rem;
+  animation: aparecer 0.2s linear;
 }
 
 .cambio-mail-contenido h2 {
@@ -405,7 +408,8 @@ button.activo {
 
 .cambio-mail-contenido .email:focus {
   outline: none;
-  border-color: rgb(128, 128, 128);;
+  border-color: rgb(128, 128, 128);
+  ;
 }
 
 .cambio-mail-contenido #boton-actualizar-mail {
@@ -450,48 +454,194 @@ button.activo {
 
 /* ----------------------------------ASISTENCIAS--------------------------------------------- */
 
-.escrolleable {
-  display: block;
-  overflow-y: auto;
-  height: 100%;
+.asist h2 {
+  text-align: center;
+  color: #333;
+  margin-bottom: 0;
 }
 
-.tb-asistencias {
-  width: 100%;
-  margin: 0 auto;
-  border-collapse: collapse;
+.asist .student-info {
+  text-align: center;
 }
 
-th, td {
+.asist .summary {
+  display: flex;
+  justify-content: space-around;
+  margin-bottom: 0.5rem;
+}
+
+.asist .card {
+  background: #e9f5ff;
+  padding: 20px;
+  border-radius: 8px;
+  text-align: center;
+  flex: 1;
+  margin: 0 10px;
+}
+
+.asist .card h2 {
+  margin: 0;
+  font-size: 2em;
+  color: #003366;
+}
+
+.asist .card p {
+  margin: 5px 0 0;
+  font-weight: bold;
+}
+
+.asist form.filter-form {
+  text-align: center;
+}
+
+.asist .filter-form input, .filter-form select {
+  padding: 8px 12px;
+  margin: 0 5px 10px;
   border: 1px solid #ccc;
-  padding: 10px;
-  text-align: left;
+  border-radius: 6px;
 }
 
-thead {
-  position: sticky;
-  top: 0;
-  z-index: 0.5;
+.asist .filter-form button {
+  padding: 8px 16px;
+  background-color: #ccc;
+  color: #003366;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.asist .filter-form button:hover {
   background-color: #003366;
   color: white;
 }
 
-tbody tr {
-  background-color: #e2e2e2;
+.scroll-table {
+  overflow-y: auto;
+  height: 100%;
+  margin-bottom: 2rem;
 }
 
-tbody tr:nth-child(even) {
+table {
+  width: 100%;
+  height: 30%;
+  border-collapse: collapse;
+}
+
+th, td {
+  padding: 12px;
+  border: 1px solid #ddd;
+  text-align: center;
+}
+
+th {
+  position: sticky;
+  z-index: 0.5;
+  top: 0;
+  background-color: #003366;
+  color: white;
+}
+
+tr {
+  background-color: rgb(235, 235, 235);
+}
+
+tr:nth-child(even) {
   background-color: #f9f9f9;
 }
 
+.present {
+  color: green;
+  font-weight: bold;
+}
 
-/* ----------------------------------FOOTER--------------------------------------------- */
+.absent {
+  color: red;
+  font-weight: bold;
+}
 
+/* ----------------------------------NOTAS--------------------------------------------- */
+
+.notas h2 {
+  text-align: center;
+  color: #333;
+  margin-bottom: 0;
+}
+
+.notas .student-info {
+  text-align: center;
+}
+
+.notas .summary {
+  display: flex;
+  justify-content: space-evenly;
+  margin-bottom: 0.5rem;
+}
+
+.notas .card {
+  background: #e9f5ff;
+  padding: 1.2rem;
+  flex: 1;
+  border-radius: 8px;
+  text-align: center;
+  margin: 0 10px;
+}
+
+.notas .card h2 {
+  margin: 0;
+  font-size: 2em;
+  color: #003366;
+}
+
+.notas .card p {
+  margin: 5px 0 0;
+  font-weight: bold;
+}
+
+.notas form.filter-form {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+}
+
+.notas .filter-form select {
+  padding: 0.5rem 12px;
+  margin: 0 5px 10px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+}
+
+.notas .filter-form input {
+  padding: 0.5rem 0.2rem;
+  margin: 0 5px 10px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+}
+
+.notas .filter-form button {
+  padding: 8px 16px;
+  background-color: #ccc;
+  color: #003366;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.notas .filter-form button:hover {
+  background-color: #003366;
+  color: white;
+}
+
+/*-----------------------------------FOOTER--------------------------------------------- */
 footer {
   background-color: #003366;
   color: white;
   text-align: center;
   padding: 20px;
-  margin-top: 30px;
-  top: 0vh;
+}
+
+@keyframes aparecer {
+  from { opacity: 0; transform: translate(-50%, -60%); }
+  to { opacity: 1; transform: translate(-50%, -50%); }
 }
