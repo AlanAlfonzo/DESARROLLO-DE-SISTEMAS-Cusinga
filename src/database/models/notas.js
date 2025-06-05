@@ -31,10 +31,13 @@ const Notas = sequelize.define('Notas', {
             key: 'idMateria'
         }
     },
+    nota: {
+        type: DataTypes.FLOAT,
+        allowNull: false
+    }
 }, {
     tableName: 'notas',
     timestamps: false,
 });
-
 
 module.exports = Notas;

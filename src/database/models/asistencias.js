@@ -10,12 +10,12 @@ const Asistencia = sequelize.define('Asistencia', {
             key: 'idAlumno'
         }
     },
-    idProfe: {
+    idPrece: {
         type: DataTypes.INTEGER,
         allowNull: false,
         references: {
-            model: 'profPerfiles',
-            key: 'idProfe'
+            model: 'precePerfiles',
+            key: 'idPrece'
         }
     },
     fecha: {

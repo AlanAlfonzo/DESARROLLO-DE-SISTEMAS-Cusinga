@@ -1,4 +1,11 @@
 @import url('https://fonts.googleapis.com/css2?family=Josefin+Sans:ital,wght@0,100..700;1,100..700&family=Quicksand:wght@300..700&family=Share+Tech&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
+
+* {
+  font-family: "Montserrat", sans-serif;
+  font-optical-sizing: auto;
+  font-style: normal;
+}
 
 body {
   margin: 0;
@@ -118,6 +125,17 @@ section#computacion.seccion{
   box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
 }
 
+section#mecanica.seccion{
+ border-radius: 20px;
+  overflow: hidden;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+}
+
+section#automotores.seccion{
+ border-radius: 20px;
+  overflow: hidden;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+}
 
 
 #computacion {
@@ -134,8 +152,10 @@ section#computacion.seccion{
   background-image: url('../img/industia.jpg');
   background-size: cover;
   background-position: center;
-    background-color: rgba(76, 87, 136, 0.658);
+  background-color: rgba(76, 87, 136, 0.658);
   background: linear-gradient(135deg, #002c6e, #004a94, #33669969), url('../img/compu.jpg');
+  background-size: cover;
+  background-position: center;
   border-radius: 2rem;
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.548);
    font-family: 'Josefin Sans', sans-serif;
@@ -154,18 +174,19 @@ section#computacion.seccion{
   font-family: 'Josefin Sans', sans-serif;
 }
 
-
-
-img.espimg {
-  max-width: 100%;
-  height: 60vh;
-  width: 100vh;
-  display: block;
-  border-radius: 5vh;
-  border: 4px solid #ffffff9d;
-  justify-self: center;
-  margin-bottom: 3vh;
+#computacion{
+  color: white;
+  text-align: center;
+  border-radius: 20px;
 }
+
+ #mecanica h2, #automotores h2{
+    padding-top: 2rem;
+ } 
+
+  #mecanica , #automotores, #computacion {
+    margin-bottom: 2rem;
+  }
 
 footer {
   background-color: #003366;
@@ -174,4 +195,20 @@ footer {
   padding: 20px;
   margin-top: 30px;
   top: 0vh;
+}
+
+.imagen-container {
+  margin: 2rem auto;
+  padding: 0.2rem;
+  background: white;
+  border-radius: 1rem;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+  max-width: 900px;
+}
+
+.espimg {
+  width: 100%;
+  height: auto;
+  display: block;
+  border-radius: 12px;
 }

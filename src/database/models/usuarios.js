@@ -1,7 +1,45 @@
-const { validatePassword } = require('../utils/validationPassword.js');
-const { validateString } = require('../utils/validationString.js');
 const sequelize = require('../../config/mySql.js');
 const { DataTypes } = require('sequelize');
+
+function validatePassword(password) {
+    const minLength = 6
+    const maxLength = 22
+    const hasUpperCase = /[A-Z]/.test(password)
+    const hasLowerCase = /[a-z]/.test(password)
+    const hasDigit = /\d/.test(password)
+    const hasSpecialChar = /[@$!%*?&]/.test(password)
+
+    if (password.length < minLength || password.length > maxLength) {
+        throw new Error('La contraseña debe tener entre 6 y 16 caracteres.')
+    }
+    if (!hasUpperCase) {
+        throw new Error('La contraseña debe contener al menos una letra mayúscula.')
+    }
+    if (!hasLowerCase) {
+        throw new Error('La contraseña debe contener al menos una letra minúscula.')
+    }
+    if (!hasDigit) {
+        throw new Error('La contraseña debe contener al menos un número.')
+    }
+    if (!hasSpecialChar) {
+        throw new Error('La contraseña debe contener al menos un carácter especial.')
+    }
+}
+
+function validateString(username) {
+
+    const minLength = 5;
+    const maxLength = 22;
+    const hasSpecialChar = /[@$!%*?&]/.test(username);
+
+    if (password.length < minLength || password.length > maxLength) {
+        throw new Error('La contraseña debe tener entre 6 y 16 caracteres.');
+    }
+
+    if (!hasSpecialChar) {
+        throw new Error('La contraseña debe contener al menos un carácter especial.');
+    }
+}
 
 const Usuarios = sequelize.define('Usuarios', {
     idUsuario: {
@@ -21,11 +59,7 @@ const Usuarios = sequelize.define('Usuarios', {
         type: DataTypes.STRING,
         allowNull: false,
         unique: true,
-        validate: {
-            customValidator(value) {
-                validateString(value);
-            }
-        }
+
     },
     password: {
         type: DataTypes.STRING,
@@ -40,24 +74,15 @@ const Usuarios = sequelize.define('Usuarios', {
         type: DataTypes.STRING,
         allowNull: false,
         unique: true,
-        validate: {
-            isMail: true
-        }
     },
     validacion: {
         type: DataTypes.ENUM('pendiente', 'validado', 'rechazado'),
-        allowNull: false,
-        defaultValue: 'pendiente'
-    },
-    lastUpdated: {
-        type: DataTypes.DATE,
-        allowNull: true,
-        defaultValue: DataTypes.NOW
-    },
+        defaultValue: 'pendiente',
+        allowNull: false
+    }
 }, {
     tableName: 'usuarios',
-    timestamps: false,
+    timestamps: true,
 });
-//CREATE TABLE IF NOT EXISTS `usuarios` (`id_usuario` INTEGER auto_increment , `id_rol` INTEGER NOT NULL, `username` VARCHAR(255) NOT NULL UNIQUE, `password` VARCHAR(255) NOT NULL, `email` VARCHAR(255) NOT NULL UNIQUE, `validacion` ENUM('pendiente', 'validado', 'rechazado') NOT NULL DEFAULT 'pendiente', `last_updated` DATETIME, PRIMARY KEY (`id_usuario`), FOREIGN KEY (`id_rol`) REFERENCES `Roles` (`idRol`) ON DELETE CASCADE ON UPDATE CASCADE) ENGINE=InnoDB;
 
 module.exports = Usuarios;
