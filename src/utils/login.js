@@ -6,4 +6,14 @@ const password = 'Alberto1@'
  
 const userValidate = await Usuarios.findAll({where: {email: email, password: password}})
 
-console.log(userValidate[0])
+
+if(userValidate[0].dataValues)
+    return {status: 200, body : {
+        idUser: userValidate[0].dataValues.idUsuario, 
+        idRol: userValidate[0].dataValues.idRol,
+        validacion: userValidate[0].dataValues.validacion
+    }}
+
+else{
+    return 
+}
