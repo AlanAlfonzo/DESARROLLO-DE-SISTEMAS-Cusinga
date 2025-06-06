@@ -43,6 +43,10 @@ app.get('/panel', (req, res) => {
     res.sendFile(path.join(__dirname,'/src/html/panel.html'))
 })
 
+app.get('/panel-docente', (req, res) => {
+    res.sendFile(path.join(__dirname,'/src/html/panel-docente.html'))
+})
+
 app.post('/login', async (req, res) => {
     const mail = req.body['mail']
     const password = req.body['password']
