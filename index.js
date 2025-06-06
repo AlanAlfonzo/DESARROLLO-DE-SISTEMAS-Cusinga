@@ -1,5 +1,6 @@
 const { profPerfiles, alumPerfiles, Asistencia, Usuarios, Materias, Notas, Roles, Anio } = require('./src/database/models/relaciones.js')
 const sequelize = require('./src/config/mySql.js')
+const login = require('./src/utils/login.js')
 const jwt = require('jsonwebtoken')
 const express = require('express')
 const secretWord = 'arrozConLeche'
@@ -75,16 +76,15 @@ app.get('/panel', (req, res) => {
 
 app.post('/login-user', (req, res) => {
 
-    const token = jwt.sign({
-
-    })
+    const payload = login()
+    console.log(payload)
 
 })
 
 app.post('/register-user', (req, res) => {
 
     const { nombres, apellidos, dni, email, telefono, contrasenia} = req.body
-    console.log()
+    
 
     res.status(200)
 

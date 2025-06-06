@@ -23,6 +23,10 @@ const Materias = sequelize.define('Materias', {
             key: 'idAnio'
         }
     },
+    anio:{
+        type: DataTypes.ENUM([1,2,3,4,5,6]),
+        allowNull: false,
+    },
     curso: {
         type: DataTypes.INTEGER,
         allowNull: false
