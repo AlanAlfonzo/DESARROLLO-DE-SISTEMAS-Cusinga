@@ -55,12 +55,6 @@ const Usuarios = sequelize.define('Usuarios', {
             key: 'idRol'
         }
     },
-    username: {
-        type: DataTypes.STRING,
-        allowNull: false,
-        unique: true,
-
-    },
     password: {
         type: DataTypes.STRING,
         allowNull: false,
@@ -74,6 +68,9 @@ const Usuarios = sequelize.define('Usuarios', {
         type: DataTypes.STRING,
         allowNull: false,
         unique: true,
+        validate: {
+            isEmail: true
+        }
     },
     validacion: {
         type: DataTypes.ENUM('pendiente', 'validado', 'rechazado'),

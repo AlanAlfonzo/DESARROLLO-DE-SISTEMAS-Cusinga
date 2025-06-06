@@ -2,11 +2,12 @@ const { profPerfiles, alumPerfiles, Asistencia, Usuarios, Materias, Notas, Roles
 const sequelize = require('./src/config/mySql.js')
 const jwt = require('jsonwebtoken')
 const express = require('express')
+const secretWord = 'arrozConLeche'
 const path = require('path')
 const cors = require('cors')
 const app = express()
 const port = 3000
-const secretWord = 'arrozConLeche'
+
 console.clear()
 
 async function initSQLDatabase() {
@@ -22,15 +23,14 @@ async function insertDataInDB() {
     await Roles.create({ nombre: 'profesor' })
     for(let i = 1; i < 7; i++){
         for(let x = 1; x < 7; x++){
-            for(let q = 0; q<3; q++){
-                for(let a = 0; a<3; a++){
+            for(let q = 0; q < 3; q++){
+                for(let a = 0; a < 3; a++){
                     await Anio.create({anio: i, cursos: x, turno: turnos[q], especialidad: especialidades[a]})
                 }
             }
         }
     }
-    await Usuarios.create({ idRol: 1, username: 'juanito', password: "Alberto1@", email: 'alberto@gmail.com' })
-
+    await Usuarios.create({ idRol: 1, password: "Alberto1@", email: 'alberto@gmail.com' })
 }
 
 initSQLDatabase()
@@ -71,16 +71,23 @@ app.get('/panel', (req, res) => {
     res.sendFile(path.join(__dirname, '/src/html/panel.html'))
 })
 
-// endpoints publicos
+// endpoints register-login publico
 
 app.post('/login-user', (req, res) => {
+
+    const token = jwt.sign({
+
+    })
 
 })
 
 app.post('/register-user', (req, res) => {
 
+    const { nombres, apellidos, dni, email, telefono, contrasenia} = req.body
+    console.log()
+
+    res.status(200)
+
 })
 
-app.listen(port, async () => {
-console.log(`Express en linea en localhost:${port}`)
-})
+app.listen(port, async () => console.log(`Express en linea en: http://localhost:${port}`))

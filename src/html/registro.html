@@ -65,10 +65,7 @@
             const telefono = formData.get('telefono')
             const password = formData.get('password')
 
-            let log
-
-            if((nombres.indexOf(' ') != 1 || apellidos.indexOf(' ') != 1 || dni.indexOf(' ') != 1 || mail.indexOf(' ') != 1 || telefono.indexOf(' ') != 1 || password.indexOf(' ') != 1 ) && dni.length == 8){
-                log = await fetch('http://localhost:3000/registrar-alumno', {
+            const resultFetch = await fetch('http://localhost:3000/register-user', {
                     method: 'POST',
                     credentials: "include",
                     headers: {
@@ -83,13 +80,11 @@
                         password: password
                     })
                 })
-            }
+            
 
-            const result = await log.json()
-            console.log(result)
+            console.log(resultFetch)
 
-            localStorage.setItem('rol', 'boton-alumn')
-            window.location.assign("http://localhost:3000/login");
+            
 
         })
 
