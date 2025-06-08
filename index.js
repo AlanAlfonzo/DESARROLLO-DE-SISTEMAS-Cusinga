@@ -121,7 +121,7 @@ app.post('/login-user', async (req, res) => {
     const payload = await login(email, password)
     if(payload.ok){
         const token = jwt.sign({
-            idUser: payload.body.idUser,  idRol: payload.body.idRol, nombres: payload.body.nombres
+            idUser: payload.body.idUser,  idRol: payload.body.idRol
         },secretWord,
         {
             expiresIn: '1h'
