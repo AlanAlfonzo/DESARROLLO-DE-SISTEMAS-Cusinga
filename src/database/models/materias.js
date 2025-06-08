@@ -24,7 +24,7 @@ const Materias = sequelize.define('Materias', {
         }
     },
     anio:{
-        type: DataTypes.ENUM([1,2,3,4,5,6]),
+        type: DataTypes.INTEGER,
         allowNull: false,
     },
     curso: {

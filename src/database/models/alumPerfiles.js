@@ -37,12 +37,7 @@ const alumPerfiles = sequelize.define('AlumPerfiles', {
         type: DataTypes.STRING,
         allowNull: true,
         unique: true
-    },
-    mail: {
-        type: DataTypes.STRING,
-        allowNull: false,
-        unique: true
-    },
+    }
 },{
     tableName: 'alumPerfiles',
     timestamps: true,

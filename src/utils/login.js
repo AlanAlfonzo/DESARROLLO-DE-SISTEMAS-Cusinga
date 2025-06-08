@@ -1,29 +1,40 @@
-import { Usuarios } from "../database/models/relaciones.js";
+const { Usuarios, alumPerfiles } = require('../database/models/relaciones.js')
 
-const email = 'alberto@gmail.com'
-const password = 'Alberto1@'
- 
-const userValidate = await Usuarios.findAll({where: {email: email, password: password}})
+/**
+ * @param {string} email 
+ * @param {string} password 
+ */
+async function login(email, password) {
 
-try {
-    
-    if(userValidate[0].dataValues){
-        return {
-            status: 200,
-            body : {
-                idUser: userValidate[0].dataValues.idUsuario, 
-                idRol: userValidate[0].dataValues.idRol,
-                validacion: userValidate[0].dataValues.validacion
+    const userValidate = await Usuarios.findAll({
+        where: { 
+            email: email, 
+            password: password
+        }
+    })
+    try {
+        if (userValidate[0].dataValues) {
+            const names = await alumPerfiles.findAll({
+                where: {
+                    idAlumno: userValidate[0].dataValues.idUsuario
+                }
+            })
+            return {
+                ok: 'ok',
+                body: {
+                    idUser: userValidate[0].dataValues.idUsuario,
+                    idRol: userValidate[0].dataValues.idRol,
+                    nombres: names[0].dataValues.nombres,
+                    validacion: userValidate[0].dataValues.validacion
+                }
             }
         }
+    } catch (error) {
+        return {
+            status: 404,
+            error: error
+        }
     }
-
-} catch (error) {
-    return {
-        status: 401
-    }
-    
 }
-
 
 module.exports = login
