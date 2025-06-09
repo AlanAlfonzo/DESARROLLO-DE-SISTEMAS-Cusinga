@@ -1,21 +1,18 @@
 const sequelize = require('../../config/mySql.js')
 const { DataTypes } = require('sequelize')
 
-const PrecePerfiles = sequelize.define('PrecePerfiles', {
+const precePerfiles = sequelize.define('precePerfiles', {
     idPrece: {
         type: DataTypes.INTEGER,
         primaryKey: true,
-        autoIncrement: true
-    },
-    idRol: {
-        type: DataTypes.INTEGER,
+        autoIncrement: true,
         allowNull: false,
         references: {
-            model: 'roles',
-            key: 'idRol'
+            model: 'usuarios',
+            key: 'idUsuario'
         }
     },
-    nombre: {
+    nombres: {
         type: DataTypes.STRING,
         allowNull: false
     },
@@ -23,9 +20,14 @@ const PrecePerfiles = sequelize.define('PrecePerfiles', {
         type: DataTypes.STRING,
         allowNull: true
     },
+    dni: {
+        type: DataTypes.INTEGER,
+        allowNull: false,
+        unique: true
+    }
 }, {
     tableName: 'precePerfiles',
     timestamps: false
 })
 
-module.exports = PrecePerfiles
+module.exports = precePerfiles

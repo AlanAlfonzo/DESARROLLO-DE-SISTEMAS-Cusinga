@@ -15,17 +15,17 @@
                 <a href="/">INICIO</a>
                 <a href="/especialidades">ESPECIALIDADES</a>
                 <a href="#contacto">CONTACTO</a>
-                <% if(typeof nombres != 'undefined' ){ %>
+                <% if(typeof ok === 'boolean' ){ %>
                     <a href="panel">PANEL</a>
                 <% } %>
             </nav>
-            <% if(typeof nombres === 'undefined' ){ %>
+            <% if(typeof ok !== 'boolean' ){ %>
                 <div class="logueo">
                     <a href="/register" id="reg">REGISTRARSE</a>
                     <a href="/login" id="log">LOGIN</a>
                 </div>
             <% } %>
-            <% if(typeof nombres != 'undefined' ){%>
+            <% if(typeof ok === 'boolean' ){%>
                 <div class="tag-user">
                     <h2><%= nombres %></h2>
                 </div>

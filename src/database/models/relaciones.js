@@ -1,4 +1,4 @@
-const precePerfiles = require('./PrecePerfiles.js')
+const precePerfiles = require('./precePerfiles.js')
 const profPerfiles = require('./ProfPerfiles.js')
 const alumPerfiles = require('./alumPerfiles.js')
 const Asistencia = require('./Asistencias.js')
@@ -20,6 +20,9 @@ Usuarios.hasOne(profPerfiles, {
 })
 Usuarios.hasOne(alumPerfiles, {
     foreignKey: 'idAlumno'
+})
+Usuarios.hasOne(precePerfiles,{
+    foreignKey: 'idPrece'
 })
 
 alumPerfiles.hasMany(Asistencia, {
@@ -77,4 +80,4 @@ Anio.hasMany(Materias, {
     foreignKey: 'idAnio'
 })
 
-module.exports = { profPerfiles, alumPerfiles, Asistencia, Usuarios, Materias, Notas, Roles, Anio }
+module.exports = { profPerfiles, precePerfiles, alumPerfiles, Asistencia, Usuarios, Materias, Notas, Roles, Anio }

@@ -28,11 +28,6 @@ const profPerfiles = sequelize.define('ProfPerfiles', {
         type: DataTypes.STRING,
         allowNull: true,
         unique: true
-    },
-    mail: {
-        type: DataTypes.STRING,
-        allowNull: false,
-        unique: true
     }
 }, {
     tableName: 'profPerfiles',

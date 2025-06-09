@@ -58,7 +58,7 @@ nav a:hover {
 
 #reg,
 #log {
-  padding: 0.5rem 1rem;
+  padding: 1vh;
   border-radius: 10px;
   border: none;
   font-weight: bold;
