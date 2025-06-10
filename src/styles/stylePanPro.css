@@ -569,6 +569,26 @@ tr:nth-child(even) {
   color: white;
 }
 
+.ingreso-nota {
+  display: flex;
+  margin-top: 2rem;
+  justify-content: center;
+  gap: 1rem;
+}
+
+.inputs {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.ingreso-nota input {
+  padding: 0.5rem 0.06rem;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  width: 7rem;
+}
+
 /*-----------------------------------FOOTER--------------------------------------------- */
 footer {
   background-color: #003366;
