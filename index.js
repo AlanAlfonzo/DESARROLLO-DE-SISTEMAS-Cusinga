@@ -59,7 +59,7 @@ app.get('/', async (req, res) => {
     if (token != null){
 
         let data = await getDataUser(token.idUser, token.idRol)
-        console.log('hola', data)
+        //console.log('hola', data)
         return res.render('home', data)
     }
     res.render('home')
@@ -117,8 +117,7 @@ app.get('/panel', (req, res) => {
                 anio: '6to',
                 curso: '2da',
                 turno: "Vespertino"
-            }
-        )
+            })
 
     } catch (error) {
         res.render('login')

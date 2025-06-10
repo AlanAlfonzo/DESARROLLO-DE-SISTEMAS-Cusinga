@@ -19,8 +19,22 @@ const { Usuarios, alumPerfiles, profPerfiles, Anio } = require('../database/mode
 
 async function getDataUser(idUser, idRol) {
 
-    console.log(idUser, '|', idRol)
-    if (idRol == 1) {
+    
+    if (idRol === 1) {
+
+        let data = {
+            nombres: null,
+            apellidos: null,
+            email: null,
+            password: null,
+            dni: null,
+            telefono: null,
+            anio: null,
+            curso: null,
+            turno: null,
+            especialidad: null
+        }
+
         const userData = await Usuarios.findAll({
             attributes: ['password', 'email'],
             where: {
@@ -38,12 +52,19 @@ async function getDataUser(idUser, idRol) {
                 }
             }]
         })
-        // usuarios -> password, email
-        // alumPerfiles -> nombres, apellidos, dni, telefono
-        // anio -> anio, cursos, turno, especialidad
-        console.log(userData[0].dataValues)
+        data.nombres = userData[0].dataValues.AlumPerfile.nombres
+        data.apellidos = userData[0].dataValues.AlumPerfile.apellidos
+        data.apellidos = userData[0].dataValues.email.email
+        data.password = userData[0].dataValues.password
+        data.dni = userData[0].dataValues.AlumPerfile.dni
+        data.telefono = userData[0].dataValues.AlumPerfile.telefono
+        data.anio = userData[0].dataValues.AlumPerfile.Anio.anio
+        data.curso = userData[0].dataValues.AlumPerfile.Anio.cursos
+        data.turno = userData[0].dataValues.AlumPerfile.Anio.turno
+        data.especialidad = userData[0].dataValues.AlumPerfile.Anio.especialidad
+        console.log(data)
     }
 
 }
 
-getDataUser(1, 1)
+module.exports = getDataUser
