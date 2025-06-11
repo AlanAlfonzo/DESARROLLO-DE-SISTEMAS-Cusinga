@@ -93,7 +93,7 @@ app.get('/panel', async (req, res) => {
     
     if(token != null){
         let data = await getDataUser(token.idUser, token.idRol)
-        
+        console.log(data.especialidad)
         return res.render('panelAlumno', data)
         
     }

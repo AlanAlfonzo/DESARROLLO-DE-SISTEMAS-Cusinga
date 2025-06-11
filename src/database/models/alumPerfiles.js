@@ -14,7 +14,6 @@ const alumPerfiles = sequelize.define('AlumPerfiles', {
     },
     idAnio: {
         type: DataTypes.INTEGER,
-        allowNull: false,
         references: {
             model: 'anio',
             key: 'idAnio'

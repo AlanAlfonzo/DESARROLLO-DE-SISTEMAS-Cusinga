@@ -136,7 +136,7 @@ button.activo {
   flex-direction: column;
   gap: 3vh;
   width: 100vh;
-  height: 80vh;
+  height: auto;
   padding-inline: 5vh;
   padding-top: 2vh;
   background-color: white;
@@ -144,6 +144,7 @@ button.activo {
   margin-bottom: 2vh;
   border-radius: 2vh;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  padding-bottom: 4%;
 }
 
 .fila-datos {
