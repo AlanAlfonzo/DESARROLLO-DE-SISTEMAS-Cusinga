@@ -23,6 +23,7 @@ async function getDataUser(idUser, idRol) {
     if (idRol === 1) {
 
         let data = {
+            ok: null,
             nombres: null,
             apellidos: null,
             email: null,
@@ -52,9 +53,11 @@ async function getDataUser(idUser, idRol) {
                 }
             }]
         })
+
+        data.ok = true
         data.nombres = userData[0].dataValues.AlumPerfile.nombres
         data.apellidos = userData[0].dataValues.AlumPerfile.apellidos
-        data.apellidos = userData[0].dataValues.email.email
+        data.email = userData[0].dataValues.email
         data.password = userData[0].dataValues.password
         data.dni = userData[0].dataValues.AlumPerfile.dni
         data.telefono = userData[0].dataValues.AlumPerfile.telefono
@@ -62,6 +65,7 @@ async function getDataUser(idUser, idRol) {
         data.curso = userData[0].dataValues.AlumPerfile.Anio.cursos
         data.turno = userData[0].dataValues.AlumPerfile.Anio.turno
         data.especialidad = userData[0].dataValues.AlumPerfile.Anio.especialidad
+        return data
         
     } 
     

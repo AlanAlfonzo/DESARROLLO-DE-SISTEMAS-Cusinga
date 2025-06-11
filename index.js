@@ -39,13 +39,11 @@ app.use((req, res, next) => {
 
     const token = req.cookies.token
 
-    let data = null
-
-    req.session = { token: data }
+    req.session = { token: null }
 
     try {
-        data = jwt.verify(token, secretWord)
-        req.session.token = data
+        let result = jwt.verify(token, secretWord)
+        req.session.token = result
     } catch (err) { }
 
     next()
@@ -59,7 +57,6 @@ app.get('/', async (req, res) => {
     if (token != null){
 
         let data = await getDataUser(token.idUser, token.idRol)
-        //console.log('hola', data)
         return res.render('home', data)
     }
     res.render('home')
@@ -71,7 +68,6 @@ app.get('/login', async (req, res) => {
     if (token != null){
 
         let data = await getDataPanel()
-
         return res.render('home', data)
     }
     res.render('login')
@@ -81,47 +77,35 @@ app.get('/register', (req, res) => {
     res.render('registro')
 })
 
-app.get('/especialidades', (req, res) => {
+app.get('/especialidades', async (req, res) => {
     const { token } = req.session
-    if (!token) {
-        return res.render('especialidades')
+    if (token != null) {
+        let data = await getDataUser(token.idUser, token.idRol)
+        return res.render('especialidades', data)
     }
-    try {
-        const data = jwt.verify(token, secretWord)
-        res.render('especialidades', data)
-    } catch (error) {
-        res.render('especialidades')
-    }
+    return res.render('especialidades')
 })
 
 // rutas protegidas
 
-app.get('/panel', (req, res) => {
-    const token = req.cookies.token
-    if (!token) {
-        return res.render('login')
+app.get('/panel', async (req, res) => {
+    const { token } = req.session
+    
+    if(token != null){
+        let data = await getDataUser(token.idUser, token.idRol)
+        
+        return res.render('panelAlumno', data)
+        
     }
-    try {
-        const data = jwt.verify(token, secretWord)
+    return res.render('login')
 
-        console.log(data)
+})
 
-        res.render('panelAlumno',
-            {
-                username: 'Alberto',
-                nombre: 'Juan',
-                apellido: 'Cetro',
-                dni: "47806274",
-                mail: 'juancetroet32@gmail.com',
-                telefono: "1131349152",
-                anio: '6to',
-                curso: '2da',
-                turno: "Vespertino"
-            })
-
-    } catch (error) {
-        res.render('login')
-    }
+app.post('/logout', async (req, res) => {
+    res.clearCookie('token')
+    res.json({
+        ok: true
+    })
 })
 
 // endpoints register-login publico
@@ -154,7 +138,7 @@ app.post('/register-user', (req, res) => {
 
     const { nombres, apellidos, dni, email, telefono, contrasenia } = req.body
 
-    res.status(200)
+    
 
 })
 

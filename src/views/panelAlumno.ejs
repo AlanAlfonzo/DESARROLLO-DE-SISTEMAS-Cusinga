@@ -15,11 +15,11 @@
       <nav class="botones">
         <a href="/">INICIO</a>
         <a href="/especialidades">ESPECIALIDADES</a>
-        <a href="#contacto">CONTACTO</a>
+        <a href="/#contacto">CONTACTO</a>
         <a href="/panel">PANEL</a>
       </nav>
       <div class="tag-user">
-        <h2><%= username %></h2>
+        <h2><%= nombres %></h2>
       </div>
   </header>
 
@@ -35,11 +35,11 @@
         <h1>Mi Cuenta</h1>
         <div class="fila-datos">
           <p>Nombre:</p>
-          <span id="nombre"><%= nombre %></span>
+          <span id="nombre"><%= nombres %></span>
         </div>
         <div class="fila-datos">
           <p>Apellido:</p>
-          <span id="apellido"><%= apellido %></span>
+          <span id="apellido"><%= apellidos %></span>
         </div>
         <div class="fila-datos">
           <p>DNI:</p>
@@ -47,7 +47,7 @@
         </div>
         <div class="fila-datos-mail">
           <p>Email:</p>
-          <span id="mail"><%= mail %></span>
+          <span id="mail"><%= email %></span>
           <button type="button" class="boton-mail" id="emailCambiar"><i class="fas fa-pen-to-square"></i></button>
         </div>
         <div class="fila-datos">
@@ -156,6 +156,19 @@
   <script preload>
     //Botones del Panel B)
     actualizarBotonesActivos("cuenta");
+
+    document.getElementById("cerrar-ses").addEventListener("click", () => {
+      fetch('/logout', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        }
+      }).then(response => {
+        if(typeof response.ok === 'boolean'){
+          window.location.href = '/'
+        }
+      })
+    });
 
     document.getElementById("cuenta").addEventListener("click", () => {
       document.getElementById("inicio").style.display = "flex";

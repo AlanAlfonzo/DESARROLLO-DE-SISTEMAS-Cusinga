@@ -212,3 +212,17 @@ footer {
   display: block;
   border-radius: 12px;
 }
+
+.tag-user {
+  height: 4.5vh;
+  align-content: center;
+}
+
+.tag-user h2 {
+  margin: 0;
+  margin-right: 1.5vh;
+  background-color: #7e7aa3;
+  border-radius: 2vh;
+  padding-inline: 1vh;
+  padding-block: 0.5vh;
+}

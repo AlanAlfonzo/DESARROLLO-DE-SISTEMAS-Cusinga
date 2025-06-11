@@ -10,3 +10,5 @@ en el panel de alumno en el archivo 'getDataAlumnPanel.js'
 el token debe almacenar solo el idUser y el idRol nada mas, despues todo tipo de otra 
 informacion debe pasarse directamente, pero comprobando con las credenciales que 
 contiene el token
+
+desarrollar middleware de logout para cerrar la sesion del cliente
