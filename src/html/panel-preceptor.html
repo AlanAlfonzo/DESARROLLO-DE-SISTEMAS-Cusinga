@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Escuela San Martín</title>
-  <link rel="stylesheet" href="../src/styles/stylePanPro.css">
+  <link rel="stylesheet" href="../src/styles/stylePanPre.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 
@@ -27,7 +27,7 @@
   <section class="panel">
     <div class="opciones">
       <button id="cuenta" type="button">MI CUENTA</button>
-      <button id="notas" type="button">NOTAS</button>
+      <button id="asis" type="button">ASISTENCIAS</button>
       <button id="cerrar-ses" type="button">Cerrar Sesion</button>
     </div>
     <div id="inicio" class="datos">
@@ -55,10 +55,6 @@
           <span id="telefono"></span>
         </div>
         <div class="fila-datos">
-          <p>Materia:</p>
-          <span id="materia"></span>
-        </div>
-        <div class="fila-datos">
           <p>Año:</p>
           <span id="año"></span>
         </div>
@@ -74,99 +70,77 @@
         </div>
       </div>
     </div>
-    <div id="notitas" class="notas">
-      <div class="container">
-        <h2>Notas</h2>
-        <div class="student-info">
-          <h3 id="student-name">Docente: ...</h3>
-        </div>
-
-        <div class="summary">
-          <div class="card">
-            <h2 id="total-aprobados">Nota nueva: </h2>
-            <form class="ingreso-nota">
-              <div class="inputs">
-                <label for="from">Nota:</label>
-                <input type="number" id="n-nota" name="n-nota" max="10">
-              </div>
-              <div class="inputs">
-                <label for="from">Materia:</label>
-                <input type="text" id="mat-nota" name="mat-nota">
-              </div>
-              <div class="inputs">
-                <label for="from">Nombre:</label>
-                <input type="text" id="nom-nota" name="nom-nota">
-              </div>
-              <div class="inputs">
-                <label for="from">Apellido:</label>
-                <input type="text" id="ape-nota" name="ape-nota">
-              </div>
-              <div class="inputs">
-                <button class="btn-enviar">ENVIAR</button>
-              </div>
-            </form>
+    <div id="asistencias" class="asist">
+        <div class="container">
+          <h2>Asistencias</h2>
+  
+          <div class="student-info">
+            <h3 id="student-name">Alumno: ...</h3>
           </div>
-        </div>
-        <form class="filter-form" id="filter-form">
-          <div>
-            <label for="from">Nota:</label>
-            <input type="number" id="nota" name="nota" max="10">
+  
+          <div class="summary">
+            <div class="card">
+              <h2 id="total-asistencias">0</h2>
+              <p>Asistencias</p>
+            </div>
+            <div class="card">
+              <h2 id="total-tarde">0</h2>
+              <p>Tardes</p>
+            </div>
+            <div class="card">
+              <h2 id="total-inasistencias">0</h2>
+              <p>Inasistencias</p>
+            </div>
           </div>
-          <div>
-            <label for="materia">Materia:</label>
-            <select id="materia" name="materia">
+          <form class="filter-form" id="filter-form">
+            <label for="from">Desde:</label>
+            <input type="date" id="from" name="from">
+  
+            <label for="to">Hasta:</label>
+            <input type="date" id="to" name="to">
+  
+            <label for="tipo">Tipo:</label>
+            <select id="tipo" name="tipo">
               <option value="todas">Todas</option>
-              <option value="matematica">Matematica</option>
-              <option value="lengua">Lengua</option>
+              <option value="asistencia">Solo Asistencias</option>
+              <option value="inasistencia">Solo Inasistencias</option>
             </select>
-          <button type="submit">Filtrar</button>
+            <button type="submit">Filtrar</button>
+          </form>
+          <div class="scroll-table">
+            <table>
+              <thead>
+                <tr>
+                  <th>Fecha</th>
+                  <th>Puntualidad</th>
+                </tr>
+              </thead>
+              <tbody id="tabla-asistencias" class="tabla-asis">
+                <tr>
+                  <td>20/04</td>
+                  <td>PRESENTE</td>
+                </tr>
+                <tr>
+                  <td>20/04</td>
+                  <td>PRESENTE</td>
+                </tr>
+                <tr>
+                  <td>20/04</td>
+                  <td>PRESENTE</td>
+                </tr>
+                <tr>
+                  <td>20/04</td>
+                  <td>PRESENTE</td>
+                </tr>
+                <tr>
+                  <td>20/04</td>
+                  <td>PRESENTE</td>
+                </tr>
+              </tbody>
+            </table>
           </div>
-        </form>
-        <div class="scroll-table">
-          <table>
-            <thead>
-              <tr>
-                <th>Nota</th>
-                <th>Materia</th>
-                <th>Alumno</th>
-              </tr>
-            </thead>
-            <tbody id="tabla-notas" class="tabla-notas">
-              <tr>
-                <td>6</td>
-                <td>Matematica</td>
-                <td>Juan</td>
-              </tr>
-              <tr>
-                <td>6</td>
-                <td>Matematica</td>
-                <td>Pedro</td>
-              </tr>
-              <tr>
-                <td>6</td>
-                <td>Matematica</td>
-                <td>Alan</td>
-              </tr>
-              <tr>
-                <td>6</td>
-                <td>Matematica</td>
-                <td>Lucia</td>
-              </tr>
-              <tr>
-                <td>6</td>
-                <td>Matematica</td>
-                <td>Felipe</td>
-              </tr>
-              <tr>
-                <td>6</td>
-                <td>Matematica</td>
-                <td>Anderson</td>
-              </tr>
-            </tbody>
-          </table>
         </div>
       </div>
-    </div>
   </section>
   <footer>
     <p>&copy; 2025 Escuela Secundaria San Martín. Todos los derechos reservados.</p>
@@ -207,14 +181,14 @@
 
     document.getElementById("cuenta").addEventListener("click", () => {
       document.getElementById("inicio").style.display = "flex";
-      document.getElementById("notitas").style.display = "none";
+      document.getElementById("asistencias").style.display = "none";
       actualizarBotonesActivos("cuenta");
     });
 
-    document.getElementById("notas").addEventListener("click", () => {
-      document.getElementById("notitas").style.display = "flex";
+    document.getElementById("asis").addEventListener("click", () => {
+      document.getElementById("asistencias").style.display = "flex";
       document.getElementById("inicio").style.display = "none";
-      actualizarBotonesActivos("notas");
+      actualizarBotonesActivos("asis");
     });
 
     function actualizarBotonesActivos(idActivo) {
