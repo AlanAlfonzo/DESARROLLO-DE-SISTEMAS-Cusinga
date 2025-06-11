@@ -1,4 +1,4 @@
-const { Usuarios, alumPerfiles, profPerfiles, Anio } = require('../database/models/relaciones.js');
+const { Usuarios, alumPerfiles, profPerfiles, Anio, precePerfiles, Asistencia } = require('../database/models/relaciones.js');
 
 /*
 {
@@ -62,7 +62,23 @@ async function getDataUser(idUser, idRol) {
         data.curso = userData[0].dataValues.AlumPerfile.Anio.cursos
         data.turno = userData[0].dataValues.AlumPerfile.Anio.turno
         data.especialidad = userData[0].dataValues.AlumPerfile.Anio.especialidad
-        console.log(data)
+        
+    } 
+    
+    else if (idRol === 2){
+        const userData = await Usuarios.findAll({
+            attributes: ['password', 'email'],
+            include: [{
+                model: precePerfiles,
+                attributes: ['nombres', 'apellidos', 'dni'],
+                include: [{
+                    model: Asistencia
+                }],
+                where: {
+                    idPrece : idUser
+                }
+            }]
+        })
     }
 
 }
