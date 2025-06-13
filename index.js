@@ -74,6 +74,13 @@ app.get('/login', async (req, res) => {
 })
 
 app.get('/register', (req, res) => {
+    const body = req.session
+    console.log(body)
+
+    //if(errorRegister){
+    //    return res.render('registro', {error: errorRegister})
+    //}
+
     res.render('registro')
 })
 
@@ -93,7 +100,6 @@ app.get('/panel', async (req, res) => {
     
     if(token != null){
         let data = await getDataUser(token.idUser, token.idRol)
-        console.log(data.especialidad)
         return res.render('panelAlumno', data)
         
     }
@@ -145,17 +151,17 @@ app.post('/register-user', async (req, res) => {
         return res.render(/* se renderiza vista home con mensaje de registro exitoso */)
     }catch(error){
         if (error.errors[0].path == 'email'){
-            return res.render(/* se renderiza una vista con mensaje de email ya registrado */)
+            console.log('email repetido')
+            req.session.errorRegister = {error: 'email'}
         }
         if (error.errors[0].path == 'dni'){
-            return res.render(/* se renderiza una vista con mensaje de dni ya registrado */)
+            req.session.errorRegister = {error: 'dni'}
         }
         if (error.errors[0].path == 'telefono'){
-            return res.render(/* se renderiza una vista con mensaje de telefono ya registrado */)
+            req.session.errorRegister = {error: 'telefono'}
         }
+        return res.redirect('http://localhost:3000/register')
     }
-    
-    res.redirect('http://localhost:3000/')
 
 })
 

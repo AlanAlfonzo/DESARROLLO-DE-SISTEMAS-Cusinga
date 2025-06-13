@@ -7,8 +7,8 @@
     <title>Registro</title>
     <link rel="stylesheet" href="../../src/styles/styleReg.css">
 </head>
-
 <body class="login">
+    
     <header>
         <div class="contenedor-header">
             <nav class="botones">
@@ -16,7 +16,7 @@
                 <a href="/especialidades">ESPECIALIDADES</a>
                 <a href="/#contacto">CONTACTO</a>
             </nav>
-
+            
             <div class="logueo">
                 <a href="/register" id="reg">REGISTRARSE</a>
                 <a href="/login" id="log">LOGIN</a>
@@ -24,6 +24,15 @@
             
         </div>
     </header>
+    <% if (typeof error !== 'undefined'){%>
+        <% if(error == 'email'){ %>
+            <script>alert('Email ya registrado')</script>    
+        <%} else if(error == 'dni'){%>
+            <script>alert('Dni ya registrado')</script>    
+        <%} else if(error == 'telefono'){%>
+            <script>alert('Telefono ya registrado')</script>    
+        <%}%>
+    <%}%>
     <main class="main-login">
         <form class="form-login" method="post" action="/register-user">
             <h2>Registrate</h2>
