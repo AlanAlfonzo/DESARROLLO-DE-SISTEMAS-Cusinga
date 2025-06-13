@@ -134,11 +134,15 @@ app.post('/login-user', async (req, res) => {
 
 })
 
-app.post('/register-user', (req, res) => {
+app.post('/register-user', async (req, res) => {
 
-    const { nombres, apellidos, dni, email, telefono, contrasenia } = req.body
+    const { nombres, apellidos, dni, email, telefono, password } = req.body
 
-    
+    await Usuarios.create({ email: email, password: password })
+    const userData = await Usuarios.findAll({where: {email: email}})
+    await alumPerfiles.create({idAlumno: userData[0].dataValues.idUsuario ,nombres: nombres, apellidos: apellidos, dni: dni, telefono: telefono})
+    console.log(await Usuarios.findAll({where: {idRol: 1}}))
+    res.redirect('http://localhost:3000/')
 
 })
 

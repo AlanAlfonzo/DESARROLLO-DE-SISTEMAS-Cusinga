@@ -49,7 +49,7 @@ const Usuarios = sequelize.define('Usuarios', {
     },
     idRol: {
         type: DataTypes.INTEGER,
-        allowNull: false,
+        defaultValue: 1,
         references: {
             model: 'Roles',
             key: 'idRol'
