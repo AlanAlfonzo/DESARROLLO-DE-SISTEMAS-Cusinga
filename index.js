@@ -138,10 +138,23 @@ app.post('/register-user', async (req, res) => {
 
     const { nombres, apellidos, dni, email, telefono, password } = req.body
 
-    await Usuarios.create({ email: email, password: password })
-    const userData = await Usuarios.findAll({where: {email: email}})
-    await alumPerfiles.create({idAlumno: userData[0].dataValues.idUsuario ,nombres: nombres, apellidos: apellidos, dni: dni, telefono: telefono})
-    console.log(await Usuarios.findAll({where: {idRol: 1}}))
+    try{
+        await Usuarios.create({ email: email, password: password })
+        const userData = await Usuarios.findAll({where: {email: email}})
+        await alumPerfiles.create({idAlumno: userData[0].dataValues.idUsuario ,nombres: nombres, apellidos: apellidos, dni: dni, telefono: telefono})
+        return res.render(/* se renderiza vista home con mensaje de registro exitoso */)
+    }catch(error){
+        if (error.errors[0].path == 'email'){
+            return res.render(/* se renderiza una vista con mensaje de email ya registrado */)
+        }
+        if (error.errors[0].path == 'dni'){
+            return res.render(/* se renderiza una vista con mensaje de dni ya registrado */)
+        }
+        if (error.errors[0].path == 'telefono'){
+            return res.render(/* se renderiza una vista con mensaje de telefono ya registrado */)
+        }
+    }
+    
     res.redirect('http://localhost:3000/')
 
 })
