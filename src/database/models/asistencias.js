@@ -2,6 +2,11 @@ const sequelize = require('../../config/mySql.js');
 const { DataTypes } = require('sequelize');
 
 const Asistencia = sequelize.define('Asistencia', {
+    idAsis: {
+        type: DataTypes.INTEGER,
+        primaryKey: true,
+        autoIncrement: true
+    },
     idAlumno: {
         type: DataTypes.INTEGER,
         allowNull: false,

@@ -10,7 +10,7 @@ body {
   margin: 0;
   padding: 0;
   background-color: #f4f6f8;
-  margin-top: 6rem;
+  margin-top: 2rem;
 }
 
 header {
@@ -56,9 +56,8 @@ nav a:hover {
   padding-right: 1rem;
 }
 
-#reg,
-#log {
-  padding: 1vh;
+#reg, #log {
+  padding: 0.5rem 1rem;
   border-radius: 10px;
   border: none;
   font-weight: bold;
@@ -130,21 +129,25 @@ button.activo {
 
 /* ----------------------------------MI CUENTA------------------------------------- */
 
+.datos h2 {
+  text-align: center;
+  color: #333;
+  margin-bottom: 0;
+}
 
 .container {
   display: flex;
   flex-direction: column;
   gap: 3vh;
   width: 100vh;
-  height: auto;
+  padding-bottom: 4vh;
   padding-inline: 5vh;
   padding-top: 2vh;
   background-color: white;
   margin-top: 9vh;
-  margin-bottom: 2vh;
+  margin-bottom: 5vh;
   border-radius: 2vh;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-  padding-bottom: 4%;
 }
 
 .fila-datos {
@@ -254,12 +257,6 @@ button.activo {
 }
 
 .notas {
-  width: 100vh;
-  height: 80vh;
-  padding: 5vh;
-  background-color: white;
-  border-radius: 10px;
-  box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.1);
   display: none;
 }
 
@@ -295,6 +292,7 @@ button.activo {
   flex-direction: column;
   align-items: center;
   gap: 1.3rem;
+  animation: aparecer 0.2s linear;
 }
 
 .cambio-password-contenido h2 {
@@ -390,6 +388,7 @@ button.activo {
   flex-direction: column;
   align-items: center;
   gap: 1.3rem;
+  animation: aparecer 0.2s linear;
 }
 
 .cambio-mail-contenido h2 {
@@ -455,29 +454,23 @@ button.activo {
 
 /* ----------------------------------ASISTENCIAS--------------------------------------------- */
 
-body {
-  font-family: Arial, sans-serif;
-  background: #f4f6f8;
-  margin: 0;
-  padding: 0;
-}
-
-h1 {
+.asist h2 {
   text-align: center;
   color: #333;
+  margin-bottom: 0;
 }
 
-.student-info {
+.asist .student-info {
   text-align: center;
 }
 
-.summary {
+.asist .summary {
   display: flex;
   justify-content: space-around;
-  margin-bottom: 30px;
+  margin-bottom: 0.5rem;
 }
 
-.card {
+.asist .card {
   background: #e9f5ff;
   padding: 20px;
   border-radius: 8px;
@@ -486,58 +479,75 @@ h1 {
   margin: 0 10px;
 }
 
-.card h2 {
+.asist .card h2 {
   margin: 0;
   font-size: 2em;
-  color: #007acc;
+  color: #003366;
 }
 
-.card p {
+.asist .card p {
   margin: 5px 0 0;
   font-weight: bold;
 }
 
-form.filter-form {
+.asist form.filter-form {
   text-align: center;
-  margin-bottom: 20px;
 }
 
-.filter-form input,
-.filter-form select {
+.asist .filter-form input, .filter-form select {
   padding: 8px 12px;
   margin: 0 5px 10px;
   border: 1px solid #ccc;
   border-radius: 6px;
 }
 
-.filter-form button {
+.asist .filter-form button {
   padding: 8px 16px;
-  background-color: #007acc;
-  color: white;
+  background-color: #ccc;
+  color: #003366;
   border: none;
   border-radius: 6px;
   cursor: pointer;
+  transition: 0.2s;
 }
 
-.filter-form button:hover {
-  background-color: #005fa3;
+.asist .filter-form button:hover {
+  background-color: #003366;
+  color: white;
+}
+
+.scroll-table {
+  overflow-y: auto;
+  height: 33vh;
+  margin-bottom: 2rem;
+}
+
+.scroll-table thead tr th{
+  border: 0;
 }
 
 table {
   width: 100%;
+  height: 30%;
   border-collapse: collapse;
 }
 
-th,
-td {
+th, td {
   padding: 12px;
   border: 1px solid #ddd;
   text-align: center;
 }
 
 th {
-  background-color: #007acc;
+  position: sticky;
+  z-index: 0.5;
+  top: 0;
+  background-color: #003366;
   color: white;
+}
+
+tr {
+  background-color: rgb(235, 235, 235);
 }
 
 tr:nth-child(even) {
@@ -554,12 +564,77 @@ tr:nth-child(even) {
   font-weight: bold;
 }
 
-/*-----------------------------------FOOTER--------------------------------------------- */
-footer {
+/* ----------------------------------NOTAS--------------------------------------------- */
+
+.notas h2 {
+  text-align: center;
+  color: #333;
+  margin-bottom: 0;
+}
+
+.notas .student-info {
+  text-align: center;
+}
+
+.notas .summary {
+  display: flex;
+  justify-content: space-evenly;
+  margin-bottom: 0.5rem;
+}
+
+.notas .card {
+  background: #e9f5ff;
+  padding: 1.2rem;
+  flex: 1;
+  border-radius: 8px;
+  text-align: center;
+  margin: 0 10px;
+}
+
+.notas .card h2 {
+  margin: 0;
+  font-size: 2em;
+  color: #003366;
+}
+
+.notas .card p {
+  margin: 5px 0 0;
+  font-weight: bold;
+}
+
+.notas form.filter-form {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+}
+
+.notas .filter-form select {
+  padding: 0.5rem 12px;
+  margin: 0 5px 10px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+}
+
+.notas .filter-form input {
+  padding: 0.5rem 0.2rem;
+  margin: 0 5px 10px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+}
+
+.notas .filter-form button {
+  padding: 8px 16px;
+  background-color: #ccc;
+  color: #003366;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.notas .filter-form button:hover {
   background-color: #003366;
   color: white;
-  text-align: center;
-  padding: 20px;
 }
 
 .tag-user {
@@ -574,4 +649,17 @@ footer {
   border-radius: 2vh;
   padding-inline: 1vh;
   padding-block: 0.5vh;
+}
+
+/*-----------------------------------FOOTER--------------------------------------------- */
+footer {
+  background-color: #003366;
+  color: white;
+  text-align: center;
+  padding: 20px;
+}
+
+@keyframes aparecer {
+  from { opacity: 0; transform: translate(-50%, -60%); }
+  to { opacity: 1; transform: translate(-50%, -50%); }
 }

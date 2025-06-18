@@ -2,233 +2,335 @@
 <html lang="es">
 
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Escuela San Martín</title>
-  <link rel="stylesheet" href="../src/styles/stylePan.css">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Escuela San Martín</title>
+    <link rel="stylesheet" href="../src/styles/stylePan.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 
 <body>
-  <header>
-    <div class="contenedor-header">
-      <nav class="botones">
-        <a href="/">INICIO</a>
-        <a href="/especialidades">ESPECIALIDADES</a>
-        <a href="/#contacto">CONTACTO</a>
-        <a href="/panel">PANEL</a>
-      </nav>
-      <div class="tag-user">
-        <h2><%= nombres %></h2>
-      </div>
-  </header>
+    <header>
+        <div class="contenedor-header">
+            <nav class="botones">
+                <a href="/">INICIO</a>
+                <a href="/especialidades">ESPECIALIDADES</a>
+                <a href="/#contacto">CONTACTO</a>
+                <a href="/panel">PANEL</a>
+            </nav>
+            <div class="tag-user">
+                <h2>
+                    <%= nombres %>
+                </h2>
+            </div>
+    </header>
 
-  <section class="panel">
-    <div class="opciones">
-      <button id="cuenta" type="button">MI CUENTA</button>
-      <button id="asis" type="button">ASISTENCIAS</button>
-      <button id="notas" type="button">NOTAS</button>
-      <button id="cerrar-ses" type="button">Cerrar Sesion</button>
+    <section class="panel">
+        <div class="opciones">
+            <button id="cuenta" type="button">MI CUENTA</button>
+            <button id="asis" type="button">ASISTENCIAS</button>
+            <button id="notas" type="button">NOTAS</button>
+            <button id="cerrar-ses" type="button">Cerrar Sesion</button>
+        </div>
+        <div id="inicio" class="datos">
+            <div class="container">
+                <h1>Mi Cuenta</h1>
+                <div class="fila-datos">
+                    <p>Nombre:</p>
+                    <span id="nombre">
+                        <%= nombres %>
+                    </span>
+                </div>
+                <div class="fila-datos">
+                    <p>Apellido:</p>
+                    <span id="apellido">
+                        <%= apellidos %>
+                    </span>
+                </div>
+                <div class="fila-datos">
+                    <p>DNI:</p>
+                    <span id="dni">
+                        <%= dni %>
+                    </span>
+                </div>
+                <div class="fila-datos-mail">
+                    <p>Email:</p>
+                    <span id="mail">
+                        <%= email %>
+                    </span>
+                    <button type="button" class="boton-mail" id="emailCambiar"><i
+                            class="fas fa-pen-to-square"></i></button>
+                </div>
+                <div class="fila-datos">
+                    <p>Telefono:</p>
+                    <span id="telefono">
+                        <%= telefono %>
+                    </span>
+                </div>
+                <div class="fila-datos">
+                    <p>Año:</p>
+                    <span id="año">
+                        <%= anio %>
+                    </span>
+                </div>
+                <div class="fila-datos">
+                    <p>Curso:</p>
+                    <span id="curso">
+                        <%= curso %>
+                    </span>
+                </div>
+                <div class="fila-datos">
+                    <p>Turno:</p>
+                    <span id="turno">
+                        <%= turno %>
+                    </span>
+                </div>
+                <div class="fila-datos">
+                    <p>Especialidad:</p>
+                    <span id="especialidad">
+                        <%= especialidad %>
+                    </span>
+                </div>
+                <div class="fila-datos-contraseña">
+                    <p>Contraseña:</p>
+                    <span id="contraseña">********</span>
+                    <button type="button" class="boton-contraseña" id="passwordCambiar"><i class="fas fa-pen-to-square"></i></button>
+                </div>
+            </div>
+        </div>
+        <div id="asistencias" class="asist">
+            <div class="container">
+                <h2>Asistencias</h2>
+                <div class="student-info">
+                    <h3 id="student-name">Alumno: <%= nombres %>
+                    </h3>
+                </div>
+                <div class="summary">
+                    <div class="card">
+                        <h2 id="total-asistencias"><%= asistencias %></h2>
+                        <p>Asistencias</p>
+                    </div>
+                    <div class="card">
+                        <h2 id="total-tarde"><%= tardes %></h2>
+                        <p>Tardes</p>
+                    </div>
+                    <div class="card">
+                        <h2 id="total-inasistencias"><%= ausentes %></h2>
+                        <p>Inasistencias</p>
+                    </div>
+                </div>
+                <form class="filter-form" id="filter-form">
+                    <label for="from">Desde:</label>
+                    <input type="date" id="from" name="from">
+
+                    <label for="to">Hasta:</label>
+                    <input type="date" id="to" name="to">
+
+                    <label for="tipo">Tipo:</label>
+                    <select id="tipo" name="tipo">
+                        <option value="todas">Todas</option>
+                        <option value="asistencia">Solo Asistencias</option>
+                        <option value="inasistencia">Solo Inasistencias</option>
+                    </select>
+                    <button type="submit">Filtrar</button>
+                </form>
+                <div class="scroll-table">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Fecha</th>
+                                <th>Puntualidad</th>
+                            </tr>
+                        </thead>
+                        <tbody id="tabla-asistencias" class="tabla-asis">
+                            <% if (typeof ok === 'null' ) { %>
+                                <tr>
+                                <td colspan="2">No hay asistencias registradas</td>
+                                </tr>
+                            <% } else if( typeof ok == 'boolean') { %>
+                                <% for (let i = 0; i < fecha.length; i++) { %>
+                                    <tr>
+                                        <td><%= fecha[i] %></td>
+                                        <td><%= puntualidad[i] %></td>
+                                    </tr>
+                                <% } %>     
+                            <% } %>        
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <div id="notitas" class="notas">
+            <div class="container">
+                <h2>Notas</h2>
+                <div class="student-info">
+                    <h3 id="student-name">Alumno: ...</h3>
+                </div>
+
+                <div class="summary">
+                    <div class="card">
+                        <h2 id="total-aprobados">0</h2>
+                        <p>Aprobados</p>
+                    </div>
+                    <div class="card">
+                        <h2 id="total-desaprobados">0</h2>
+                        <p>Desaprobados</p>
+                    </div>
+                </div>
+                <form class="filter-form" id="filter-form">
+                    <div>
+                        <label for="from">Nota:</label>
+                        <input type="number" id="nota" name="nota" max="10">
+                    </div>
+                    <div>
+                        <label for="materia">Materia:</label>
+                        <select id="materia" name="materia">
+                            <option value="todas">Todas</option>
+                            <option value="matematica">Matematica</option>
+                            <option value="lengua">Lengua</option>
+                        </select>
+                        <button type="submit">Filtrar</button>
+                    </div>
+                </form>
+                <div class="scroll-table">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Nota</th>
+                                <th>Materia</th>
+                                <th>Docente</th>
+                            </tr>
+                        </thead>
+                        <tbody id="tabla-notas" class="tabla-notas">
+                            <tr>
+                                <td>6</td>
+                                <td>Matematica</td>
+                                <td>Alderete</td>
+                            </tr>
+                            <tr>
+                                <td>6</td>
+                                <td>Matematica</td>
+                                <td>Alderete</td>
+                            </tr>
+                            <tr>
+                                <td>6</td>
+                                <td>Matematica</td>
+                                <td>Alderete</td>
+                            </tr>
+                            <tr>
+                                <td>6</td>
+                                <td>Matematica</td>
+                                <td>Alderete</td>
+                            </tr>
+                            <tr>
+                                <td>6</td>
+                                <td>Matematica</td>
+                                <td>Alderete</td>
+                            </tr>
+                            <tr>
+                                <td>6</td>
+                                <td>Matematica</td>
+                                <td>Alderete</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </section>
+    <footer>
+        <p>&copy; 2025 Escuela Secundaria San Martín. Todos los derechos reservados.</p>
+    </footer>
+    <div id="cambioPassword" class="cambio-password" style="display: none;">
+        <div class="cambio-password-contenido">
+            <button id="boton-cerrar-password" type="button">X</button>
+            <h2>Cambiar Contraseña</h2>
+            <input type="password" placeholder="Contraseña Actual" class="contra" required>
+            <input type="password" placeholder="Nueva Contraseña" class="contra" required>
+            <input type="password" placeholder="Confirmar Contraseña" class="contra" required>
+            <button id="boton-actualizar-password" type="button">Actualizar</button>
+        </div>
     </div>
-    <div id="inicio" class="datos">
-      <div class="container">
-        <h1>Mi Cuenta</h1>
-        <div class="fila-datos">
-          <p>Nombre:</p>
-          <span id="nombre"><%= nombres %></span>
+    <div id="cambioMail" class="cambio-mail" style="display: none;">
+        <div class="cambio-mail-contenido">
+            <button id="boton-cerrar-mail" type="button">X</button>
+            <h2>Cambiar Email</h2>
+            <input type="email" placeholder="Nuevo email" class="email" required>
+            <button id="boton-actualizar-mail" type="button">Actualizar</button>
         </div>
-        <div class="fila-datos">
-          <p>Apellido:</p>
-          <span id="apellido"><%= apellidos %></span>
-        </div>
-        <div class="fila-datos">
-          <p>DNI:</p>
-          <span id="dni"><%= dni %></span>
-        </div>
-        <div class="fila-datos-mail">
-          <p>Email:</p>
-          <span id="mail"><%= email %></span>
-          <button type="button" class="boton-mail" id="emailCambiar"><i class="fas fa-pen-to-square"></i></button>
-        </div>
-        <div class="fila-datos">
-          <p>Telefono:</p>
-          <span id="telefono"><%= telefono %></span>
-        </div>
-        <div class="fila-datos">
-          <p>Año:</p>
-          <span id="año"><%= anio %></span>
-        </div>
-        <div class="fila-datos">
-          <p>Curso:</p>
-          <span id="curso"><%= curso %></span>
-        </div>
-        <div class="fila-datos">
-          <p>Turno:</p>
-          <span id="turno"><%= turno %></span>
-        </div>
-        <div class="fila-datos">
-          <p>Especialidad:</p>
-          <span id="especialidad"><%= especialidad %></span>
-        </div>
-        <div class="fila-datos-contraseña">
-          <p>Contraseña:</p>
-          <span id="contraseña">********</span>
-          <button type="button" class="boton-contraseña" id="passwordCambiar"><i
-              class="fas fa-pen-to-square"></i></button>
-        </div>
-      </div>
     </div>
-    <div id="asistencias" class="asist">
-      <div class="container">
-        <h1 style="margin-block-end: 0;">Panel de Asistencias</h1>
+    <script preload>
+        //Botones del Panel B)
+        actualizarBotonesActivos("cuenta");
 
-        <div class="student-info">
-          <h3 id="student-name">Alumno: ...</h3>
-        </div>
+        document.getElementById("cerrar-ses").addEventListener("click", () => {
+            fetch('/logout', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            }).then(response => {
+                if (typeof response.ok === 'boolean') {
+                    window.location.href = '/'
+                }
+            })
+        });
 
-        <div class="summary">
-          <div class="card">
-            <h2 id="total-asistencias">0</h2>
-            <p>Asistencias</p>
-          </div>
-          <div class="card">
-            <h2 id="total-tarde">0</h2>
-            <p>Tardes</p>
-          </div>
-          <div class="card">
-            <h2 id="total-inasistencias">0</h2>
-            <p>Inasistencias</p>
-          </div>
-        </div>
+        document.getElementById("cuenta").addEventListener("click", () => {
+            document.getElementById("inicio").style.display = "flex";
+            document.getElementById("asistencias").style.display = "none";
+            document.getElementById("notitas").style.display = "none";
+            actualizarBotonesActivos("cuenta");
+        });
 
-        <form class="filter-form" id="filter-form">
-          <label for="from">Desde:</label>
-          <input type="date" id="from" name="from">
+        document.getElementById("asis").addEventListener("click", () => {
+            document.getElementById("inicio").style.display = "none";
+            document.getElementById("notitas").style.display = "none";
+            document.getElementById("asistencias").style.display = "flex";
+            actualizarBotonesActivos("asis");
+        });
 
-          <label for="to">Hasta:</label>
-          <input type="date" id="to" name="to">
+        document.getElementById("notas").addEventListener("click", () => {
+            document.getElementById("notitas").style.display = "flex";
+            document.getElementById("asistencias").style.display = "none";
+            document.getElementById("inicio").style.display = "none";
+            actualizarBotonesActivos("notas");
+        });
 
-          <label for="tipo">Tipo:</label>
-          <select id="tipo" name="tipo">
-            <option value="todas">Todas</option>
-            <option value="asistencia">Solo Asistencias</option>
-            <option value="inasistencia">Solo Inasistencias</option>
-          </select>
-
-          <button type="submit">Filtrar</button>
-        </form>
-
-        <table>
-          <thead>
-            <tr>
-              <th>Fecha</th>
-              <th>Día</th>
-              <th>Estado</th>
-            </tr>
-          </thead>
-          <tbody id="tabla-asistencias">
-            <!-- JS cargará aquí las filas -->
-          </tbody>
-        </table>
-      </div>
-    </div>
-    <div id="notitas" class="notas">
-      <h2>hola soy notitas uwu</h2>
-    </div>
-  </section>
-  <footer>
-    <p>&copy; 2025 Escuela Secundaria San Martín. Todos los derechos reservados.</p>
-  </footer>
-  <div id="cambioPassword" class="cambio-password" style="display: none;">
-    <div class="cambio-password-contenido">
-      <button id="boton-cerrar-password" type="button">X</button>
-      <h2>Cambiar Contraseña</h2>
-      <input type="password" placeholder="Contraseña Actual" class="contra" required>
-      <input type="password" placeholder="Nueva Contraseña" class="contra" required>
-      <input type="password" placeholder="Confirmar Contraseña" class="contra" required>
-      <button id="boton-actualizar-password" type="button">Actualizar</button>
-    </div>
-  </div>
-  <div id="cambioMail" class="cambio-mail" style="display: none;">
-    <div class="cambio-mail-contenido">
-      <button id="boton-cerrar-mail" type="button">X</button>
-      <h2>Cambiar Email</h2>
-      <input type="email" placeholder="Nuevo email" class="email" required>
-      <button id="boton-actualizar-mail" type="button">Actualizar</button>
-    </div>
-  </div>
-  <script preload>
-    //Botones del Panel B)
-    actualizarBotonesActivos("cuenta");
-
-    document.getElementById("cerrar-ses").addEventListener("click", () => {
-      fetch('/logout', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
+        function actualizarBotonesActivos(idActivo) {
+            document.querySelectorAll("#cuenta, #asis, #notas").forEach(boton => {
+                if (boton.id === idActivo) {
+                    boton.classList.add("activo");
+                } else {
+                    boton.classList.remove("activo");
+                }
+            });
         }
-      }).then(response => {
-        if(typeof response.ok === 'boolean'){
-          window.location.href = '/'
-        }
-      })
-    });
 
-    document.getElementById("cuenta").addEventListener("click", () => {
-      document.getElementById("inicio").style.display = "flex";
-      document.getElementById("asistencias").style.display = "none";
-      document.getElementById("notitas").style.display = "none";
-      actualizarBotonesActivos("cuenta");
-    });
-
-    document.getElementById("asis").addEventListener("click", () => {
-      document.getElementById("inicio").style.display = "none";
-      document.getElementById("notitas").style.display = "none";
-      document.getElementById("asistencias").style.display = "flex";
-      actualizarBotonesActivos("asis");
-    });
-
-    document.getElementById("notas").addEventListener("click", () => {
-      document.getElementById("notitas").style.display = "flex";
-      document.getElementById("asistencias").style.display = "none";
-      document.getElementById("inicio").style.display = "none";
-      actualizarBotonesActivos("notas");
-    });
-
-    function actualizarBotonesActivos(idActivo) {
-      document.querySelectorAll("#cuenta, #asis, #notas").forEach(boton => {
-        if (boton.id === idActivo) {
-          boton.classList.add("activo");
-        } else {
-          boton.classList.remove("activo");
-        }
-      });
-    }
-
-    //Cambio contraseña :O
-    document.getElementById("passwordCambiar").addEventListener("click", function () {
-      document.getElementById('cambioPassword').style.display = 'flex'
-    })
-    document.getElementById("boton-actualizar-password").addEventListener("click", function () {
-      document.getElementById('cambioPassword').style.display = 'none'
-    })
-    document.getElementById("boton-cerrar-password").addEventListener("click", function () {
-      document.getElementById('cambioPassword').style.display = 'none'
-    })
+        //Cambio contraseña :O
+        document.getElementById("passwordCambiar").addEventListener("click", function () {
+            document.getElementById('cambioPassword').style.display = 'flex'
+        })
+        document.getElementById("boton-actualizar-password").addEventListener("click", function () {
+            document.getElementById('cambioPassword').style.display = 'none'
+        })
+        document.getElementById("boton-cerrar-password").addEventListener("click", function () {
+            document.getElementById('cambioPassword').style.display = 'none'
+        })
 
 
-    //Cambio email :O
-    document.getElementById("emailCambiar").addEventListener("click", function () {
-      document.getElementById('cambioMail').style.display = 'flex'
-    })
-    document.getElementById("boton-actualizar-mail").addEventListener("click", function () {
-      document.getElementById('cambioMail').style.display = 'none'
-    })
-    document.getElementById("boton-cerrar-mail").addEventListener("click", function () {
-      document.getElementById('cambioMail').style.display = 'none'
-    })
+        //Cambio email :O
+        document.getElementById("emailCambiar").addEventListener("click", function () {
+            document.getElementById('cambioMail').style.display = 'flex'
+        })
+        document.getElementById("boton-actualizar-mail").addEventListener("click", function () {
+            document.getElementById('cambioMail').style.display = 'none'
+        })
+        document.getElementById("boton-cerrar-mail").addEventListener("click", function () {
+            document.getElementById('cambioMail').style.display = 'none'
+        })
 
-  </script>
+    </script>
 </body>
 
 </html>

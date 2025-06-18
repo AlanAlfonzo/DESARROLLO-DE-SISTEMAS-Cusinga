@@ -1,4 +1,4 @@
-const { Usuarios, alumPerfiles } = require('../database/models/relaciones.js')
+const { Usuarios, alumPerfiles } = require('../models/relaciones.js')
 
 /**
  * @param {string} email 

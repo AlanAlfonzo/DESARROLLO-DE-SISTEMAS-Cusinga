@@ -1,21 +1,28 @@
 const { Usuarios, alumPerfiles, profPerfiles, Anio, precePerfiles, Asistencia } = require('../database/models/relaciones.js');
 
-/*
-{
-    username: 'Alberto', 
-    nombre: 'Juan', 
-    apellido: 'Cetro', 
-    dni: "47806274", 
-    mail: 'juancetroet32@gmail.com', 
-    telefono: "1131349152", 
-    anio: '6to', 
-    curso: '2da', 
-    turno: "Vespertino"
+async function getAsistenciasAlumno(idUser) {
+    
+    let data = {
+        info: true,
+        asistencias: (await Asistencia.findAndCountAll({where:{idAlumno: idUser,puntualidad: 'Presente'}})).count,
+        tardes: (await Asistencia.findAndCountAll({where:{idAlumno: idUser,puntualidad: 'Tarde'}})).count,
+        ausentes: (await Asistencia.findAndCountAll({where:{idAlumno: idUser,puntualidad: 'Ausente'}})).count,
+        fecha: [],
+        puntualidad: []
+    }
+
+    let asistencias = await Asistencia.findAndCountAll({where: {idAlumno: idUser}})
+    
+    for(let x = 0; x < asistencias.count; x++){
+
+        data.fecha = (asistencias.rows[x].dataValues.fecha).toISOString().split('T')[0]
+        data.puntualidad = asistencias.rows[x].dataValues.puntualidad
+        
+    }
+
+    return data
+
 }
-    idRol 1 -> alumno
-    idRol 2 -> preceptor
-    idRol 3 -> profesor
-*/
 
 async function getDataUser(idUser, idRol) {
 

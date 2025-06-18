@@ -1,16 +1,17 @@
 const { profPerfiles, alumPerfiles, precePerfiles, Asistencia, Usuarios, Materias, Notas, Roles, Anio } = require('./src/database/models/relaciones.js')
-const secretWord = 'ibujasiohdoajisdiosa90-uas8=0-da8=sd=b7as6v-bdb06a89s=67-d5v-as0c5da-v5sd50-adc50sv-s'
 const insertDataInDB = require('./src/database/utils/insertDataInDB.js')
+const getAsistenciasAlumno = require('./src/utils/getAsistenciasAlum')
 const getDataUser = require('./src/utils/getDataUser')
+const login = require('./src/database/utils/login.js')
 const sequelize = require('./src/config/mySql.js')
-const login = require('./src/utils/login.js')
 const cookieParser = require('cookie-parser')
 const jwt = require('jsonwebtoken')
 const express = require('express')
 const path = require('path')
 const cors = require('cors')
+require('dotenv').config()
 const app = express()
-const port = 3000
+const port = process.env.port || 3000
 
 console.clear()
 
@@ -30,25 +31,44 @@ async function initSQLDatabase() {
 initSQLDatabase()
     .then(() => {
         console.log('Database connection established successfully!')
-        insertDataInDB(Roles, Anio, Usuarios, alumPerfiles, precePerfiles, profPerfiles)
+        insertDataInDB(Roles, Anio, Usuarios, alumPerfiles, precePerfiles, profPerfiles, Asistencia)
     })
     .catch((err) => console.log(err))
 
-
-app.use((req, res, next) => {
+function getToken(req, res, next){
 
     const token = req.cookies.token
-
     req.session = { token: null }
 
     try {
-        let result = jwt.verify(token, secretWord)
+        let result = jwt.verify(token, process.env.secretWord)
         req.session.token = result
     } catch (err) { }
 
     next()
 
-})
+}
+
+function redirect(req, res, next){
+    console.log(req.path)
+    const { token } = req.session
+    if (token != null ){
+        return res.redirect(`http://localhost:${port}`)
+    }
+
+    next()
+}
+
+async function dataToPage(req, res, next){
+
+    const { token } = req.session
+
+    if(token != null){
+    }
+
+}
+
+app.use('/', getToken)
 
 // rutas publicas
 
@@ -63,25 +83,14 @@ app.get('/', async (req, res) => {
 
 })
 
-app.get('/login', async (req, res) => {
-    const { token } = req.session
-    if (token != null){
+app.get('/login', redirect, (req, res) => {
 
-        let data = await getDataPanel()
-        return res.render('home', data)
-    }
     res.render('login')
 })
 
-app.get('/register', (req, res) => {
-    const body = req.session
-    console.log(body)
-
-    //if(errorRegister){
-    //    return res.render('registro', {error: errorRegister})
-    //}
-
-    res.render('registro')
+app.get('/register', redirect, (req, res) => {
+    
+    return res.render('registro')
 })
 
 app.get('/especialidades', async (req, res) => {
@@ -96,15 +105,18 @@ app.get('/especialidades', async (req, res) => {
 // rutas protegidas
 
 app.get('/panel', async (req, res) => {
-    const { token } = req.session
     
+    const { token } = req.session
+
     if(token != null){
         let data = await getDataUser(token.idUser, token.idRol)
-        return res.render('panelAlumno', data)
-        
+        let asistencias = await getAsistenciasAlumno(token.idUser)
+        const info = { ...data, ...asistencias}
+        //console.log(info)
+        return res.render('panelAlumno', info)
     }
-    return res.render('login')
 
+    return res.redirect(`/` /* vista q diga "ruta protegida, no puede entrar sin cuenta"*/)
 })
 
 app.post('/logout', async (req, res) => {
@@ -124,7 +136,7 @@ app.post('/login-user', async (req, res) => {
     if (payload.ok) {
         const token = jwt.sign({
             idUser: payload.body.idUser, idRol: payload.body.idRol
-        }, secretWord,
+        }, process.env.secretWord,
             {
                 expiresIn: '15m'
             })
@@ -136,31 +148,31 @@ app.post('/login-user', async (req, res) => {
         })
     }
 
-    res.redirect('http://localhost:3000/')
+    res.redirect('/')
 
 })
 
-app.post('/register-user', async (req, res) => {
+app.post('/register', async (req, res) => {
 
     const { nombres, apellidos, dni, email, telefono, password } = req.body
-
+    let error = 'email'
     try{
         await Usuarios.create({ email: email, password: password })
         const userData = await Usuarios.findAll({where: {email: email}})
         await alumPerfiles.create({idAlumno: userData[0].dataValues.idUsuario ,nombres: nombres, apellidos: apellidos, dni: dni, telefono: telefono})
-        return res.render(/* se renderiza vista home con mensaje de registro exitoso */)
-    }catch(error){
-        if (error.errors[0].path == 'email'){
-            console.log('email repetido')
-            req.session.errorRegister = {error: 'email'}
+        return res.redirect('/') /* ver la manera de comunicar de que se creo la cuenta con exito */
+    }catch(err){
+        
+        if (err.errors[0].path == 'email'){
+            error = 'email'
         }
-        if (error.errors[0].path == 'dni'){
-            req.session.errorRegister = {error: 'dni'}
+        if (err.errors[0].path == 'dni'){
+            error = 'dni'
         }
-        if (error.errors[0].path == 'telefono'){
-            req.session.errorRegister = {error: 'telefono'}
+        if (err.errors[0].path == 'telefono'){
+            error = 'telefono'
         }
-        return res.redirect('http://localhost:3000/register')
+        return res.redirect('/') // ver la manera de comunicar de que hay algun error con los datos
     }
 
 })

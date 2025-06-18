@@ -1,5 +1,5 @@
 
-async function insertDataInDB(Roles, Anio, Usuarios, alumPerfiles, precePerfiles, profPerfiles) {
+async function insertDataInDB(Roles, Anio, Usuarios, alumPerfiles, precePerfiles, profPerfiles, Asistencia) {
     //Creacion de roles
     await Roles.create({ nombre: 'alumno' })
     await Roles.create({ nombre: 'preceptor' })
@@ -20,12 +20,12 @@ async function insertDataInDB(Roles, Anio, Usuarios, alumPerfiles, precePerfiles
     }
 
     //Creacion de usuarios
-    await Usuarios.create({ idRol: 1, password: "Alumno1@", email: 'alumno1@gmail.com' })
-    await Usuarios.create({ idRol: 1, password: "Alumno2@", email: 'alumno2@gmail.com' })
-    await Usuarios.create({ idRol: 2, password: "Preceptor1@", email: 'preceptor1@gmail.com' })
-    await Usuarios.create({ idRol: 2, password: "Preceptor2@", email: 'preceptor2@gmail.com' })
-    await Usuarios.create({ idRol: 3, password: "Profe1@", email: 'profe1@gmail.com' })
-    await Usuarios.create({ idRol: 3, password: "Profe2@", email: 'profe2@gmail.com' })
+    await Usuarios.create({ idRol: 1, password: 'Alumno1@', email: 'alumno1@gmail.com' }) // idUsuario -> 1
+    await Usuarios.create({ idRol: 1, password: 'Alumno2@', email: 'alumno2@gmail.com' }) // idUsuario -> 2
+    await Usuarios.create({ idRol: 2, password: 'Preceptor1@', email: 'preceptor1@gmail.com' }) // idUsuario -> 3
+    await Usuarios.create({ idRol: 2, password: 'Preceptor2@', email: 'preceptor2@gmail.com' }) // idUsuario -> 4
+    await Usuarios.create({ idRol: 3, password: 'Profe1@', email: 'profe1@gmail.com' }) // idUsuario -> 5
+    await Usuarios.create({ idRol: 3, password: 'Profe2@', email: 'profe2@gmail.com' }) // idUsuario -> 6
 
     //Creacion de los perfiles de alumno
     await alumPerfiles.create({ idAlumno: 1, idAnio: 1, nombres: 'Pepito', apellidos: 'Juarez', dni: 11111111, telefono: '1111111111' })
@@ -39,6 +39,24 @@ async function insertDataInDB(Roles, Anio, Usuarios, alumPerfiles, precePerfiles
     await profPerfiles.create({ idProfe: 5, nombres: 'Damian', apellidos: 'Olaso', dni: 55555555, telefono: '1111111113' })
     await profPerfiles.create({ idProfe: 6, nombres: 'Gonzalo', apellidos: 'Consorti', dni: 66666666, telefono: '1111111114' })
 
+    //Carga de 10 puntuales, 5 tardes y 7 faltas a ambos alumnos
+    const preceptores = [3, 4]
+    const options = ['Presente', 'Tarde', 'Ausente']
+    for(let x = 1; x < 23; x++){
+        let fecha = new Date(`2025-06-${x}`)
+
+        let puntualidadAlum1 = (x < 11) ? options[0] : (x < 16) ? options[1] : options[2]
+        let puntualidadAlum2 = (x < 13) ? options[0] : (x < 18) ? options[1] : options[2]
+
+        let preceptor1 = (x % 2 != 0) ? preceptores[0] : preceptores[1]
+        let preceptor2 = (x % 2 == 0) ? preceptores[0] : preceptores[1]
+
+        await Asistencia.create({idAlumno: 1, idPrece: preceptor1, fecha: fecha, puntualidad: puntualidadAlum1})
+        await Asistencia.create({idAlumno: 2, idPrece: preceptor2, fecha: fecha, puntualidad: puntualidadAlum2})
+        
+    }
+
+    
 }
 
 module.exports = insertDataInDB
