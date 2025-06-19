@@ -1,5 +1,5 @@
-const { DataTypes } = require('sequelize')
 const sequelize = require('../../config/mySql.js')
+const { DataTypes } = require('sequelize')
 
 const Materias = sequelize.define('Materias', {
     idMateria: {
@@ -22,14 +22,6 @@ const Materias = sequelize.define('Materias', {
             model: 'anio',
             key: 'idAnio'
         }
-    },
-    anio:{
-        type: DataTypes.INTEGER,
-        allowNull: false,
-    },
-    curso: {
-        type: DataTypes.INTEGER,
-        allowNull: false
     },
     nombre: {
         type: DataTypes.STRING,
