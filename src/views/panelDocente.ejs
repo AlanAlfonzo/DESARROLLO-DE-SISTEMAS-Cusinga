@@ -1,14 +1,12 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="en">
 
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Escuela San Martín</title>
-    <link rel="stylesheet" href="../src/styles/stylePan.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="../src/styles/stylePanProf.css">
 </head>
-
 <body>
     <header>
         <div class="contenedor-header">
@@ -24,11 +22,9 @@
                 </h2>
             </div>
     </header>
-
     <section class="panel">
         <div class="opciones">
             <button id="cuenta" type="button">MI CUENTA</button>
-            <button id="asis" type="button">ASISTENCIAS</button>
             <button id="notas" type="button">NOTAS</button>
             <button id="cerrar-ses" type="button">Cerrar Sesion</button>
         </div>
@@ -37,128 +33,43 @@
                 <h2>Mi Cuenta</h2>
                 <div class="fila-datos">
                     <p>Nombre:</p>
-                    <span id="nombre">
-                        <%= nombres %>
-                    </span>
+                    <span id="nombre"></span>
                 </div>
                 <div class="fila-datos">
                     <p>Apellido:</p>
-                    <span id="apellido">
-                        <%= apellidos %>
-                    </span>
+                    <span id="apellido"></span>
                 </div>
                 <div class="fila-datos">
                     <p>DNI:</p>
-                    <span id="dni">
-                        <%= dni %>
-                    </span>
+                    <span id="dni"></span>
                 </div>
                 <div class="fila-datos-mail">
                     <p>Email:</p>
-                    <span id="mail">
-                        <%= email %>
-                    </span>
+                    <span id="mail"></span>
                     <button type="button" class="boton-mail" id="emailCambiar"><i
                             class="fas fa-pen-to-square"></i></button>
                 </div>
                 <div class="fila-datos">
                     <p>Telefono:</p>
-                    <span id="telefono">
-                        <%= telefono %>
-                    </span>
+                    <span id="telefono"></span>
+                </div>
+                <div class="fila-datos">
+                    <p>Materia:</p>
+                    <span id="materia"></span>
                 </div>
                 <div class="fila-datos">
                     <p>Año:</p>
-                    <span id="año">
-                        <%= anio %>
-                    </span>
+                    <span id="año"></span>
                 </div>
                 <div class="fila-datos">
                     <p>Curso:</p>
-                    <span id="curso">
-                        <%= curso %>
-                    </span>
+                    <span id="curso"></span>
                 </div>
-                <div class="fila-datos">
-                    <p>Turno:</p>
-                    <span id="turno">
-                        <%= turno %>
-                    </span>
-                </div>
-                <% if(especialidad) {%>
-                    <div class="fila-datos">
-                        <p>Especialidad:</p>
-                        <span id="especialidad">
-                            <%= especialidad %>
-                        </span>
-                    </div>
-                <% } %>
                 <div class="fila-datos-contraseña">
                     <p>Contraseña:</p>
                     <span id="contraseña">********</span>
-                    <button type="button" class="boton-contraseña" id="passwordCambiar"><i class="fas fa-pen-to-square"></i></button>
-                </div>
-            </div>
-        </div>
-        <div id="asistencias" class="asist">
-            <div class="container">
-                <h2>Asistencias</h2>
-                <div class="student-info">
-                    <h3 id="student-name">Alumno: <%= nombres %>
-                    </h3>
-                </div>
-                <div class="summary">
-                    <div class="card">
-                        <h2 id="total-asistencias"><%= asistencias %></h2>
-                        <p>Asistencias</p>
-                    </div>
-                    <div class="card">
-                        <h2 id="total-tarde"><%= tardes %></h2>
-                        <p>Tardes</p>
-                    </div>
-                    <div class="card">
-                        <h2 id="total-inasistencias"><%= ausentes %></h2>
-                        <p>Inasistencias</p>
-                    </div>
-                </div>
-                <form class="filter-form" id="filter-form">
-                    <label for="from">Desde:</label>
-                    <input type="date" id="from" name="from">
-
-                    <label for="to">Hasta:</label>
-                    <input type="date" id="to" name="to">
-
-                    <label for="tipo">Tipo:</label>
-                    <select id="tipo" name="tipo">
-                        <option value="todas">Todas</option>
-                        <option value="asistencia">Solo Asistencias</option>
-                        <option value="inasistencia">Solo Inasistencias</option>
-                    </select>
-                    <button type="submit">Filtrar</button>
-                </form>
-                <div class="scroll-table">
-                    <table>
-                        <thead>
-                            <tr>
-                                <th>Fecha</th>
-                                <th>Puntualidad</th>
-                            </tr>
-                        </thead>
-                        <tbody id="tabla-asistencias" class="tabla-asis">
-                            <% if (typeof ok === 'null' ) { %>
-                                <tr>
-                                <td colspan="2">No hay asistencias registradas</td>
-                                </tr>
-                            <% } else if( typeof ok == 'boolean') { %>
-                                <% for (let i = 0; i < fecha.length; i++) { %>
-                                    <tr>
-                                        <td><%= fecha[i] %></td>
-                                        <td><%= puntualidad[i] %></td>
-                                    </tr>
-                                <% } %>     
-                            <% } %>        
-                        </tbody>
-                    </table>
+                    <button type="button" class="boton-contraseña" id="passwordCambiar"><i
+                            class="fas fa-pen-to-square"></i></button>
                 </div>
             </div>
         </div>
@@ -166,17 +77,33 @@
             <div class="container">
                 <h2>Notas</h2>
                 <div class="student-info">
-                    <h3 id="student-name">Alumno: <%= nombres %></h3>
+                    <h3 id="student-name">Docente: ...</h3>
                 </div>
 
                 <div class="summary">
                     <div class="card">
-                        <h2 id="total-aprobados"><%= totalAprobados %></h2>
-                        <p>Aprobados</p>
-                    </div>
-                    <div class="card">
-                        <h2 id="total-desaprobados"><%= totalDesaprobados %></h2>
-                        <p>Desaprobados</p>
+                        <h2 id="total-aprobados">Nota nueva: </h2>
+                        <form class="ingreso-nota">
+                            <div class="inputs">
+                                <label for="from">Nota:</label>
+                                <input type="number" id="n-nota" name="n-nota" max="10">
+                            </div>
+                            <div class="inputs">
+                                <label for="from">Materia:</label>
+                                <input type="text" id="mat-nota" name="mat-nota">
+                            </div>
+                            <div class="inputs">
+                                <label for="from">Nombre:</label>
+                                <input type="text" id="nom-nota" name="nom-nota">
+                            </div>
+                            <div class="inputs">
+                                <label for="from">Apellido:</label>
+                                <input type="text" id="ape-nota" name="ape-nota">
+                            </div>
+                            <div class="inputs">
+                                <button class="btn-enviar">ENVIAR</button>
+                            </div>
+                        </form>
                     </div>
                 </div>
                 <form class="filter-form" id="filter-form">
@@ -200,23 +127,40 @@
                             <tr>
                                 <th>Nota</th>
                                 <th>Materia</th>
-                                <th>Docente</th>
+                                <th>Alumno</th>
                             </tr>
                         </thead>
                         <tbody id="tabla-notas" class="tabla-notas">
-                            <% if (typeof notas == 'null') { %>
-                                <tr>
-                                    <td colspan="3">No hay notas registradas</td>
-                                </tr>
-                            <% } else if( typeof notas == 'boolean') { %>
-                                <% for (let i = 0; i < nameMate.length; i++) { %>
-                                    <tr>
-                                        <td><%= numNota[i] %></td>
-                                        <td><%= nameMate[i] %></td>
-                                        <td><%= docente[i] %></td>
-                                    </tr>
-                                <% } %>     
-                            <% } %> 
+                            <tr>
+                                <td>6</td>
+                                <td>Matematica</td>
+                                <td>Juan</td>
+                            </tr>
+                            <tr>
+                                <td>6</td>
+                                <td>Matematica</td>
+                                <td>Pedro</td>
+                            </tr>
+                            <tr>
+                                <td>6</td>
+                                <td>Matematica</td>
+                                <td>Alan</td>
+                            </tr>
+                            <tr>
+                                <td>6</td>
+                                <td>Matematica</td>
+                                <td>Lucia</td>
+                            </tr>
+                            <tr>
+                                <td>6</td>
+                                <td>Matematica</td>
+                                <td>Felipe</td>
+                            </tr>
+                            <tr>
+                                <td>6</td>
+                                <td>Matematica</td>
+                                <td>Anderson</td>
+                            </tr>
                         </tbody>
                     </table>
                 </div>
@@ -245,39 +189,29 @@
         </div>
     </div>
     <script preload>
+
+        // Datos en el panel :D
+        document.getElementById("nombre").innerText = "Juan";
+        document.getElementById("apellido").innerText = "Cetro";
+        document.getElementById("dni").innerText = "47806274";
+        document.getElementById("mail").innerText = "juancetroet32@gmail.com";
+        document.getElementById("telefono").innerText = "1131349152";
+        document.getElementById("materia").innerText = "Matematica";
+        document.getElementById("año").innerText = "6to";
+        document.getElementById("curso").innerText = "2da";
+
+
         //Botones del Panel B)
         actualizarBotonesActivos("cuenta");
 
-        document.getElementById("cerrar-ses").addEventListener("click", () => {
-            fetch('/logout', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                }
-            }).then(response => {
-                if (typeof response.ok === 'boolean') {
-                    window.location.href = '/'
-                }
-            })
-        });
-
         document.getElementById("cuenta").addEventListener("click", () => {
             document.getElementById("inicio").style.display = "flex";
-            document.getElementById("asistencias").style.display = "none";
             document.getElementById("notitas").style.display = "none";
             actualizarBotonesActivos("cuenta");
         });
 
-        document.getElementById("asis").addEventListener("click", () => {
-            document.getElementById("inicio").style.display = "none";
-            document.getElementById("notitas").style.display = "none";
-            document.getElementById("asistencias").style.display = "flex";
-            actualizarBotonesActivos("asis");
-        });
-
         document.getElementById("notas").addEventListener("click", () => {
             document.getElementById("notitas").style.display = "flex";
-            document.getElementById("asistencias").style.display = "none";
             document.getElementById("inicio").style.display = "none";
             actualizarBotonesActivos("notas");
         });

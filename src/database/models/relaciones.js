@@ -3,7 +3,7 @@ const profPerfiles = require('./ProfPerfiles.js')
 const alumPerfiles = require('./alumPerfiles.js')
 const Asistencia = require('./Asistencias.js')
 const Usuarios = require('./Usuarios.js')
-const Materias = require('./Materias.js')
+const Materias = require('./materias.js')
 const Notas = require('./Notas.js')
 const Roles = require('./Roles.js')
 const Anio = require('./Anio.js')
@@ -61,6 +61,9 @@ Notas.belongsTo(alumPerfiles, {
 })
 Notas.belongsTo(profPerfiles, {
     foreignKey: 'idProfe'
+})
+Notas.belongsTo(Materias, {
+    foreignKey: 'idMateria'
 })
 
 Materias.hasMany(Notas, {

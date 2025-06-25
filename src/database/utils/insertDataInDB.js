@@ -1,6 +1,7 @@
-const { createPoolCluster } = require("mysql2")
+const { Roles, Anio, Usuarios, alumPerfiles, precePerfiles, profPerfiles, Asistencia, Materias, Notas } = require('../models/relaciones.js')
 
-async function insertDataInDB(Roles, Anio, Usuarios, alumPerfiles, precePerfiles, profPerfiles, Asistencia, Materias) {
+async function insertDataInDB() {
+
     //Creacion de roles
     await Roles.create({ nombre: 'alumno' })
     await Roles.create({ nombre: 'preceptor' })
@@ -9,51 +10,46 @@ async function insertDataInDB(Roles, Anio, Usuarios, alumPerfiles, precePerfiles
     //Creacion de anios
     const turnos = ['maniana', 'tarde', 'noche']//
     const especialidades = ['computacion', 'mecanica', 'automotores']
-/*
-    for (let i = 1; i < 7; i++) {
-        for (let x = 1; x < 7; x++) {
-            for (let q = 0; q < 3; q++) {
-                if( i < 3 ){
-                    console.log(' i es menor q tres')
-                    console.log(x)
-                    await Anio.create({ anio: i, cursos: x, turno: turnos[q]})
-                } else {
 
-                    for (let a = 0; a < 3; a++) {
-                        
-                        await Anio.create({ anio: i, cursos: x, turno: turnos[q], especialidad: especialidades[a] })    
-                        
-                    }
-                }
+    for( let numAnio = 1; numAnio < 7; numAnio++ ){
+
+        if( numAnio < 3 ){
+
+            let z = 0
+            for( let c = 1; c < 11; c = c + 5){
+                z = ( z == 2 ) ? 0 : z
+                await Anio.create({ anio: numAnio, cursos: c, turno: turnos[z] })
+                await Anio.create({ anio: numAnio, cursos: c + 1, turno: turnos[z] })
+                await Anio.create({ anio: numAnio, cursos: c + 2, turno: turnos[z] })
+                await Anio.create({ anio: numAnio, cursos: c + 3, turno: turnos[z] })
+                await Anio.create({ anio: numAnio, cursos: c + 4, turno: turnos[z] })
+                z = z + 1
+            }
+
+        } else if ( numAnio == 3 ) {
+
+            let z = 0
+            for( let c = 1;  c < 13; c = c + 6){
+                z = ( z == 2 ) ? 0 : z
+                await Anio.create({ anio: numAnio, cursos: c, turno: turnos[z], especialidad: especialidades[0] })
+                await Anio.create({ anio: numAnio, cursos: c + 1, turno: turnos[z], especialidad: especialidades[0] })
+                await Anio.create({ anio: numAnio, cursos: c + 2, turno: turnos[z], especialidad: especialidades[1] })
+                await Anio.create({ anio: numAnio, cursos: c + 3, turno: turnos[z], especialidad: especialidades[1] })
+                await Anio.create({ anio: numAnio, cursos: c + 4, turno: turnos[z], especialidad: especialidades[2] })
+                await Anio.create({ anio: numAnio, cursos: c + 5, turno: turnos[z], especialidad: especialidades[2] })
+                z = z + 1
+            }
+
+        } else {
+            let z = 0
+            for( let c = 1;  c < 10; c = c + 3){
+                z = ( z == 3 ) ? 0 : z
+                await Anio.create({ anio: numAnio, cursos: c, turno: turnos[z], especialidad: especialidades[0] })
+                await Anio.create({ anio: numAnio, cursos: c + 1, turno: turnos[z], especialidad: especialidades[1] })
+                await Anio.create({ anio: numAnio, cursos: c + 2, turno: turnos[z], especialidad: especialidades[2] })
+                z = z + 1
             }
         }
-    }
-*/
-    //const turnos = ['maniana', 'tarde', 'noche']
-    //const especialidades = ['computacion', 'mecanica', 'automotores']
-
-    for( let i = 1; i < 7; i++ ){
-
-        if( i < 3 ){
-            let z = 0
-            for( let c = 1; c < 7; c = c + 3){
-                z = ( z == 2 ) ? 0 : z
-                await Anio.create({ anio: i, cursos: c, turno: turnos[z] })
-                await Anio.create({ anio: i, cursos: c + 1, turno: turnos[z] })
-                await Anio.create({ anio: i, cursos: c + 2, turno: turnos[z] })
-                
-                z = z + 1
-            }
-        }/*else {
-            let z = 0
-            for( let c = 1; c < 7; c = c + 2){
-                await Anio.create({ anio: i, cursos: c, turno: turnos[z] })
-                await Anio.create({ anio: i, cursos: c + 1, turno: turnos[z] })
-                
-                z = z + 1
-            }
-        }*/
-
     }
 
 
@@ -100,16 +96,26 @@ async function insertDataInDB(Roles, Anio, Usuarios, alumPerfiles, precePerfiles
     }
 
     // Creacion de materias
-    /*
-    await Materias.create({idProfe: 5, idAnio: 0, nombre: ''})
-    await Materias.create({idProfe: 5, idAnio: 0, nombre: ''})
-    await Materias.create({idProfe: 6, idAnio: 0, nombre: ''})
-    await Materias.create({idProfe: 6, idAnio: 0, nombre: ''})
-    await Materias.create({idProfe: 7, idAnio: 0, nombre: ''})
-    await Materias.create({idProfe: 7, idAnio: 0, nombre: ''})
-    await Materias.create({idProfe: 8, idAnio: 0, nombre: ''})
-    await Materias.create({idProfe: 8, idAnio: 0, nombre: ''})*/
     
+    await Materias.create({idProfe: 5, idAnio: 39, nombre: 'Base de datos'}) // Olaso tiene 'Base de datos' con 4to 7ma de la noche | idMate 1
+    await Materias.create({idProfe: 5, idAnio: 57, nombre: 'Practicas Profesionalizantes'}) // Olaso tiene 'PP' con 6to 7ma de la noche | idMate 2
+    await Materias.create({idProfe: 6, idAnio: 39, nombre: 'Proyecto Informatico I'}) // Gonzalo tiene 'Proyecto Informatico I' con 4to 7ma de la noche | idMate 3
+    await Materias.create({idProfe: 6, idAnio: 36, nombre: 'Proyecto Informatico I'}) // Gonzalo tiene 'Proyecto Informatico I' con 4to 4ta de la tarde | idMate 4
+    await Materias.create({idProfe: 7, idAnio: 29, nombre: 'Matematicas'}) // Alderete tiene 'Matematicas' con 3ro 9na de la | idMate 5
+    await Materias.create({idProfe: 7, idAnio: 30, nombre: 'Matematicas'}) // Alderete tiene 'Matematicas' con 3ro 10ma de la | idMate 6
+    await Materias.create({idProfe: 8, idAnio: 45, nombre: 'Proyecto Informatico II'}) // Nahuel tiene 'Proyecto Informatico II' con 5to 4ta de la tarde | idMate 7
+    await Materias.create({idProfe: 8, idAnio: 57, nombre: 'Administracion De Sistemas & Redes'}) // Nahuel tiene 'Administracion De Sistemas & Redes' con 6to 7ma de la noche | idMate 8
+    
+    await Notas.create({idProfe: 5, idAlumno: 1, idMateria: 1, nota: 8})
+    await Notas.create({idProfe: 5, idAlumno: 1, idMateria: 1, nota: 4})
+    await Notas.create({idProfe: 5, idAlumno: 1, idMateria: 1, nota: 9})
+    await Notas.create({idProfe: 5, idAlumno: 1, idMateria: 2, nota: 4})
+    await Notas.create({idProfe: 5, idAlumno: 1, idMateria: 2, nota: 2})
+    await Notas.create({idProfe: 5, idAlumno: 1, idMateria: 2, nota: 5})
+    await Notas.create({idProfe: 6, idAlumno: 1, idMateria: 3, nota: 4})
+    await Notas.create({idProfe: 6, idAlumno: 1, idMateria: 3, nota: 9})
+    await Notas.create({idProfe: 6, idAlumno: 1, idMateria: 3, nota: 1})
+
 }
 
 module.exports = insertDataInDB

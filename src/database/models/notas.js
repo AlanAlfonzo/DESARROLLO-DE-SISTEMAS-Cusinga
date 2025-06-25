@@ -23,9 +23,8 @@ const Notas = sequelize.define('Notas', {
             key: 'idAlumno'
         }
     },
-    idMate: {
+    idMateria: {
         type: DataTypes.INTEGER,
-        allowNull: false,
         references: {
             model: 'materias',
             key: 'idMateria'

@@ -26,7 +26,6 @@ const Materias = sequelize.define('Materias', {
     nombre: {
         type: DataTypes.STRING,
         allowNull: false,
-        unique: true
     }
 }, {
     tableName: 'materias',

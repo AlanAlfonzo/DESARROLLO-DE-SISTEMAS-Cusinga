@@ -2,6 +2,7 @@ const { profPerfiles, alumPerfiles, precePerfiles, Asistencia, Usuarios, Materia
 const insertDataInDB = require('./src/database/utils/insertDataInDB.js')
 const getAsistenciasAlumno = require('./src/utils/getAsistenciasAlum')
 const getDataUser = require('./src/utils/getDataUser')
+const getNotasAlum = require('./src/utils/getNotasAlum.js')
 const login = require('./src/database/utils/login.js')
 const sequelize = require('./src/config/mySql.js')
 const cookieParser = require('cookie-parser')
@@ -16,9 +17,9 @@ const port = process.env.port || 3000
 console.clear()
 
 app.set('views', path.join(__dirname, 'src', 'views'))
-app.set('view engine', 'ejs')
 app.use(express.urlencoded({ extended: true }))
 app.use(express.static(path.join(__dirname)))
+app.set('view engine', 'ejs')
 app.use(cookieParser())
 app.use(express.json())
 app.use(cors())
@@ -31,7 +32,7 @@ async function initSQLDatabase() {
 initSQLDatabase()
     .then(() => {
         console.log('Database connection established successfully!')
-        insertDataInDB(Roles, Anio, Usuarios, alumPerfiles, precePerfiles, profPerfiles, Asistencia)
+        insertDataInDB()
     })
     .catch((err) => console.log(err))
 
@@ -50,7 +51,6 @@ function getToken(req, res, next){
 }
 
 function redirect(req, res, next){
-    console.log(req.path)
     const { token } = req.session
     if (token != null ){
         return res.redirect(`http://localhost:${port}`)
@@ -59,18 +59,13 @@ function redirect(req, res, next){
     next()
 }
 
-async function dataToPage(req, res, next){
-
-    const { token } = req.session
-
-    if(token != null){
-    }
-
-}
-
 app.use('/', getToken)
 
 // rutas publicas
+
+app.get('/panelProf', (req, res) => {
+    res.render('panelDocente', {nombres: 'Gonzalo'})
+})
 
 app.get('/', async (req, res) => {
     const { token } = req.session
@@ -109,10 +104,10 @@ app.get('/panel', async (req, res) => {
     const { token } = req.session
 
     if(token != null){
-        let data = await getDataUser(token.idUser, token.idRol)
+        let userData = await getDataUser(token.idUser, token.idRol)
         let asistencias = await getAsistenciasAlumno(token.idUser)
-        const info = { ...data, ...asistencias}
-        //console.log(info)
+        let notas = await getNotasAlum(token.idUser)
+        const info = { ...userData, ...asistencias, ...notas}
         return res.render('panelAlumno', info)
     }
 
@@ -128,7 +123,7 @@ app.post('/logout', async (req, res) => {
 
 // endpoints register-login publico
 
-app.post('/login-user', async (req, res) => {
+app.post('/login', async (req, res) => {
 
     const { email, password } = req.body
 
@@ -172,7 +167,7 @@ app.post('/register', async (req, res) => {
         if (err.errors[0].path == 'telefono'){
             error = 'telefono'
         }
-        return res.redirect('/') // ver la manera de comunicar de que hay algun error con los datos
+        return res.render('registro', error) // ver la manera de comunicar de que hay algun error con los datos
     }
 
 })
