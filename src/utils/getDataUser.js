@@ -60,24 +60,27 @@ async function getDataUser(idUser, idRol) {
             dni: null,
             telefono: null
         }
+        //console.log('hola')
 
         const userData = await Usuarios.findAll({
             attributes: ['email'],
             include: [{
                 model: profPerfiles,
                 attributes: ['nombres', 'apellidos', 'dni', 'telefono'],
-                where: {
-                    idPrece : idUser
-                }
-            }]
+            }],
+            where: {
+                idUsuario: idUser
+            }
         })
 
+        //console.log(userData[0].dataValues.ProfPerfile)
+
         data.ok = true
-        data.nombres = userData[0].dataValues.profPerfiles.nombres
-        data.apellidos = userData[0].dataValues.profPerfiles.apellidos
+        data.nombres = userData[0].dataValues.ProfPerfile.nombres
+        data.apellidos = userData[0].dataValues.ProfPerfile.apellidos
         data.email = userData[0].dataValues.email
-        data.dni = userData[0].dataValues.profPerfiles.dni
-        data.telefono = userData[0].dataValues.profPerfiles.telefono
+        data.dni = userData[0].dataValues.ProfPerfile.dni
+        data.telefono = userData[0].dataValues.ProfPerfile.telefono
 
         return data
 

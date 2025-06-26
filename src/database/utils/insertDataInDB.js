@@ -55,14 +55,14 @@ async function insertDataInDB() {
 
 
     //Creacion de usuarios
-    await Usuarios.create({ idRol: 1, password: 'Alumno1@', email: 'alumno1@gmail.com' }) // idUsuario -> 1
-    await Usuarios.create({ idRol: 1, password: 'Alumno2@', email: 'alumno2@gmail.com' }) // idUsuario -> 2
-    await Usuarios.create({ idRol: 2, password: 'Preceptor1@', email: 'preceptor1@gmail.com' }) // idUsuario -> 3
-    await Usuarios.create({ idRol: 2, password: 'Preceptor2@', email: 'preceptor2@gmail.com' }) // idUsuario -> 4
-    await Usuarios.create({ idRol: 3, password: 'Profe1@', email: 'profe1@gmail.com' }) // idUsuario -> 5
-    await Usuarios.create({ idRol: 3, password: 'Profe2@', email: 'profe2@gmail.com' }) // idUsuario -> 6
-    await Usuarios.create({ idRol: 3, password: 'Profe3@', email: 'profe3@gmail.com' }) // idUsuario -> 7
-    await Usuarios.create({ idRol: 3, password: 'Profe4@', email: 'profe4@gmail.com' }) // idUsuario -> 8
+    await Usuarios.create({ idRol: 1, password: 'Alumno1@', email: 'alumno1@gmail.com', validacion: 'validado' }) // idUsuario -> 1
+    await Usuarios.create({ idRol: 1, password: 'Alumno2@', email: 'alumno2@gmail.com', validacion: 'validado'  }) // idUsuario -> 2
+    await Usuarios.create({ idRol: 2, password: 'Preceptor1@', email: 'preceptor1@gmail.com', validacion: 'validado'  }) // idUsuario -> 3
+    await Usuarios.create({ idRol: 2, password: 'Preceptor2@', email: 'preceptor2@gmail.com', validacion: 'validado'  }) // idUsuario -> 4
+    await Usuarios.create({ idRol: 3, password: 'Profe1@', email: 'profe1@gmail.com', validacion: 'validado'  }) // idUsuario -> 5
+    await Usuarios.create({ idRol: 3, password: 'Profe2@', email: 'profe2@gmail.com', validacion: 'validado'  }) // idUsuario -> 6
+    await Usuarios.create({ idRol: 3, password: 'Profe3@', email: 'profe3@gmail.com', validacion: 'validado'  }) // idUsuario -> 7
+    await Usuarios.create({ idRol: 3, password: 'Profe4@', email: 'profe4@gmail.com', validacion: 'validado'  }) // idUsuario -> 8
 
     //Creacion de los perfiles de alumno
     await alumPerfiles.create({ idAlumno: 1, idAnio: 1, nombres: 'Pepito', apellidos: 'Juarez', dni: 11111111, telefono: '1111111111' })

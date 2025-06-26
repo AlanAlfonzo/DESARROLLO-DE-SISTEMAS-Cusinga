@@ -1,4 +1,4 @@
-const { Usuarios, alumPerfiles } = require('../models/relaciones.js')
+const { Usuarios } = require('../models/relaciones.js')
 
 /**
  * @param {string} email 
@@ -7,28 +7,37 @@ const { Usuarios, alumPerfiles } = require('../models/relaciones.js')
 async function login(email, password) {
 
     const userValidate = (await Usuarios.findAll({
-        where: { 
-            email: email, 
+        where: {
+            email: email,
             password: password
         }
-    }))[0]
-    console.log(userValidate)
-    try {
-        if (userValidate[0].dataValues) {
-            return {
-                ok: 'ok',
-                body: {
-                    idUser: userValidate[0].dataValues.idUsuario,
-                    idRol: userValidate[0].dataValues.idRol,
-                }
-            }
-        }
-    } catch (error) {
+    }))[0].dataValues
+    //console.log(userValidate)
+
+    if (!userValidate) {
         return {
-            status: 404,
+            status: 0,
             error: error
         }
     }
+
+    if(userValidate.validacion === 'pendiente'){
+        return { 
+            status: 1,
+        }
+    }
+
+    //console.log('hola')
+    return {
+        status: 2,
+        body: {
+            idUser: userValidate.idUsuario,
+            idRol: userValidate.idRol,
+        }
+    }
+
+    
+
 }
 
 module.exports = login

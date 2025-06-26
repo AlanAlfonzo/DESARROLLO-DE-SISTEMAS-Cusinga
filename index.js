@@ -150,8 +150,8 @@ app.post('/login', async (req, res) => {
     if(payload.error){
         console.log(payload.error)
     }
-
-    if (payload.ok) {
+    //console.log(payload)
+    if (payload.status == 2) {
         const token = jwt.sign({
             idUser: payload.body.idUser, idRol: payload.body.idRol
         }, process.env.secretWord,
