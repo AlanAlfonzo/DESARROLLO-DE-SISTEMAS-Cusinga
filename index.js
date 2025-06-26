@@ -51,6 +51,7 @@ function getToken(req, res, next){
 }
 
 function redirect(req, res, next){
+
     const { token } = req.session
     if (token != null ){
         return res.redirect(`http://localhost:${port}`)
@@ -80,7 +81,7 @@ app.get('/', async (req, res) => {
 
 app.get('/login', redirect, (req, res) => {
 
-    res.render('login')
+    return res.render('login')
 })
 
 app.get('/register', redirect, (req, res) => {
@@ -103,15 +104,32 @@ app.get('/panel', async (req, res) => {
     
     const { token } = req.session
 
-    if(token != null){
-        let userData = await getDataUser(token.idUser, token.idRol)
+    if(token === null){
+        return res.redirect('home')
+    }
+
+    const userData = await getDataUser(token.idUser, token.idRol)
+
+    // Vista Alumno
+    if(token.idRol === 1){
         let asistencias = await getAsistenciasAlumno(token.idUser)
         let notas = await getNotasAlum(token.idUser)
         const info = { ...userData, ...asistencias, ...notas}
         return res.render('panelAlumno', info)
     }
 
-    return res.redirect(`/` /* vista q diga "ruta protegida, no puede entrar sin cuenta"*/)
+    // Vista Preceptor
+    else if(token.idRol === 2){
+        const info = { ...userData}
+        return res.render('panelPreceptor', info)
+    }
+
+    // Vista Profesor
+    else if(token.idRol === 3){
+        const info = { ...userData}
+        return res.render('panelDocente', info)
+    }
+
 })
 
 app.post('/logout', async (req, res) => {
@@ -128,6 +146,11 @@ app.post('/login', async (req, res) => {
     const { email, password } = req.body
 
     const payload = await login(email, password)
+
+    if(payload.error){
+        console.log(payload.error)
+    }
+
     if (payload.ok) {
         const token = jwt.sign({
             idUser: payload.body.idUser, idRol: payload.body.idRol

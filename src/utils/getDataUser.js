@@ -50,7 +50,7 @@ async function getDataUser(idUser, idRol) {
         
     } 
     
-    else if (idRol === 2){
+    else if (idRol === 3){
 
         let data = {
             ok: null,
