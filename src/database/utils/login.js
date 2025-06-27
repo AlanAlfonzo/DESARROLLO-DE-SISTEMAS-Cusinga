@@ -6,37 +6,34 @@ const { Usuarios } = require('../models/relaciones.js')
  */
 async function login(email, password) {
 
-    const userValidate = (await Usuarios.findAll({
-        where: {
-            email: email,
-            password: password
-        }
-    }))[0].dataValues
-    //console.log(userValidate)
+    try{
 
-    if (!userValidate) {
+        const userValidate = (await Usuarios.findAll({
+            where: {
+                email: email,
+                password: password
+            }
+        }))[0].dataValues
+        
+        if(userValidate.validacion === 'pendiente'){
+            return { 
+                status: 1,
+            }
+        }
+    
+        return {
+            status: 2,
+            body: {
+                idUser: userValidate.idUsuario,
+                idRol: userValidate.idRol,
+            }
+        }
+    }catch(err){
+        
         return {
             status: 0,
-            error: error
         }
     }
-
-    if(userValidate.validacion === 'pendiente'){
-        return { 
-            status: 1,
-        }
-    }
-
-    //console.log('hola')
-    return {
-        status: 2,
-        body: {
-            idUser: userValidate.idUsuario,
-            idRol: userValidate.idRol,
-        }
-    }
-
-    
 
 }
 

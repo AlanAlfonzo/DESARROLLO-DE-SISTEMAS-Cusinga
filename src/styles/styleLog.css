@@ -55,7 +55,7 @@ nav a:hover {
 }
 
 #reg, #log {
-  padding: 1vh;
+  padding: 0.5rem 1rem;
   border-radius: 10px;
   border: none;
   font-weight: bold;
@@ -87,8 +87,7 @@ nav a:hover {
 main {
   display: flex;
   flex-direction: column;
-  min-height: 100vh;
-  background-size: cover;
+  min-height: 86vh;
   background: linear-gradient(rgba(255, 255, 255, 0.5), rgba(255, 255, 255, 0.5)),
     url("../img/fondo_login.jpg") no-repeat center center fixed;
   background-size: cover;

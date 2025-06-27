@@ -22,6 +22,7 @@ const Anio = sequelize.define('Anio', {
     },
     especialidad: {
         type: DataTypes.STRING,
+        defaultValue: 'Ninguna'
     }
 }, {
     tableName: 'anio',

@@ -19,9 +19,7 @@
                 <a href="/panel">PANEL</a>
             </nav>
             <div class="tag-user">
-                <h2>
-                    <%= nombres %>
-                </h2>
+                <a><%= nombres %></a>
             </div>
     </header>
 
@@ -85,14 +83,12 @@
                         <%= turno %>
                     </span>
                 </div>
-                <% if(especialidad) {%>
-                    <div class="fila-datos">
-                        <p>Especialidad:</p>
-                        <span id="especialidad">
-                            <%= especialidad %>
-                        </span>
-                    </div>
-                <% } %>
+                <div class="fila-datos">
+                    <p>Especialidad:</p>
+                    <span id="especialidad">
+                        <%= especialidad %>
+                    </span>
+                </div>
                 <div class="fila-datos-contraseña">
                     <p>Contraseña:</p>
                     <span id="contraseña">********</span>

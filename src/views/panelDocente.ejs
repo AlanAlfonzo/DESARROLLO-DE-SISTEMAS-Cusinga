@@ -17,9 +17,7 @@
                 <a href="/panel">PANEL</a>
             </nav>
             <div class="tag-user">
-                <h2>
-                    <%= nombres %>
-                </h2>
+                <a><%= nombres %></a>
             </div>
     </header>
     <section class="panel">
@@ -186,7 +184,7 @@
                         <button type="submit">Filtrar</button>
                     </div>
                 </form>
-                <div class="scroll-table">
+                <div class="scroll-table" style="margin-top: 4vh">
                     <table>
                         <thead>
                             <tr>
@@ -281,7 +279,7 @@
         });
 
         function actualizarBotonesActivos(idActivo) {
-            document.querySelectorAll("#cuenta, #asis, #notas").forEach(boton => {
+            document.querySelectorAll("#cuenta, #materia, #notas").forEach(boton => {
                 if (boton.id === idActivo) {
                     boton.classList.add("activo");
                 } else {

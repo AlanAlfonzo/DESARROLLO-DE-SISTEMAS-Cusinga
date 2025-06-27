@@ -122,11 +122,15 @@ app.get('/panel', async (req, res) => {
     // Vista Preceptor
     else if(token.idRol === 2){
         const info = { ...userData}
+        let asistencias
+        let 
         return res.render('panelPreceptor', info)
     }
 
     // Vista Profesor
     else if(token.idRol === 3){
+        let notas
+        let materias
         const info = { ...userData}
         return res.render('panelDocente', info)
     }
@@ -148,10 +152,14 @@ app.post('/login', async (req, res) => {
 
     const payload = await login(email, password)
 
-    if(payload.error){
-        console.log(payload.error)
+    if(payload.status == 0){
+        console.log(payload)
     }
-    //console.log(payload)
+    
+    if(payload.status == 1){
+        return res.sendFile(path.join(__dirname,'/src/views/sinVerificacion.html'))
+    }
+
     if (payload.status == 2) {
         const token = jwt.sign({
             idUser: payload.body.idUser, idRol: payload.body.idRol
