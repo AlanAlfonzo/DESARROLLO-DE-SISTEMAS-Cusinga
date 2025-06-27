@@ -54,7 +54,8 @@ function redirect(req, res, next){
 
     const { token } = req.session
     if (token != null ){
-        return res.redirect(`http://localhost:${port}`)
+        res.re
+        return res.redirect('/')
     }
 
     next()
