@@ -1,4 +1,4 @@
-const { profPerfiles, alumPerfiles, precePerfiles, Asistencia, Usuarios, Materias, Notas, Roles, Anio } = require('./src/database/models/relaciones.js')
+const { ProfPerfiles, AlumPerfiles, PrecePerfiles, Asistencia, Usuarios, Materias, Notas, Roles, Anio } = require('./src/database/models/relaciones.js')
 const insertDataInDB = require('./src/database/utils/insertDataInDB.js')
 const getAsistenciasAlumno = require('./src/utils/getAsistenciasAlum')
 const getDataUser = require('./src/utils/getDataUser')
@@ -106,7 +106,7 @@ app.get('/panel', async (req, res) => {
     const { token } = req.session
 
     if(token === null){
-        return res.redirect('home')
+        return res.redirect('/')
     }
 
     const userData = await getDataUser(token.idUser, token.idRol)
@@ -121,9 +121,9 @@ app.get('/panel', async (req, res) => {
 
     // Vista Preceptor
     else if(token.idRol === 2){
-        const info = { ...userData}
         let asistencias
         let 
+        const info = { ...userData}
         return res.render('panelPreceptor', info)
     }
 
@@ -186,7 +186,7 @@ app.post('/register', async (req, res) => {
     try{
         await Usuarios.create({ email: email, password: password })
         const userData = await Usuarios.findAll({where: {email: email}})
-        await alumPerfiles.create({idAlumno: userData[0].dataValues.idUsuario ,nombres: nombres, apellidos: apellidos, dni: dni, telefono: telefono})
+        await AlumPerfiles.create({idAlumno: userData[0].dataValues.idUsuario ,nombres: nombres, apellidos: apellidos, dni: dni, telefono: telefono})
         return res.redirect('/') /* ver la manera de comunicar de que se creo la cuenta con exito */
     }catch(err){
         

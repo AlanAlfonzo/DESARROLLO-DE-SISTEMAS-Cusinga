@@ -7,6 +7,7 @@
     <title>Document</title>
     <link rel="stylesheet" href="../src/styles/stylePanProf.css">
 </head>
+
 <body>
     <header>
         <div class="contenedor-header">
@@ -17,7 +18,9 @@
                 <a href="/panel">PANEL</a>
             </nav>
             <div class="tag-user">
-                <a><%= nombres %></a>
+                <a>
+                    <%= nombres %>
+                </a>
             </div>
     </header>
     <section class="panel">
@@ -32,25 +35,35 @@
                 <h2>Mi Cuenta</h2>
                 <div class="fila-datos">
                     <p>Nombre:</p>
-                    <span id="nombre"><%= nombres %></span>
+                    <span id="nombre">
+                        <%= nombres %>
+                    </span>
                 </div>
                 <div class="fila-datos">
                     <p>Apellido:</p>
-                    <span id="apellido"><%= apellidos %></span>
+                    <span id="apellido">
+                        <%= apellidos %>
+                    </span>
                 </div>
                 <div class="fila-datos">
                     <p>DNI:</p>
-                    <span id="dni"><%= dni %></span>
+                    <span id="dni">
+                        <%= dni %>
+                    </span>
                 </div>
                 <div class="fila-datos-mail">
                     <p>Email:</p>
-                    <span id="mail"><%= email %></span>
+                    <span id="mail">
+                        <%= email %>
+                    </span>
                     <button type="button" class="boton-mail" id="emailCambiar"><i
                             class="fas fa-pen-to-square"></i></button>
                 </div>
                 <div class="fila-datos">
                     <p>Telefono:</p>
-                    <span id="telefono"><%= telefono %></span>
+                    <span id="telefono">
+                        <%= telefono %>
+                    </span>
                 </div>
                 <div class="fila-datos-contraseña">
                     <p>Contraseña:</p>
@@ -64,31 +77,48 @@
             <div class="container">
                 <h2>Notas</h2>
                 <div class="student-info">
-                    <h3 id="student-name">Docente: <%= nombres %></h3>
+                    <h3 id="student-name">Docente: <%= nombres %>
+                    </h3>
                 </div>
 
                 <div class="summary">
                     <div class="card">
-                        <h2 id="total-aprobados">Nota nueva: </h2>
+                        <h2 id="total-aprobados">Nueva nota</h2>
                         <form class="ingreso-nota">
                             <div class="inputs">
                                 <label for="from">Nota:</label>
-                                <input type="number" id="n-nota" name="n-nota" max="10">
+                                <select class="n-nota" name="n-nota" id="nuevaNota">
+                                    <option value=1>1</option>
+                                    <option value=2>2</option>
+                                    <option value=3>3</option>
+                                    <option value=4>4</option>
+                                    <option value=5>5</option>
+                                    <option value=6>6</option>
+                                    <option value=7>7</option>
+                                    <option value=8>8</option>
+                                    <option value=9>9</option>
+                                    <option value=10>10</option>
+                                </select>
                             </div>
                             <div class="inputs">
                                 <label for="from">Materia:</label>
-                                <input type="text" id="mat-nota" name="mat-nota">
+                                <select class="n-materia" name="n-materia" id="materiaNota">
+                                    <% //for para el ingreso de las materias que tiene el profe %>
+                                    <option value="matematica">Matematica</option>
+                                </select>
                             </div>
                             <div class="inputs">
-                                <label for="from">Nombre:</label>
-                                <input type="text" id="nom-nota" name="nom-nota">
+                                <label for="from">Alumno:</label>
+                                <select class="n-nombre" name="n-nombre" id="nombreAlumno">
+                                    <% //for para el ingreso de las materias que tiene el profe %>
+                                    <option value="idUser">Alberto Cetro</option>
+                                    <option value="idUser">Cetro Juanasdasdasdads Alberto</option>
+                                    <option value="idUser">Cetro Cetro</option>
+                                    <option value="idUser">Alberto Alberto</option>
+                                </select>
                             </div>
                             <div class="inputs">
-                                <label for="from">Apellido:</label>
-                                <input type="text" id="ape-nota" name="ape-nota">
-                            </div>
-                            <div class="inputs">
-                                <button class="btn-enviar">ENVIAR</button>
+                                <button type="submit" class="btn-enviar">ENVIAR</button>
                             </div>
                         </form>
                     </div>
@@ -96,7 +126,18 @@
                 <form class="filter-form" id="filter-form">
                     <div>
                         <label for="from">Nota:</label>
-                        <input type="number" id="nota" name="nota" max="10">
+                        <select class="n-nota" style="width: 10vh; text-align: left;">
+                            <option value=1>1</option>
+                            <option value=2>2</option>
+                            <option value=3>3</option>
+                            <option value=4>4</option>
+                            <option value=5>5</option>
+                            <option value=6>6</option>
+                            <option value=7>7</option>
+                            <option value=8>8</option>
+                            <option value=9>9</option>
+                            <option value=10>10</option>
+                        </select>
                     </div>
                     <div>
                         <label for="materia">Materia:</label>
@@ -148,7 +189,7 @@
                                 <td>Matematica</td>
                                 <td>Anderson</td>
                             </tr>
-                            
+
                         </tbody>
                     </table>
                 </div>
@@ -158,7 +199,8 @@
             <div class="container">
                 <h2>Materias</h2>
                 <div class="student-info">
-                    <h3 id="student-name">Docente: <%= nombres %></h3>
+                    <h3 id="student-name">Docente: <%= nombres %>
+                    </h3>
                 </div>
 
                 <div class="summary">
@@ -167,7 +209,7 @@
                         <p>Cantidad de Materias</p>
                     </div>
                 </div>
-                
+
                 <form class="filter-form" id="filter-form">
                     <div>
                         <label for="from">Nota:</label>
@@ -261,7 +303,7 @@
         document.getElementById("cuenta").addEventListener("click", () => {
             document.getElementById("inicio").style.display = "flex";
             document.getElementById("notitas").style.display = "none";
-            document.getElementById("notitas").style.display = "none";
+            document.getElementById("materias").style.display = "none";
             actualizarBotonesActivos("cuenta");
         });
 

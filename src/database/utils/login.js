@@ -1,4 +1,4 @@
-const { Usuarios } = require('../models/relaciones.js')
+const { Usuarios } = require('../models/Usuarios.js')
 
 /**
  * @param {string} email 

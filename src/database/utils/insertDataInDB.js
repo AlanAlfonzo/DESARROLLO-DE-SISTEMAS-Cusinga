@@ -1,4 +1,14 @@
-const { Roles, Anio, Usuarios, alumPerfiles, precePerfiles, profPerfiles, Asistencia, Materias, Notas } = require('../models/relaciones.js')
+//const { Anio, Usuarios, alumPerfiles, precePerfiles, profPerfiles, Asistencia, Materias, Notas } = require('../models/Relaciones.js')
+const Roles = require('../models/Roles.js')
+const Anio = require('../models/Anio.js')
+const Usuarios = require('../models/Usuarios.js')
+const alumPerfiles = require('../models/AlumPerfiles.js')
+const precePerfiles = require('../models/PrecePerfiles.js')
+const profPerfiles = require('../models/ProfPerfiles.js')
+const Asistencia = require('../models/Asistencias.js')
+const Materias = require('../models/Materias.js')
+const Notas = require('../models/Notas.js')
+
 
 async function insertDataInDB() {
 

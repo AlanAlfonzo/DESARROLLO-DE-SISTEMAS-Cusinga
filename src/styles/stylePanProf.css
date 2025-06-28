@@ -179,6 +179,7 @@ button.activo {
   position: relative;
   display: flex;
   align-items: center;
+  margin-bottom: 2rem;
   width: 100%;
   gap: 7rem;
 }
@@ -261,6 +262,10 @@ button.activo {
 }
 
 .notas {
+  display: none;
+}
+
+.materias {
   display: none;
 }
 
@@ -458,7 +463,7 @@ button.activo {
 
 .scroll-table {
   overflow-y: auto;
-  height: 33vh;
+  max-height: 33vh;
   margin-bottom: 2rem;
 }
 
@@ -481,6 +486,7 @@ th {
   top: 0;
   background-color: #003366;
   color: white;
+  border: 0;
 }
 
 tr {
@@ -515,17 +521,16 @@ tr:nth-child(even) {
 
 .notas .summary {
   display: flex;
-  justify-content: space-evenly;
+  justify-content: center;
   margin-bottom: 0.5rem;
 }
 
 .notas .card {
   background: #e9f5ff;
-  padding: 1.2rem;
+  padding: 1rem;
   flex: 1;
   border-radius: 8px;
   text-align: center;
-  margin: 0 10px;
 }
 
 .notas .card h2 {
@@ -542,7 +547,7 @@ tr:nth-child(even) {
 .notas form.filter-form {
   display: flex;
   align-items: center;
-  justify-content: space-around;
+  justify-content: space-evenly;
 }
 
 .notas .filter-form select {
@@ -578,7 +583,7 @@ tr:nth-child(even) {
   display: flex;
   margin-top: 2rem;
   justify-content: center;
-  gap: 1rem;
+  gap: 2rem;
 }
 
 .inputs {
@@ -591,7 +596,33 @@ tr:nth-child(even) {
   padding: 0.5rem 0.06rem;
   border: 1px solid #ccc;
   border-radius: 6px;
-  width: 7rem;
+  width: 5rem;
+}
+
+.n-nota{
+  padding: 0.5rem 0.06rem;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  width: 3rem;
+  text-align: center;
+}
+
+.n-materia{
+  padding: 0.5rem 0.06rem;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  width: auto;
+  padding-inline: 0.6vh;
+  text-align: center;
+}
+
+.n-nombre{
+  padding: 0.5rem 0.06rem;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  max-width: 18vh;
+  padding-inline: 0.6vh;
+  text-align: center;
 }
 
 .btn-enviar {

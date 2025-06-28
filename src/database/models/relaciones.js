@@ -1,9 +1,9 @@
-const precePerfiles = require('./precePerfiles.js')
-const profPerfiles = require('./ProfPerfiles.js')
-const alumPerfiles = require('./alumPerfiles.js')
+const PrecePerfiles = require('./PrecePerfiles.js')
+const ProfPerfiles = require('./ProfPerfiles.js')
+const AlumPerfiles = require('./AlumPerfiles.js')
 const Asistencia = require('./Asistencias.js')
 const Usuarios = require('./Usuarios.js')
-const Materias = require('./materias.js')
+const Materias = require('./Materias.js')
 const Notas = require('./Notas.js')
 const Roles = require('./Roles.js')
 const Anio = require('./Anio.js')
@@ -15,51 +15,51 @@ Roles.hasMany(Usuarios, {
 Usuarios.belongsTo(Roles, {
     foreignKey: 'idRol'
 })
-Usuarios.hasOne(profPerfiles, {
+Usuarios.hasOne(ProfPerfiles, {
     foreignKey: 'idProfe'
 })
-Usuarios.hasOne(alumPerfiles, {
+Usuarios.hasOne(AlumPerfiles, {
     foreignKey: 'idAlumno'
 })
-Usuarios.hasOne(precePerfiles,{
+Usuarios.hasOne(PrecePerfiles,{
     foreignKey: 'idPrece'
 })
 
-alumPerfiles.hasMany(Asistencia, {
+AlumPerfiles.hasMany(Asistencia, {
     foreignKey: 'idAlumno'
 })
 
-alumPerfiles.hasMany(Notas, {
+AlumPerfiles.hasMany(Notas, {
     foreignKey: 'idAlumno'
 })
-alumPerfiles.belongsTo(Anio, {
+AlumPerfiles.belongsTo(Anio, {
     foreignKey: 'idAnio'
 })
 
-precePerfiles.hasMany(Asistencia, {
+PrecePerfiles.hasMany(Asistencia, {
     foreignKey: 'idPrece'
 })
-precePerfiles.belongsTo(Usuarios, {
+PrecePerfiles.belongsTo(Usuarios, {
     foreignKey: 'idPrece'
 })
 
-profPerfiles.belongsTo(Usuarios, {
+ProfPerfiles.belongsTo(Usuarios, {
     foreignKey: 'idProfe'
 })
-profPerfiles.hasMany(Materias, {
+ProfPerfiles.hasMany(Materias, {
     foreignKey: 'idProfe'
 })
-profPerfiles.hasMany(Notas, {
+ProfPerfiles.hasMany(Notas, {
     foreignKey: 'idProfe'
 })
 
-Notas.belongsTo(profPerfiles, {
+Notas.belongsTo(ProfPerfiles, {
     foreignKey: 'idProfe'
 })
-Notas.belongsTo(alumPerfiles, {
+Notas.belongsTo(AlumPerfiles, {
     foreignKey: 'idAlumno'
 })
-Notas.belongsTo(profPerfiles, {
+Notas.belongsTo(ProfPerfiles, {
     foreignKey: 'idProfe'
 })
 Notas.belongsTo(Materias, {
@@ -72,15 +72,15 @@ Materias.hasMany(Notas, {
 Materias.belongsTo(Anio, {
     foreignKey: 'idAnio'
 })
-Materias.belongsTo(profPerfiles, {
+Materias.belongsTo(ProfPerfiles, {
     foreignKey: 'idProfe'
 })
 
-Anio.hasMany(alumPerfiles, {
+Anio.hasMany(AlumPerfiles, {
     foreignKey: 'idAnio'
 })
 Anio.hasMany(Materias, {
     foreignKey: 'idAnio'
 })
 
-module.exports = { profPerfiles, precePerfiles, alumPerfiles, Asistencia, Usuarios, Materias, Notas, Roles, Anio }
+module.exports = { ProfPerfiles, PrecePerfiles, AlumPerfiles, Asistencia, Usuarios, Materias, Notas, Roles, Anio }
