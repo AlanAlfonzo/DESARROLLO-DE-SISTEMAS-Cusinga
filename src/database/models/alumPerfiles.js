@@ -1,7 +1,7 @@
 const { DataTypes } = require('sequelize');
 const sequelize = require('../../config/mySql.js');
 
-const alumPerfiles = sequelize.define('AlumPerfiles', {
+const AlumPerfiles = sequelize.define('AlumPerfiles', {
     idAlumno: {
         type: DataTypes.INTEGER,
         primaryKey: true,
@@ -42,4 +42,4 @@ const alumPerfiles = sequelize.define('AlumPerfiles', {
     timestamps: true,
 },)
 
-module.exports = alumPerfiles;
+module.exports = AlumPerfiles;

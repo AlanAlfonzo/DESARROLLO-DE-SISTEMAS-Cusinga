@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="../src/styles/stylePanPrece.css">
+</head>
+<body>
+    <header>
+        <div class="contenedor-header">
+            <nav class="botones">
+                <a href="/">INICIO</a>
+                <a href="/especialidades">ESPECIALIDADES</a>
+                <a href="/#contacto">CONTACTO</a>
+                <a href="/panel">PANEL</a>
+            </nav>
+            <div class="tag-user">
+                <a><%= nombres %></a>
+            </div>
+    </header>
+    <section class="panel">
+        <div class="opciones">
+            <button id="cuenta" type="button">MI CUENTA</button>
+            <button id="apartadoAsistencias" type="button">ASISTENCIAS</button>
+            <button id="cerrar-ses" type="button">Cerrar Sesion</button>
+        </div>
+        <div id="inicio" class="datos">
+            <div class="container">
+                <h2>Mi Cuenta</h2>
+                <div class="fila-datos">
+                    <p>Nombre:</p>
+                    <span id="nombre">
+                        <%= nombres %>
+                    </span>
+                </div>
+                <div class="fila-datos">
+                    <p>Apellido:</p>
+                    <span id="apellido">
+                        <%= apellidos %>
+                    </span>
+                </div>
+                <div class="fila-datos">
+                    <p>DNI:</p>
+                    <span id="dni">
+                        <%= dni %>
+                    </span>
+                </div>
+                <div class="fila-datos-mail">
+                    <p>Email:</p>
+                    <span id="mail">
+                        <%= email %>
+                    </span>
+                    <button type="button" class="boton-mail" id="emailCambiar"><i
+                            class="fas fa-pen-to-square"></i></button>
+                </div>
+                <div class="fila-datos">
+                    <p>Telefono:</p>
+                    <span id="telefono">
+                        <%= telefono %>
+                    </span>
+                </div>
+                <div class="fila-datos-contraseña">
+                    <p>Contraseña:</p>
+                    <span id="contraseña">********</span>
+                    <button type="button" class="boton-contraseña" id="passwordCambiar"><i
+                            class="fas fa-pen-to-square"></i></button>
+                </div>
+            </div>
+        </div>
+        <div id="asistencias" class="asist">
+            <div class="container">
+                <h2>Asistencias</h2>
+                <div class="summary">     
+                    <div class="card">
+                        <h3 class="student-name"> Asistencias registradas: </h3>
+                        <h2 id="total-inasistencias">52</h2>
+                        <p>Inasistencias</p>  
+                    </div>
+                </div>
+                <form class="filter-form" id="filter-form">
+                    <label for="tipo">Ordenar por:</label>
+                    <select name="tipo" id="orden-asis" style="margin-right: 10vh;">
+                        <option value="desc">Descendente</option>
+                        <option value="asc">Ascendente </option>
+                    </select>
+
+                    <label for="tipo">Tipo:</label>
+                    <select id="tipo-asis" name="tipo">
+                        <option value="todas">Todas</option>
+                        <option value="asistencia">Solo Asistencias</option>
+                        <option value="tarde">Solo Tarde</option>
+                        <option value="inasistencia">Solo Inasistencias</option>
+                    </select>
+                    <button id="filtro-asis">Filtrar</button>
+                </form>
+                <div class="scroll-table">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Fecha</th>
+                                <th>Puntualidad</th>
+                            </tr>
+                        </thead>
+                        <tbody id="tabla-asistencias" class="tabla-asis">
+                            <tr>
+                                <td>2025-01-01</td>
+                                <td>Asistencia</td>
+                            </tr>
+                            <tr>
+                                <td>2025-01-01</td>
+                                <td>Asistencia</td>
+                            </tr>
+                            <tr>
+                                <td>2025-01-01</td>
+                                <td>Asistencia</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </section>
+    <footer>
+        <p>&copy; 2025 Escuela Secundaria San Martín. Todos los derechos reservados.</p>
+    </footer>
+    <script preload>
+
+    actualizarBotonesActivos("cuenta");
+
+        document.getElementById("cuenta").addEventListener("click", () => {
+            document.getElementById("inicio").style.display = "flex";
+            document.getElementById("asistencias").style.display = "none";
+            actualizarBotonesActivos("cuenta");
+        });
+
+        document.getElementById("apartadoAsistencias").addEventListener("click", () => {
+            document.getElementById("inicio").style.display = "none";
+            document.getElementById("asistencias").style.display = "flex";
+            actualizarBotonesActivos("apartadoAsistencias");
+        });
+
+        function actualizarBotonesActivos(idActivo) {
+            document.querySelectorAll("#cuenta, #apartadoAsistencias").forEach(boton => {
+                if (boton.id === idActivo) {
+                    boton.classList.add("activo");
+                } else {
+                    boton.classList.remove("activo");
+                }
+            });
+        }
+        
+        document.getElementById("cerrar-ses").addEventListener("click", () => {
+            fetch('/logout', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            }).then(response => {
+                if (typeof response.ok === 'boolean') {
+                    window.location.href = '/'
+                }
+            })
+        });
+
+    </script>
+</body>
+</html>

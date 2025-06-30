@@ -1,8 +1,8 @@
-const { ProfPerfiles, AlumPerfiles, PrecePerfiles, Asistencia, Usuarios, Materias, Notas, Roles, Anio } = require('./src/database/models/relaciones.js')
+const { AlumPerfiles, Usuarios } = require('./src/database/models/relaciones.js')
 const insertDataInDB = require('./src/database/utils/insertDataInDB.js')
-const getAsistenciasAlumno = require('./src/utils/getAsistenciasAlum')
+const getDataPanelAlum = require('./src/utils/getDataPanelAlum.js')
 const getDataUser = require('./src/utils/getDataUser')
-const getNotasAlum = require('./src/utils/getNotasAlum.js')
+const getDataPanelProf = require('./src/utils/getDataPanelProf.js')
 const login = require('./src/database/utils/login.js')
 const sequelize = require('./src/config/mySql.js')
 const cookieParser = require('cookie-parser')
@@ -101,6 +101,12 @@ app.get('/especialidades', async (req, res) => {
 
 // rutas protegidas
 
+app.post('/ordenar-asistencias', async (req, res) => {
+    const { token } = req.session
+
+    console.log(token)
+})
+
 app.get('/panel', async (req, res) => {
     
     const { token } = req.session
@@ -113,25 +119,21 @@ app.get('/panel', async (req, res) => {
 
     // Vista Alumno
     if(token.idRol === 1){
-        let asistencias = await getAsistenciasAlumno(token.idUser)
-        let notas = await getNotasAlum(token.idUser)
-        const info = { ...userData, ...asistencias, ...notas}
+        let data = await getDataPanelAlum(token.idUser)
+        const info = { ...userData, ...data}
         return res.render('panelAlumno', info)
     }
 
     // Vista Preceptor
     else if(token.idRol === 2){
-        let asistencias
-        let 
         const info = { ...userData}
         return res.render('panelPreceptor', info)
     }
 
     // Vista Profesor
     else if(token.idRol === 3){
-        let notas
-        let materias
-        const info = { ...userData}
+        let data = await getDataPanelProf(token.idUser)
+        const info = { ...userData, ...data}
         return res.render('panelDocente', info)
     }
 

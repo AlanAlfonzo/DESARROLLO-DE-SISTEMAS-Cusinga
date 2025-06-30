@@ -1,7 +1,7 @@
 const { DataTypes } = require('sequelize');
 const sequelize = require('../../config/mySql.js');
 
-const profPerfiles = sequelize.define('ProfPerfiles', {
+const ProfPerfiles = sequelize.define('ProfPerfiles', {
     idProfe: {
         type: DataTypes.INTEGER,
         primaryKey: true,
@@ -34,4 +34,4 @@ const profPerfiles = sequelize.define('ProfPerfiles', {
     timestamps: true,
 });
 
-module.exports = profPerfiles;
+module.exports = ProfPerfiles;

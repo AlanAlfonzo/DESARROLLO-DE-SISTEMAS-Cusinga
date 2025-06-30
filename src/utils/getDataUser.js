@@ -1,4 +1,11 @@
-const { Usuarios, alumPerfiles, profPerfiles, Anio, precePerfiles, Asistencia } = require('../database/models/relaciones.js');
+//const { Usuarios, AlumPerfiles, ProfPerfiles, Anio, PrecePerfiles, Asistencia } = require('../database/models/relaciones.js');
+const Usuarios = require('../database/models/Usuarios.js');
+const AlumPerfiles = require('../database/models/AlumPerfiles.js');
+const ProfPerfiles = require('../database/models/ProfPerfiles.js');
+const Anio = require('../database/models/Anio.js');
+const PrecePerfiles = require('../database/models/PrecePerfiles.js');
+const Asistencia = require('../database/models/Asistencias.js');
+
 
 async function getDataUser(idUser, idRol) {
 
@@ -23,7 +30,7 @@ async function getDataUser(idUser, idRol) {
                 idUsuario: idUser
             },
             include: [{
-                model: alumPerfiles,
+                model: AlumPerfiles,
                 attributes: ['nombres', 'apellidos', 'dni', 'telefono'],
                 include: [{
                     attributes: ['anio', 'cursos', 'turno', 'especialidad'],
@@ -50,6 +57,39 @@ async function getDataUser(idUser, idRol) {
         
     } 
     
+    else if( idRol === 2){
+
+        let data = {
+            ok: null,
+            nombres: null,
+            apellidos: null,
+            email: null,
+            dni: null,
+            telefono: null
+        }
+
+        const userData = await Usuarios.findAll({
+            attributes: ['email'],
+            include: [{
+                model: PrecePerfiles,
+                attributes: ['nombres', 'apellidos', 'dni', 'telefono'],
+            }],
+            where: {
+                idUsuario: idUser
+            }
+        })
+
+        data.ok = true
+        data.nombres = userData[0].dataValues.precePerfile.nombres
+        data.apellidos = userData[0].dataValues.precePerfile.apellidos
+        data.email = userData[0].dataValues.email
+        data.dni = userData[0].dataValues.precePerfile.dni
+        data.telefono = userData[0].dataValues.precePerfile.telefono
+
+        return data
+
+    }
+
     else if (idRol === 3){
 
         let data = {
@@ -65,7 +105,7 @@ async function getDataUser(idUser, idRol) {
         const userData = await Usuarios.findAll({
             attributes: ['email'],
             include: [{
-                model: profPerfiles,
+                model: ProfPerfiles,
                 attributes: ['nombres', 'apellidos', 'dni', 'telefono'],
             }],
             where: {

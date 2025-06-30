@@ -27,7 +27,7 @@
         <div class="opciones">
             <button id="cuenta" type="button">MI CUENTA</button>
             <button id="notas" type="button">NOTAS</button>
-            <button id="materia" type="button">MATERIAS</button>
+            <button id="materiaaa" type="button">MATERIAS</button>
             <button id="cerrar-ses" type="button">Cerrar Sesion</button>
         </div>
         <div id="inicio" class="datos">
@@ -86,7 +86,7 @@
                         <h2 id="total-aprobados">Nueva nota</h2>
                         <form class="ingreso-nota">
                             <div class="inputs">
-                                <label for="from">Nota:</label>
+                                <label for="nuevaNota">Nota:</label>
                                 <select class="n-nota" name="n-nota" id="nuevaNota">
                                     <option value=1>1</option>
                                     <option value=2>2</option>
@@ -101,20 +101,19 @@
                                 </select>
                             </div>
                             <div class="inputs">
-                                <label for="from">Materia:</label>
+                                <label for="materiaNota">Materia:</label>
                                 <select class="n-materia" name="n-materia" id="materiaNota">
-                                    <% //for para el ingreso de las materias que tiene el profe %>
-                                    <option value="matematica">Matematica</option>
+                                    <% if ( cantMate != 0 ) { %>
+                                        <% for( let i = 0; i < materiaId.length; i++){ %>
+                                            <option value="<%= materiaId[i] %>"><%= materiasMate[i]%> | <%= anioMate[i]%>° <%= cursoMate[i]%>°</option>
+                                        <% } %>
+                                    <% } %>
                                 </select>
                             </div>
                             <div class="inputs">
-                                <label for="from">Alumno:</label>
+                                <label for="nombreAlumno">Alumno:</label>
                                 <select class="n-nombre" name="n-nombre" id="nombreAlumno">
-                                    <% //for para el ingreso de las materias que tiene el profe %>
-                                    <option value="idUser">Alberto Cetro</option>
-                                    <option value="idUser">Cetro Juanasdasdasdads Alberto</option>
-                                    <option value="idUser">Cetro Cetro</option>
-                                    <option value="idUser">Alberto Alberto</option>
+                                    <option value="">Seleccione una materia</option>
                                 </select>
                             </div>
                             <div class="inputs">
@@ -125,8 +124,8 @@
                 </div>
                 <form class="filter-form" id="filter-form">
                     <div>
-                        <label for="from">Nota:</label>
-                        <select class="n-nota" style="width: 10vh; text-align: left;">
+                        <label for="n-nota-select">Nota:</label>
+                        <select id="n-nota-select" class="n-nota">
                             <option value=1>1</option>
                             <option value=2>2</option>
                             <option value=3>3</option>
@@ -143,8 +142,11 @@
                         <label for="materia">Materia:</label>
                         <select id="materia" name="materia">
                             <option value="todas">Todas</option>
-                            <option value="matematica">Matematica</option>
-                            <option value="lengua">Lengua</option>
+                            <% if ( cantMate != 0 ) { %>
+                                <% for( let i = 0; i < materiasMate.length; i++){ %>
+                                    <option value="<%= materiasMate[i] %>"><%= materiasMate[i] %></option>
+                                <% } %>
+                            <% } %>
                         </select>
                         <button type="submit">Filtrar</button>
                     </div>
@@ -153,43 +155,32 @@
                     <table>
                         <thead>
                             <tr>
-                                <th>Nota</th>
                                 <th>Materia</th>
+                                <th>Año</th>
+                                <th>Curso</th>
+                                <th>Nota</th>
                                 <th>Alumno</th>
                             </tr>
                         </thead>
                         <tbody id="tabla-notas" class="tabla-notas">
-                            <tr>
-                                <td>6</td>
-                                <td>Matematica</td>
-                                <td>Juan</td>
-                            </tr>
-                            <tr>
-                                <td>6</td>
-                                <td>Matematica</td>
-                                <td>Pedro</td>
-                            </tr>
-                            <tr>
-                                <td>6</td>
-                                <td>Matematica</td>
-                                <td>Alan</td>
-                            </tr>
-                            <tr>
-                                <td>6</td>
-                                <td>Matematica</td>
-                                <td>Lucia</td>
-                            </tr>
-                            <tr>
-                                <td>6</td>
-                                <td>Matematica</td>
-                                <td>Felipe</td>
-                            </tr>
-                            <tr>
-                                <td>6</td>
-                                <td>Matematica</td>
-                                <td>Anderson</td>
-                            </tr>
+                            <% if(nota){ %>
+                                <% for(let i = 0; i < nota.length; i++){ %>
+                                    <tr>
+                                        <td><%= nombreMat[i] %></td>
+                                        <td><%= anio[i] %></td>
+                                        <td><%= curso[i] %></td>
+                                        <td><%= nota[i] %></td>
+                                        <td><%= nombreAlum[i] %></td>
+                                    </tr>
 
+                                <% } %>
+                            <% }else{%>
+                            
+                                <tr>
+                                    <td colspan="5">No hay notas asignadas</td>
+                                </tr>
+
+                            <%} %>
                         </tbody>
                     </table>
                 </div>
@@ -205,27 +196,15 @@
 
                 <div class="summary">
                     <div class="card">
-                        <h2 id="total-aprobados">3</h2>
+                        <% if( cantMate != 0) {%>
+                        
+                        <h2 id="total-aprobados"><%= cantMate %></h2>
+
+                        <% } else { %> <h2 id="total-aprobados">3</h2> <% } %>
+                        
                         <p>Cantidad de Materias</p>
                     </div>
                 </div>
-
-                <form class="filter-form" id="filter-form">
-                    <div>
-                        <label for="from">Nota:</label>
-                        <input type="number" id="nota" name="nota" max="10">
-                    </div>
-                    <div>
-                        <label for="materia">Turno:</label>
-                        <select id="materia" name="materia">
-                            <option value="todas">Todos</option>
-                            <option value="noche">Noche</option>
-                            <option value="tarde">Tarde</option>
-                            <option value="maniana">Mañana</option>
-                        </select>
-                        <button type="submit">Filtrar</button>
-                    </div>
-                </form>
                 <div class="scroll-table" style="margin-top: 4vh">
                     <table>
                         <thead>
@@ -237,24 +216,19 @@
                             </tr>
                         </thead>
                         <tbody id="tabla-notas" class="tabla-notas">
-                            <tr>
-                                <td>Practicas Profesionalizantes</td>
-                                <td>6°</td>
-                                <td>2°</td>
-                                <td>Noche</td>
-                            </tr>
-                            <tr>
-                                <td>Base de datos</td>
-                                <td>4°</td>
-                                <td>2°</td>
-                                <td>Tarde</td>
-                            </tr>
-                            <tr>
-                                <td>Proyecto Informatico II</td>
-                                <td>5°</td>
-                                <td>2°</td>
-                                <td>Mañana</td>
-                            </tr>
+                            <% if ( cantMate != 0) { %>
+                                <% for( let i = 0 ; i < materiasMate.length; i++) { %>
+                                
+                                    <tr>
+                                        <td><%= materiasMate[i] %></td>
+                                        <td><%= anioMate[i] %>°</td>
+                                        <td><%= cursoMate[i] %>°</td>
+                                        <td><%= turnoMate[i] %></td>
+                                    </tr>
+                                    
+                                <% } %>
+
+                            <% } %>
                         </tbody>
                     </table>
                 </div>
@@ -313,15 +287,15 @@
             document.getElementById("materias").style.display = "none";
             actualizarBotonesActivos("notas");
         });
-        document.getElementById("materia").addEventListener("click", () => {
+        document.getElementById("materiaaa").addEventListener("click", () => {
             document.getElementById("inicio").style.display = "none";
             document.getElementById("notitas").style.display = "none";
             document.getElementById("materias").style.display = "flex";
-            actualizarBotonesActivos("materia");
+            actualizarBotonesActivos("materiaaa");
         });
 
         function actualizarBotonesActivos(idActivo) {
-            document.querySelectorAll("#cuenta, #materia, #notas").forEach(boton => {
+            document.querySelectorAll("#cuenta, #materiaaa, #notas").forEach(boton => {
                 if (boton.id === idActivo) {
                     boton.classList.add("activo");
                 } else {

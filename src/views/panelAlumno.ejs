@@ -118,19 +118,20 @@
                     </div>
                 </div>
                 <form class="filter-form" id="filter-form">
-                    <label for="from">Desde:</label>
-                    <input type="date" id="from" name="from">
-
-                    <label for="to">Hasta:</label>
-                    <input type="date" id="to" name="to">
+                    <label for="tipo">Ordenar por:</label>
+                    <select name="tipo" id="orden-asis" style="margin-right: 10vh;">
+                        <option value="desc">Descendente</option>
+                        <option value="asc">Ascendente </option>
+                    </select>
 
                     <label for="tipo">Tipo:</label>
-                    <select id="tipo" name="tipo">
+                    <select id="tipo-asis" name="tipo">
                         <option value="todas">Todas</option>
                         <option value="asistencia">Solo Asistencias</option>
+                        <option value="tarde">Solo Tarde</option>
                         <option value="inasistencia">Solo Inasistencias</option>
                     </select>
-                    <button type="submit">Filtrar</button>
+                    <button id="filtro-asis">Filtrar</button>
                 </form>
                 <div class="scroll-table">
                     <table>
@@ -143,7 +144,7 @@
                         <tbody id="tabla-asistencias" class="tabla-asis">
                             <% if (typeof ok === 'null' ) { %>
                                 <tr>
-                                <td colspan="2">No hay asistencias registradas</td>
+                                    <td colspan="2">No hay asistencias registradas</td>
                                 </tr>
                             <% } else if( typeof ok == 'boolean') { %>
                                 <% for (let i = 0; i < fecha.length; i++) { %>
@@ -256,6 +257,65 @@
                 }
             })
         });
+
+        document.getElementById("filtro-asis").addEventListener('click', (event) =>{
+            event.preventDefault()
+
+            //orden-asis, tipo-asis
+            const orden = document.getElementById("orden-asis").value;
+            const tipo = document.getElementById("tipo-asis").value;
+
+
+
+        })
+
+    document.getElementById('filtro-asis').addEventListener('click', function (e) {
+        e.preventDefault(); // Evita el submit del form
+
+        const orden = document.getElementById('orden-asis').value;
+        const tipo = document.getElementById('tipo-asis').value;
+
+        const tbody = document.getElementById('tabla-asistencias');
+        tbody.innerHTML = '';
+
+        fetch('/panel/ordenar-asistencias', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ orden, tipo })
+        })
+
+    });
+
+    function aplicarFiltros(orden, tipo) {
+        const filasOriginales = Array.from(tbody.querySelectorAll('tr'));
+
+        // Validar si no hay datos
+        if (filasOriginales.length === 1 && filasOriginales[0].children.length === 1) return;
+
+        // Filtrado por tipo de puntualidad
+        let filasFiltradas = filasOriginales.filter(fila => {
+            const puntualidad = fila.children[1].innerText.trim().toLowerCase();
+            if (tipo === 'todas') return true;
+            if (tipo === 'asistencia') return puntualidad === 'puntual' || puntualidad === 'tarde';
+            if (tipo === 'tarde') return puntualidad === 'tarde';
+            if (tipo === 'inasistencia') return puntualidad === 'ausente' || puntualidad === 'falta';
+            return true;
+        });
+
+        // Orden por fecha
+        filasFiltradas.sort((a, b) => {
+            const fechaA = a.children[0].innerText.trim().split('/').reverse().join('-');
+            const fechaB = b.children[0].innerText.trim().split('/').reverse().join('-');
+            return orden === 'asc' 
+                ? new Date(fechaA) - new Date(fechaB) 
+                : new Date(fechaB) - new Date(fechaA);
+        });
+
+        // Reinsertar las filas procesadas
+        filasFiltradas.forEach(fila => tbody.appendChild(fila));
+    }
 
         document.getElementById("cuenta").addEventListener("click", () => {
             document.getElementById("inicio").style.display = "flex";

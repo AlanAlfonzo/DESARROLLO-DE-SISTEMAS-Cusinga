@@ -24,7 +24,7 @@ const Asistencia = sequelize.define('Asistencia', {
         }
     },
     fecha: {
-        type: DataTypes.DATE,
+        type: DataTypes.DATEONLY,
         allowNull: false
     },
     puntualidad: {

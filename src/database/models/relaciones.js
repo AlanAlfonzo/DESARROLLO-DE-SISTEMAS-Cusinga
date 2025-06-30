@@ -57,7 +57,7 @@ Notas.belongsTo(ProfPerfiles, {
     foreignKey: 'idProfe'
 })
 Notas.belongsTo(AlumPerfiles, {
-    foreignKey: 'idAlumno'
+    foreignKey: 'idAlumno',
 })
 Notas.belongsTo(ProfPerfiles, {
     foreignKey: 'idProfe'
