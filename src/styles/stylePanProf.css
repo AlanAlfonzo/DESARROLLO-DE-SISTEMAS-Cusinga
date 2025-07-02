@@ -59,7 +59,8 @@ nav a:hover {
   padding-right: 1rem;
 }
 
-#reg, #log {
+#reg,
+#log {
   padding: 0.5rem 1rem;
   border-radius: 10px;
   border: none;
@@ -178,6 +179,7 @@ button.activo {
   position: relative;
   display: flex;
   align-items: center;
+  margin-bottom: 2rem;
   width: 100%;
   gap: 7rem;
 }
@@ -260,6 +262,10 @@ button.activo {
 }
 
 .notas {
+  display: none;
+}
+
+.materias {
   display: none;
 }
 
@@ -455,78 +461,10 @@ button.activo {
   font-weight: bold;
 }
 
-/* ----------------------------------ASISTENCIAS--------------------------------------------- */
-
-.asist h2 {
-  text-align: center;
-  color: #333;
-  margin-bottom: 0;
-}
-
-.asist .student-info {
-  text-align: center;
-}
-
-.asist .summary {
-  display: flex;
-  justify-content: space-around;
-  margin-bottom: 0.5rem;
-}
-
-.asist .card {
-  background: #e9f5ff;
-  padding: 20px;
-  border-radius: 8px;
-  text-align: center;
-  flex: 1;
-  margin: 0 10px;
-}
-
-.asist .card h2 {
-  margin: 0;
-  font-size: 2em;
-  color: #003366;
-}
-
-.asist .card p {
-  margin: 5px 0 0;
-  font-weight: bold;
-}
-
-.asist form.filter-form {
-  text-align: center;
-  justify-self: center;
-}
-
-.asist .filter-form input, .filter-form select {
-  padding: 8px 12px;
-  margin: 0 5px 10px;
-  border: 1px solid #ccc;
-  border-radius: 6px;
-}
-
-.asist .filter-form button {
-  padding: 8px 16px;
-  background-color: #ccc;
-  color: #003366;
-  border: none;
-  border-radius: 6px;
-  cursor: pointer;
-  transition: 0.2s;
-}
-
-.asist .filter-form button:hover {
-  background-color: #003366;
-  color: white;
-}
-
 .scroll-table {
   overflow-y: auto;
-  height: 33vh;
-}
-
-.scroll-table thead tr th{
-  border: 0;
+  max-height: 33vh;
+  margin-bottom: 2rem;
 }
 
 table {
@@ -535,7 +473,8 @@ table {
   border-collapse: collapse;
 }
 
-th, td {
+th,
+td {
   padding: 12px;
   border: 1px solid #ddd;
   text-align: center;
@@ -547,6 +486,7 @@ th {
   top: 0;
   background-color: #003366;
   color: white;
+  border: 0;
 }
 
 tr {
@@ -581,17 +521,16 @@ tr:nth-child(even) {
 
 .notas .summary {
   display: flex;
-  justify-content: space-evenly;
+  justify-content: center;
   margin-bottom: 0.5rem;
 }
 
 .notas .card {
   background: #e9f5ff;
-  padding: 1.2rem;
+  padding: 1rem;
   flex: 1;
   border-radius: 8px;
   text-align: center;
-  margin: 0 10px;
 }
 
 .notas .card h2 {
@@ -608,7 +547,7 @@ tr:nth-child(even) {
 .notas form.filter-form {
   display: flex;
   align-items: center;
-  justify-content: space-around;
+  justify-content: space-evenly;
 }
 
 .notas .filter-form select {
@@ -616,6 +555,7 @@ tr:nth-child(even) {
   margin: 0 5px 10px;
   border: 1px solid #ccc;
   border-radius: 6px;
+  max-width: 20vh;
 }
 
 .notas .filter-form input {
@@ -640,6 +580,88 @@ tr:nth-child(even) {
   color: white;
 }
 
+.ingreso-nota {
+  display: flex;
+  margin-top: 2rem;
+  justify-content: center;
+  gap: 0.8rem;
+}
+
+.inputs {
+  display: flex;
+  align-items: center;
+  gap: 0.2rem;
+}
+
+.ingreso-nota input {
+  padding: 0.5rem 0.06rem;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  width: 5rem;
+}
+
+.n-nota{
+  padding: 0.5rem 0.3rem;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  width: auto;
+  text-align: center;
+}
+
+.n-materia{
+  padding: 0.5rem 0.06rem;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  max-width: 25vh;
+  padding-inline: 0.6vh;
+  text-align: left;
+}
+
+.n-nombre{
+  padding: 0.5rem 0.06rem;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  max-width: 25vh;
+  padding-inline: 0.6vh;
+  text-align: left;
+}
+
+.btn-enviar {
+  padding: 8px 16px;
+  background-color: #ccc;
+  color: #003366;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.btn-enviar:hover {
+  background-color: #003366;
+  color: white;
+}
+
+/*-----------------------------------FOOTER--------------------------------------------- */
+footer {
+  background-color: #003366;
+  color: white;
+  text-align: center;
+  padding: 20px;
+  margin-top: auto;
+}
+
+@keyframes aparecer {
+  from {
+    opacity: 0;
+    transform: translate(-50%, -60%);
+  }
+
+  to {
+    opacity: 1;
+    transform: translate(-50%, -50%);
+  }
+}
+
 .tag-user {
   display: flex;
   gap: 1vh;
@@ -658,18 +680,4 @@ tr:nth-child(even) {
   border-image: initial;
   text-decoration: none;
   transition: background-color 0.4s, color 0.4s;
-}
-
-/*-----------------------------------FOOTER--------------------------------------------- */
-footer {
-  background-color: #003366;
-  color: white;
-  text-align: center;
-  padding: 20px;
-  margin-top: auto;
-}
-
-@keyframes aparecer {
-  from { opacity: 0; transform: translate(-50%, -60%); }
-  to { opacity: 1; transform: translate(-50%, -50%); }
 }

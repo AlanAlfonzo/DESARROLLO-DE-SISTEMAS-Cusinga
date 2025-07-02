@@ -1,0 +1,35 @@
+const sequelize = require('../../config/mySql.js')
+const { DataTypes } = require('sequelize')
+
+const Materias = sequelize.define('Materias', {
+    idMateria: {
+        type: DataTypes.INTEGER,
+        primaryKey: true,
+        autoIncrement: true
+    },
+    idProfe: {
+        type: DataTypes.INTEGER,
+        allowNull: false,
+        references: {
+            model: 'profPerfiles',
+            key: 'idProfe'
+        }
+    },
+    idAnio: { 
+        type: DataTypes.INTEGER,
+        allowNull: false,
+        references: {
+            model: 'anio',
+            key: 'idAnio'
+        }
+    },
+    nombre: {
+        type: DataTypes.STRING,
+        allowNull: false,
+    }
+}, {
+    tableName: 'materias',
+    timestamps: false,
+})
+
+module.exports = Materias

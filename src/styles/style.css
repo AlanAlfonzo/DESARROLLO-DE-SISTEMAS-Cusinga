@@ -14,15 +14,16 @@ body {
 }
 
 header {
-  position: fixed;        
+  position: fixed;
   top: 0;
   left: 0;
   width: 100%;
   background-color: #003366;
   color: white;
   padding: 1rem 0;
-  z-index: 1;  
+  z-index: 1;
 }
+
 .contenedor-header {
   margin: 0 auto;
   display: flex;
@@ -155,10 +156,22 @@ footer {
   top: 0vh;
 }
 
-/* responsive */
+.tag-user {
+  display: flex;
+  gap: 1vh;
+  padding-right: 1rem;
+}
 
-@media (max-width: 600px) {
-  body {
-    background-color: red;
-  }
+.tag-user a {
+  background-color: aliceblue;
+  color: rgb(0, 51, 102);
+  font-weight: bold;
+  padding: 0.5rem 1rem;
+  border-radius: 10px;
+  border-width: initial;
+  border-style: none;
+  border-color: initial;
+  border-image: initial;
+  text-decoration: none;
+  transition: background-color 0.4s, color 0.4s;
 }

@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Escuela San Martín</title>
+  <link rel="stylesheet" href="../src/styles/styleEsp.css">
+</head>
+<body>
+  <header>
+        <div class="contenedor-header">
+            <nav class="botones">
+                <a href="/">INICIO</a>
+                <a href="/especialidades">ESPECIALIDADES</a>
+                <a href="/#contacto">CONTACTO</a>
+                <% if(typeof ok === 'boolean' ){ %>
+                    <a href="panel">PANEL</a>
+                <% } %>
+            </nav>
+            <% if(typeof ok !== 'boolean' ){ %>
+                <div class="logueo">
+                    <a href="/register" id="reg">REGISTRARSE</a>
+                    <a href="/login" id="log">LOGIN</a>
+                </div>
+            <% } %>
+            <% if(typeof ok === 'boolean' ){%>
+                <div class="tag-user">
+                  <a><%= nombres %></a>
+                </div>
+            <% } %>
+        </div>
+    </header>
+<div class="contenedorESPECIALIDADES">
+  <section id="computacion" class="seccion">
+    <h2>Técnico en computación</h2>
+    <p>La orientación en Computación forma técnicos con sólidos conocimientos en programación, redes, bases de datos, diseño web y desarrollo de software. A lo largo de la carrera, los estudiantes adquieren habilidades para resolver problemas tecnológicos, crear soluciones digitales y adaptarse a los constantes avances del mundo informático. Esta especialidad prepara a los egresados para trabajar en empresas de tecnología, instituciones educativas, emprendimientos propios o continuar estudios superiores en carreras afines.</p>
+    <div class="imagen-container">
+    <img src="../src/img/computacion.jpg" class="espimg" alt="computacion">
+  </div>
+    </section>
+  <section id="mecanica" class="seccion">
+    <h2>Técnico Mecánico</h2>
+    <p>La especialidad en Mecánica brinda una formación técnica orientada al diseño, mantenimiento y reparación de sistemas mecánicos. Los alumnos aprenden a trabajar con herramientas, máquinas y procesos de fabricación utilizados en talleres e industrias. Esta formación incluye conocimientos en dibujo técnico, mecanizado, automatización básica y seguridad laboral, permitiendo una salida laboral concreta en el sector industrial o la posibilidad de seguir estudios relacionados con la ingeniería mecánica o industrial.</p>
+     <div class="imagen-container">
+    <img src="../src/img/mecanica.jpg" class= "espimg" alt="mecanica">
+  </div>
+</section>
+  <section id="automotores" class="seccion">
+    <h2>Técnico en Automotores</h2>
+    <p>La orientación en Automotores capacita a los estudiantes en el diagnóstico, mantenimiento y reparación de vehículos automotores. A lo largo de la especialidad, se adquieren conocimientos sobre motores, sistemas de inyección, frenos, suspensión, electricidad del automóvil y nuevas tecnologías aplicadas al rubro automotriz. Los egresados estarán preparados para desempeñarse en talleres mecánicos, concesionarias, servicios técnicos o continuar su formación en carreras vinculadas a la ingeniería automotriz o electromovilidad.</p>
+     <div class="imagen-container">
+    <img src="../src/img/automotores.jpg" class= "espimg" alt="automotores">
+  </div>
+</section>
+</div>
+  <footer>
+    <p>&copy; 2025 Escuela Secundaria San Martín. Todos los derechos reservados.</p>
+  </footer>
+</body>
+</html>

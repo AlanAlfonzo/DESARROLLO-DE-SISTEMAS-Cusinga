@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registro</title>
+    <link rel="stylesheet" href="../../src/styles/styleReg.css">
+</head>
+<body class="login">
+    
+    <header>
+        <div class="contenedor-header">
+            <nav class="botones">
+                <a href="/">INICIO</a>
+                <a href="/especialidades">ESPECIALIDADES</a>
+                <a href="/#contacto">CONTACTO</a>
+            </nav>
+            
+            <div class="logueo">
+                <a href="/register" id="reg">REGISTRARSE</a>
+                <a href="/login" id="log">LOGIN</a>
+            </div>
+            
+        </div>
+    </header>
+    <% if (typeof error !== 'undefined'){%>
+        <% if(error == 'email'){ %>
+            <script>alert('Email ya registrado')</script>    
+        <%} else if(error == 'dni'){%>
+            <script>alert('Dni ya registrado')</script>    
+        <%} else if(error == 'telefono'){%>
+            <script>alert('Telefono ya registrado')</script>    
+        <%}%>
+    <%}%>
+    <main class="main-login">
+        <form class="form-login" method="post" action="/register">
+            <h2>Registrate</h2>
+            <label for="nombres">Nombre/s:</label>
+            <input type="text" id="nombres" placeholder="Ingrese sus nombres" name="nombres" required>
+
+            <label for="apellidos">Apellido/s:</label>
+            <input type="text" id="apellidos" placeholder="Ingrese sus apellidos" name="apellidos" required>
+
+            <label for="dni">DNI:</label>
+            <input type="number" id="dni" placeholder="12345678" name="dni" max="99999999" required>
+
+            <label for="mail">Email:</label>
+            <input type="email" id="mail" placeholder="example@gmail.com" name="email" required>
+
+            <label for="telefono">Telefono:</label>
+            <input type="phone" id="telefono" placeholder="11 2233-4455" name="telefono" required>
+
+            <label for="passw">Contraseña:</label>
+            <input type="password" id="password" placeholder="Ingrese su contraseña" name="password" required>
+
+            <button type="submit">Registrarse</button>
+        </form>
+    </main>
+    <footer>
+        <p>&copy; 2025 Escuela Secundaria San Martín. Todos los derechos reservados.</p>
+    </footer>
+
+</body>
+</html>

@@ -1,162 +1,209 @@
-const cookieParser = require('cookie-parser');
-const mysql = require('mysql2/promise')
-const jwt = require('jsonwebtoken');
+const { AlumPerfiles, Usuarios } = require('./src/database/models/relaciones.js')
+const insertDataInDB = require('./src/database/utils/insertDataInDB.js')
+const getDataPanelAlum = require('./src/utils/getDataPanelAlum.js')
+const getDataUser = require('./src/utils/getDataUser')
+const getDataPanelProf = require('./src/utils/getDataPanelProf.js')
+const login = require('./src/database/utils/login.js')
+const sequelize = require('./src/config/mySql.js')
+const cookieParser = require('cookie-parser')
+const jwt = require('jsonwebtoken')
 const express = require('express')
 const path = require('path')
 const cors = require('cors')
+require('dotenv').config()
 const app = express()
-const passwordCookie = 'claveSecreta123'
-const port = 3000
-
-const sql = mysql.createPool({
-    host: 'localhost',
-    user: 'root',
-    password: '',
-    database: 'escuelaEt32',
-})
+const port = process.env.port || 3000
 
 console.clear()
 
+app.set('views', path.join(__dirname, 'src', 'views'))
 app.use(express.urlencoded({ extended: true }))
 app.use(express.static(path.join(__dirname)))
+app.set('view engine', 'ejs')
+app.use(cookieParser())
 app.use(express.json())
-app.use(cookieParser());
 app.use(cors())
 
-app.get('/', (req, res) => {
-    res.sendFile(path.join(__dirname,'/src/html/home.html'))
-})
+async function initSQLDatabase() {
+    await sequelize.authenticate()
+    await sequelize.sync({ force: true })
+}
 
-app.get('/login', (req, res) => {
-    res.sendFile(path.join(__dirname,'/src/html/login.html'))
-})
+initSQLDatabase()
+    .then(() => {
+        console.log('Database connection established successfully!')
+        insertDataInDB()
+    })
+    .catch((err) => console.log(err))
 
-app.get('/register', (req, res) => {
-    res.sendFile(path.join(__dirname,'/src/html/registro.html'))
-})
+function getToken(req, res, next){
 
-app.get('/especialidades', (req, res) => {
-    res.sendFile(path.join(__dirname,'/src/html/especialidades.html'))
-})
-
-app.get('/panel', (req, res) => {
-    res.sendFile(path.join(__dirname,'/src/html/panel.html'))
-})
-
-app.get('/panel-docente', (req, res) => {
-    res.sendFile(path.join(__dirname,'/src/html/panel-docente.html'))
-})
-
-app.get('/panel-preceptor', (req, res) => {
-    res.sendFile(path.join(__dirname,'/src/html/panel-preceptor.html'))
-})
-
-app.post('/login', async (req, res) => {
-    const mail = req.body['mail']
-    const password = req.body['password']
-    const rol = req.body['rol']
-    if (rol == 'alumno') {
-        let results = await sql.query(`SELECT id, verificacion FROM alumnos WHERE mail = '${mail}' AND passw = '${password}'`)
-        try {
-            if (results[0][0]['id'] && results[0][0]['verificacion'] == 'Verificado') {
-                res.json({ body: {status: 200}})
-            } else if (results[0][0]['id'] && results[0][0]['verificacion'] != 'Verificado') {
-                res.json({ body: {status: 200, verificacion: 'pendiente' }})
-            }
-        } catch (error) {
-            res.json({ body: { status: 404, message: 'Datos incorrectos'}})
-        }
-    } else if (rol == 'profe') {
-        let results = await sql.query(`SELECT id, moderation FROM profesores WHERE mail = '${mail}' AND passw = '${password}'`)
-        try {
-            if (results[0][0]['id']) {
-                res.json({ body: {status: 200}})
-            }
-        } catch (error) {
-            res.json({ body: {status: 404}})
-        }
-    } else {
-        res.json({ body : { status: 404, message: 'Hay un error con en la peticion' }})
-    }
-
-})
-
-app.post('/registrar-alumno', async (req, res) => {
-    const nombres = req.body['nombres']
-    const apellidos = req.body['apellidos']
-    const dni = req.body['dni']
-    const mail = req.body['mail']
-    const telefono = req.body['telefono']
-    const password = req.body['password']
-
-    var results = await sql.query(`SELECT id FROM alumnos WHERE mail = '${mail}';`)
+    const token = req.cookies.token
+    req.session = { token: null }
 
     try {
-        if (results[0][0]['id']) {
-            res.json({ body: {status: 404}})
-        }
-    } catch (error) {
-        var results = await sql.query(`INSERT INTO alumnos (nombres, apellidos, dni, mail, passw) VALUES ("${nombres}", "${apellidos}", ${dni}, "${mail}", "${password}");`)
-        const result = results[0]['affectedRows']
-        if (result == 1) {
-            res.json({ body: {status: 200}})
-        }
+        let result = jwt.verify(token, process.env.secretWord)
+        req.session.token = result
+    } catch (err) { }
+
+    next()
+
+}
+
+function redirect(req, res, next){
+
+    const { token } = req.session
+    if (token != null ){
+        res.re
+        return res.redirect('/')
     }
+
+    next()
+}
+
+app.use('/', getToken)
+
+// rutas publicas
+
+app.get('/panelProf', (req, res) => {
+    res.render('panelDocente', {nombres: 'Gonzalo'})
 })
 
-app.post('/anotar-asistencia', async (req, res) => {
-    const idAlumno = req.body['idAlumno']
-    const idProfe = req.body['idProfe']
-    const materia = req.body['materia']
-    const fechaHora = req.body['fechaHora']
-    const puntualidad = req.body['puntualidad']
+app.get('/', async (req, res) => {
+    const { token } = req.session
+    if (token != null){
 
-    let results = await sql.query(`INSERT INTO asistencia (idAlumno, idProfe, materia, fechaHora, puntualidad) VALUES (${idAlumno}, ${idProfe}, '${materia}', '${fechaHora}', '${puntualidad}'`)
-
-    if(results[0]['affectedRows'] != 0){
-        res.json({ body: {status: 200 }})
-    }else{
-        res.json({ body: {status: 400 }})
+        let data = await getDataUser(token.idUser, token.idRol)
+        return res.render('home', data)
     }
-})
-
-app.post('/obtener-asistencia', async (req, res) => {
-    const idAlumno = req.body['idAlumno']
-    const materia = req.body['materia']
-
-    let results = await sql.query(`SELECT a.nombres, a.apellidos, asis.materia, asis.fechaHora, asis.puntualidad FROM alumnos a INNER JOIN asistencia asis ON ${idAlumno} = asis.idAlumno WHERE materia = '${materia}'`)
-
-    res.json({ body: results[0] })
+    res.render('home')
 
 })
 
-app.post('/subir-notas', async (req, res) => {
-    const idAlumno = req.body['idAlumno']
-    const idProfe = req.body['idProfe']
-    const materia = req.body['materia']
-    const nota = req.body['nota']
-    const fecha = req.body['fecha']
+app.get('/login', redirect, (req, res) => {
 
-    let results = await sql.query(`INSERT INTO notas (idAlumno, idProfe, nota, materia, fecha) values (${idAlumno}, ${idProfe}, ${nota}, ${materia}, ${fecha})`)
+    return res.render('login')
+})
+
+app.get('/register', redirect, (req, res) => {
     
-    if(results[0]['affectedRows'] != 0){
-        res.json({ body: {status: 200}})
-    }else{
-        res.json({body: {status: 404}})
+    return res.render('registro')
+})
+
+app.get('/especialidades', async (req, res) => {
+    const { token } = req.session
+    if (token != null) {
+        let data = await getDataUser(token.idUser, token.idRol)
+        return res.render('especialidades', data)
+    }
+    return res.render('especialidades')
+})
+
+// rutas protegidas
+
+app.post('/ordenar-asistencias', async (req, res) => {
+    const { token } = req.session
+
+    console.log(token)
+})
+
+app.get('/panel', async (req, res) => {
+    
+    const { token } = req.session
+
+    if(token === null){
+        return res.redirect('/')
+    }
+
+    const userData = await getDataUser(token.idUser, token.idRol)
+
+    // Vista Alumno
+    if(token.idRol === 1){
+        let data = await getDataPanelAlum(token.idUser)
+        const info = { ...userData, ...data}
+        return res.render('panelAlumno', info)
+    }
+
+    // Vista Preceptor
+    else if(token.idRol === 2){
+        const info = { ...userData}
+        return res.render('panelPreceptor', info)
+    }
+
+    // Vista Profesor
+    else if(token.idRol === 3){
+        let data = await getDataPanelProf(token.idUser)
+        const info = { ...userData, ...data}
+        return res.render('panelDocente', info)
     }
 
 })
 
-app.post('/obtener-notas', async (req, res) => {
-    const idAlumno = req.body['idAlumno']
-    const materia = req.body['materia']
+app.post('/logout', async (req, res) => {
+    res.clearCookie('token')
+    res.json({
+        ok: true
+    })
+})
 
-    let results = await sql.query(`SELECT a.nombres, a.apellidos, n.nota, n.materia, n.fecha FROM alumnos a INNER JOIN notas n ON ${idAlumno} = n.idAlumno WHERE materia = '${materia}'`)
+// endpoints register-login publico
 
-    res.json({body: results[0]})
+app.post('/login', async (req, res) => {
+
+    const { email, password } = req.body
+
+    const payload = await login(email, password)
+
+    if(payload.status == 0){
+        console.log(payload)
+    }
+    
+    if(payload.status == 1){
+        return res.sendFile(path.join(__dirname,'/src/views/sinVerificacion.html'))
+    }
+
+    if (payload.status == 2) {
+        const token = jwt.sign({
+            idUser: payload.body.idUser, idRol: payload.body.idRol
+        }, process.env.secretWord,
+            {
+                expiresIn: '15m'
+            })
+        res.cookie('token', token, {
+            httpOnly: true,
+            secure: false,
+            sameSite: 'Strict',
+            maxAge: 1000 * 60 * 15
+        })
+    }
+
+    res.redirect('/')
 
 })
 
-app.listen(port, () => {
-    console.log(`Example app listening on port ${port}`)
+app.post('/register', async (req, res) => {
+
+    const { nombres, apellidos, dni, email, telefono, password } = req.body
+    let error = 'email'
+    try{
+        await Usuarios.create({ email: email, password: password })
+        const userData = await Usuarios.findAll({where: {email: email}})
+        await AlumPerfiles.create({idAlumno: userData[0].dataValues.idUsuario ,nombres: nombres, apellidos: apellidos, dni: dni, telefono: telefono})
+        return res.redirect('/') /* ver la manera de comunicar de que se creo la cuenta con exito */
+    }catch(err){
+        
+        if (err.errors[0].path == 'email'){
+            error = 'email'
+        }
+        if (err.errors[0].path == 'dni'){
+            error = 'dni'
+        }
+        if (err.errors[0].path == 'telefono'){
+            error = 'telefono'
+        }
+        return res.render('registro', error) // ver la manera de comunicar de que hay algun error con los datos
+    }
+
 })
+
+app.listen(port, () => console.log(`Express en linea en: http://localhost:${port}`))
