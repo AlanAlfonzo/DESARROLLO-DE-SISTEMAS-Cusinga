@@ -1,11 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <link rel="stylesheet" href="../src/styles/stylePanPrece.css">
 </head>
+
 <body>
     <header>
         <div class="contenedor-header">
@@ -16,7 +18,9 @@
                 <a href="/panel">PANEL</a>
             </nav>
             <div class="tag-user">
-                <a><%= nombres %></a>
+                <a>
+                    <%= nombres %>
+                </a>
             </div>
     </header>
     <section class="panel">
@@ -71,49 +75,67 @@
         <div id="asistencias" class="asist">
             <div class="container">
                 <h2>Asistencias</h2>
-                <div class="summary">     
-                    <div class="card">
-                        <h3 class="student-name"> Asistencias registradas: </h3>
-                        <h2 id="total-inasistencias">52</h2>
-                        <p>Inasistencias</p>  
-                    </div>
-                </div>
                 <form class="filter-form" id="filter-form">
-                    <label for="tipo">Ordenar por:</label>
-                    <select name="tipo" id="orden-asis" style="margin-right: 10vh;">
-                        <option value="desc">Descendente</option>
-                        <option value="asc">Ascendente </option>
-                    </select>
+                    <div class="filter-grid">
+                        <div class="filter-group">
+                            <label for="anios">Año</label>
+                            <select name="anios" id="anios">
+                                <option value="1">1</option>
+                                <option value="2">2</option>
+                                <option value="3">3</option>
+                                <option value="4">4</option>
+                                <option value="5">5</option>
+                                <option value="6">6</option>
+                            </select>
+                        </div>
 
-                    <label for="tipo">Tipo:</label>
-                    <select id="tipo-asis" name="tipo">
-                        <option value="todas">Todas</option>
-                        <option value="asistencia">Solo Asistencias</option>
-                        <option value="tarde">Solo Tarde</option>
-                        <option value="inasistencia">Solo Inasistencias</option>
-                    </select>
-                    <button id="filtro-asis">Filtrar</button>
+                        <div class="filter-group">
+                            <label for="cursos">Curso</label>
+                            <select name="cursos" id="cursos"></select>
+                        </div>
+
+                        <div class="filter-group">
+                            <label for="alumnos">Alumno</label>
+                            <select name="alumnos" id="alumnos"></select>
+                        </div>
+
+                        <div class="filter-group">
+                            <label for="orden-asis">Ordenar por</label>
+                            <select name="tipo" id="orden-asis">
+                                <option value="desc">Descendente</option>
+                                <option value="asc">Ascendente</option>
+                            </select>
+                        </div>
+
+                        <div class="filter-group">
+                            <label for="tipo-asis">Tipo</label>
+                            <select id="tipo-asis" name="tipo">
+                                <option value="todas">Todas</option>
+                                <option value="asistencia">Solo Asistencias</option>
+                                <option value="tarde">Solo Tarde</option>
+                                <option value="inasistencia">Solo Inasistencias</option>
+                            </select>
+                        </div>
+
+                        <div class="filter-group">
+                            <label>&nbsp;</label>
+                            <button id="filtro-asis" type="submit">Cargar</button>
+                        </div>
+                    </div>
                 </form>
+
                 <div class="scroll-table">
                     <table>
                         <thead>
                             <tr>
+                                <th>Alumno</th>
                                 <th>Fecha</th>
                                 <th>Puntualidad</th>
                             </tr>
                         </thead>
                         <tbody id="tabla-asistencias" class="tabla-asis">
                             <tr>
-                                <td>2025-01-01</td>
-                                <td>Asistencia</td>
-                            </tr>
-                            <tr>
-                                <td>2025-01-01</td>
-                                <td>Asistencia</td>
-                            </tr>
-                            <tr>
-                                <td>2025-01-01</td>
-                                <td>Asistencia</td>
+                                <td colspan="3">No se cargaron datos.</td>
                             </tr>
                         </tbody>
                     </table>
@@ -126,7 +148,7 @@
     </footer>
     <script preload>
 
-    actualizarBotonesActivos("cuenta");
+        actualizarBotonesActivos("cuenta");
 
         document.getElementById("cuenta").addEventListener("click", () => {
             document.getElementById("inicio").style.display = "flex";
@@ -149,7 +171,7 @@
                 }
             });
         }
-        
+
         document.getElementById("cerrar-ses").addEventListener("click", () => {
             fetch('/logout', {
                 method: 'POST',
@@ -165,4 +187,5 @@
 
     </script>
 </body>
+
 </html>

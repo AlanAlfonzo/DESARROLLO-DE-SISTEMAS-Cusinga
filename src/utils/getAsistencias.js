@@ -7,10 +7,9 @@ async function getAsistencias(idUser) {
         puntualidad: [],
     }
 
-
     // Consultas e ingreso de datos del apartado de Asistencias al objeto 'data'
 
-    let asistencias = await Asistencia.findAndCountAll({
+    let asistencias = await Asistencias.findAndCountAll({
         attributes: ['fecha', 'puntualidad'],
         where: { idAlumno: idUser },
         order: [['fecha', 'DESC']]
