@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Escuela San Martín</title>
     <link rel="stylesheet" href="../src/styles/stylePanPrece.css">
 </head>
 
@@ -81,46 +81,49 @@
                             <label for="anios">Año</label>
                             <select name="anios" id="anios">
                                 <option value="">-</option>
-                                <option value="1">1</option>
-                                <option value="2">2</option>
-                                <option value="3">3</option>
-                                <option value="4">4</option>
-                                <option value="5">5</option>
-                                <option value="6">6</option>
+                                <option value="1">1º</option>
+                                <option value="2">2º</option>
+                                <option value="3">3º</option>
+                                <option value="4">4º</option>
+                                <option value="5">5º</option>
+                                <option value="6">6º</option>
                             </select>
                         </div>
 
                         <div class="filter-group">
                             <label for="cursos">Curso</label>
-                            <select name="cursos" id="cursos"></select>
+                            <select name="cursos" id="cursos">
+                                <option value="">-</option>
+                            </select>
                         </div>
 
                         <div class="filter-group">
                             <label for="alumnos">Alumno</label>
-                            <select name="alumnos" id="alumnos"></select>
+                            <select name="alumnos" id="alumnos">
+                                <option value="0">-</option>
+                            </select>
                         </div>
 
                         <div class="filter-group">
                             <label for="orden-asis">Ordenar por</label>
                             <select name="tipo" id="orden-asis">
-                                <option value="desc">Descendente</option>
-                                <option value="asc">Ascendente</option>
+                                <option value="DESC">Descendente</option>
+                                <option value="ASC">Ascendente</option>
                             </select>
                         </div>
 
                         <div class="filter-group">
                             <label for="tipo-asis">Tipo</label>
                             <select id="tipo-asis" name="tipo">
-                                <option value="todas">Todas</option>
-                                <option value="asistencia">Solo Asistencias</option>
-                                <option value="tarde">Solo Tarde</option>
-                                <option value="inasistencia">Solo Inasistencias</option>
+                                <option value="0">Todas</option>
+                                <option value="1">Solo Asistencias</option>
+                                <option value="2">Solo Tarde</option>
+                                <option value="3">Solo Inasistencias</option>
                             </select>
                         </div>
 
                         <div class="filter-group">
-                            <label>&nbsp;</label>
-                            <button id="filtro-asis" type="submit">Cargar</button>
+                            <button disabled id="filtro-asis" type="submit">Cargar</button>
                         </div>
                     </div>
                 </form>
@@ -162,6 +165,115 @@
             document.getElementById("asistencias").style.display = "flex";
             actualizarBotonesActivos("apartadoAsistencias");
         });
+
+        document.getElementById("anios").addEventListener("change", (event) => {
+            event.target.options[0].disabled = true
+
+            const anioSeleccionado = event.target.value
+            fetch(`/filtros/cursos/${anioSeleccionado}`)
+            .then(response => {
+                if (response.ok) {
+                    return response.json()
+                } else {
+                    throw new Error('Error al cargar los cursos')
+                }
+            }).then(data => {
+                const cursosSelect = document.getElementById("cursos")
+                const selectAlumno = document.getElementById("alumnos")
+                const botonCargar = document.getElementById("filtro-asis")
+                const cursos = data.body
+                selectAlumno.innerHTML = '<option value="">-</option>'
+                cursosSelect.innerHTML = '<option value="">-</option>'
+                botonCargar.disabled = true
+                botonCargar.style.backgroundColor = '#888d93'
+                for( let i = 0; i < cursos.idAnio.length; i++) {
+                    const option = document.createElement("option")
+                    option.value = cursos.idAnio[i]
+                    option.textContent = cursos.cursos[i]
+                    cursosSelect.appendChild(option)
+                }
+            }).catch(error => {
+                console.error(error)
+            })
+        })
+
+        document.getElementById("cursos").addEventListener("change", (event) => {
+            event.target.options[0].disabled = true
+
+            const cursoId = event.target.value
+            fetch(`/filtros/nombres/${cursoId}`)
+            .then(response => {
+                if (response.ok) {
+                    return response.json()
+                } else {
+                    throw new Error('Error al cargar los cursos')
+                }
+            }).then(data => {
+                const selectAlumno = document.getElementById("alumnos")
+                const alumnos = data.body
+                const botonCargar = document.getElementById("filtro-asis")
+                if(!alumnos.idAlumnos[0]){
+                    botonCargar.disabled = true
+                    botonCargar.style.backgroundColor = '#888d93'
+                    selectAlumno.innerHTML = '<option value="">No existen alumnos</option>'
+                }
+                else {
+                    botonCargar.style.backgroundColor = '#007bff'
+                    botonCargar.disabled = false
+                    selectAlumno.innerHTML = '<option value="">Todos</option>'
+                    for (let i = 0; i < alumnos.idAlumnos.length; i++) {
+                        const option = document.createElement("option")
+                        option.value = alumnos.idAlumnos[i]
+                        option.textContent = `${alumnos.nombres[i]} ${alumnos.apellidos[i]}`
+                        selectAlumno.appendChild(option)
+                    }
+                }
+            }).catch(error => {
+                console.error(error)
+            })
+
+        })
+
+        document.getElementById('filtro-asis').addEventListener('click', (event) => {
+
+            const data = encodeURIComponent(JSON.stringify({
+                idUser: document.getElementById('alumnos').options[document.getElementById('alumnos').selectedIndex].value,
+                orden: document.getElementById('orden-asis').options[document.getElementById('orden-asis').selectedIndex].value,
+                tipo: document.getElementById('tipo-asis').options[document.getElementById('tipo-asis').selectedIndex].value
+            }))
+
+            fetch(`/panel/asistencias/${data}`)
+            .then(response => {
+                if(response.ok){
+                    return response.json()
+                }else {
+                    throw new error('Error al cargar las asistencias')
+                }
+            }).then(data => {
+                const tablaAsistencias = document.getElementById('tabla-asistencias')
+                const asistencias = data.body
+                for( let i = 0; i < asistencias.fechas.length; i++){
+                    const asistencia = document.createElement('tr')
+
+                    const nombre = document.createElement('td')
+                    nombre.textContent(asistencias.nombres[i])
+                    asistencia.appendChild(nombre)
+
+                    const fecha = document.createElement('td')
+                    fecha.textContent(asistencias.fechas[i])
+                    asistencia.appendChild(fecha)
+
+                    const tipo = document.createElement('td')
+                    tipo.textContent(asistencias.tipo[i])
+                    asistencia.appendChild(tipo)
+
+                    tablaAsistencias.appendChild(asistencia)
+                }
+            }).catch(error => {
+                console.log(error)
+            })
+
+        })
 
         function actualizarBotonesActivos(idActivo) {
             document.querySelectorAll("#cuenta, #apartadoAsistencias").forEach(boton => {

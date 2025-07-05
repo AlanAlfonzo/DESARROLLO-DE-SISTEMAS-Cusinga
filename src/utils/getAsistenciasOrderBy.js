@@ -1,4 +1,4 @@
-const {Asistencia} = require('../database/models/Relaciones.js')
+const {Asistencia} = require('../database/models/Asistencias.js')
 
 /**
  * @param {List[]} parametros
@@ -24,16 +24,24 @@ async function getAsistenciasOrderBy(parametros) {
         puntualidad: [],
     }
 
+    const where = {
+        idAlumno: parametros[0],
+    }
+
+    if(parametros[2] !== 0){
+        where.puntualidad = 
+            parametros[2] === 1 ? 'Presente' :
+            parametros[2] === 2 ? 'Tarde' :
+            'Ausente';
+    }
+
     if(parametros[1]){
         parametros[1] = 'DESC'
     }
 
     const asistencias = await Asistencia.findAndCountAll({
         attributes: ['fecha', 'puntualidad'],
-        where: { 
-            idAlumno: parametros[0],
-            puntualidad: (parametros[2] == 1) ? 'Presente' : (parametros[2] == 2) ? 'Tarde' : 'Ausente'
-        },
+        where: where,
         order: [['fecha', parametros[1]]]
     })
 
@@ -51,6 +59,8 @@ async function getAsistenciasOrderBy(parametros) {
         console.log(fechaFormateada)
         data.puntualidad.push(asistencias.rows[x].dataValues.puntualidad);
     }
+
+    return data
 
 }
 

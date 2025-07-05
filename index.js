@@ -1,8 +1,9 @@
 const { AlumPerfiles, Usuarios } = require('./src/database/models/relaciones.js')
 const insertDataInDB = require('./src/database/utils/insertDataInDB.js')
 const getDataPanelAlum = require('./src/utils/getDataPanelAlum.js')
-const getDataUser = require('./src/utils/getDataUser')
 const getDataPanelProf = require('./src/utils/getDataPanelProf.js')
+const getDataUser = require('./src/utils/getDataUser')
+const { getCursos, getAlumnosNames } = require('./src/utils/getDataFilters.js')
 const login = require('./src/database/utils/login.js')
 const sequelize = require('./src/config/mySql.js')
 const cookieParser = require('cookie-parser')
@@ -146,6 +147,57 @@ app.post('/logout', async (req, res) => {
     })
 })
 
+app.get('/filtros/cursos/:anio', async (req, res) => {
+    
+    const { token } = req.session
+
+    if(token === null){
+        return res.json({
+            status: 404
+        })
+    }
+
+    const anio = req.params.anio
+    const cursos = await getCursos(anio)
+
+    return res.json({ ok: true, body: cursos})
+
+})
+
+app.get('/filtros/nombres/:idAnio', async (req, res) => {
+    
+    const { token } = req.session
+
+    if(token === null){
+        return res.json({
+            status: 404
+        })
+    }
+
+    const idAnio = req.params.idAnio
+    const alumnos = await getAlumnosNames(idAnio)
+
+    return res.json({ ok: true, body: alumnos})
+
+})
+
+app.get('/panel/asistencias/:data', async (req, res) => {
+
+    const { token } = req.session
+
+    if(token === null){
+        return res.json({
+            status: 404
+        })
+    }
+
+    const { idUser, orden, tipo } = JSON.parse(decodeURIComponent(req.params.data))
+
+    console.log(idUser, orden, tipo)
+
+
+})
+
 // endpoints register-login publico
 
 app.post('/login', async (req, res) => {
@@ -155,7 +207,7 @@ app.post('/login', async (req, res) => {
     const payload = await login(email, password)
 
     if(payload.status == 0){
-        console.log(payload)
+
     }
     
     if(payload.status == 1){
@@ -175,9 +227,9 @@ app.post('/login', async (req, res) => {
             sameSite: 'Strict',
             maxAge: 1000 * 60 * 15
         })
+        return res.redirect('/')
     }
 
-    res.redirect('/')
 
 })
 
