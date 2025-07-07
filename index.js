@@ -1,11 +1,12 @@
 const { AlumPerfiles, Usuarios } = require('./src/database/models/relaciones.js')
+const { getCursos, getAlumnosNames } = require('./src/utils/getDataFilters.js')
+const getAsistenciasOrderBy = require('./src/utils/getAsistenciasOrderBy.js')
 const insertDataInDB = require('./src/database/utils/insertDataInDB.js')
 const getDataPanelAlum = require('./src/utils/getDataPanelAlum.js')
 const getDataPanelProf = require('./src/utils/getDataPanelProf.js')
 const getDataUser = require('./src/utils/getDataUser')
-const { getCursos, getAlumnosNames } = require('./src/utils/getDataFilters.js')
 const login = require('./src/database/utils/login.js')
-const sequelize = require('./src/config/mySql.js')
+const sequelize = require('./src/database/config/mySql.js')
 const cookieParser = require('cookie-parser')
 const jwt = require('jsonwebtoken')
 const express = require('express')
@@ -191,10 +192,11 @@ app.get('/panel/asistencias/:data', async (req, res) => {
         })
     }
 
-    const { idUser, orden, tipo } = JSON.parse(decodeURIComponent(req.params.data))
+    const { idUser, orden, tipo, idAnio } = JSON.parse(decodeURIComponent(req.params.data))
 
-    console.log(idUser, orden, tipo)
-
+    const data = await getAsistenciasOrderBy([idUser, orden, tipo, idAnio])
+    console.log(data)
+    return res.json({ ok: true, body: data})
 
 })
 

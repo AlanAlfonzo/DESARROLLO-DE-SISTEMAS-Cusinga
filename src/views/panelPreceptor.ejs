@@ -220,7 +220,7 @@
                 else {
                     botonCargar.style.backgroundColor = '#007bff'
                     botonCargar.disabled = false
-                    selectAlumno.innerHTML = '<option value="">Todos</option>'
+                    selectAlumno.innerHTML = '<option value="0">Todos</option>'
                     for (let i = 0; i < alumnos.idAlumnos.length; i++) {
                         const option = document.createElement("option")
                         option.value = alumnos.idAlumnos[i]
@@ -235,11 +235,12 @@
         })
 
         document.getElementById('filtro-asis').addEventListener('click', (event) => {
-
+            event.preventDefault()
             const data = encodeURIComponent(JSON.stringify({
                 idUser: document.getElementById('alumnos').options[document.getElementById('alumnos').selectedIndex].value,
                 orden: document.getElementById('orden-asis').options[document.getElementById('orden-asis').selectedIndex].value,
-                tipo: document.getElementById('tipo-asis').options[document.getElementById('tipo-asis').selectedIndex].value
+                tipo: document.getElementById('tipo-asis').options[document.getElementById('tipo-asis').selectedIndex].value,
+                idAnio: document.getElementById('anios').options[document.getElementById('anios').selectedIndex].value
             }))
 
             fetch(`/panel/asistencias/${data}`)

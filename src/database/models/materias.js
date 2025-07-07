@@ -1,4 +1,4 @@
-const sequelize = require('../../config/mySql.js')
+const sequelize = require('../config/mySql.js')
 const { DataTypes } = require('sequelize')
 
 const Materias = sequelize.define('Materias', {
