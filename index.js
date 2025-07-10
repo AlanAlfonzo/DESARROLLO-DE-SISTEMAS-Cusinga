@@ -90,6 +90,11 @@ app.get('/register', redirect, (req, res) => {
     return res.render('registro')
 })
 
+app.get('/panel-admin', redirect, (req, res) => {
+    
+    return res.render('panel-admin')
+})
+
 app.get('/especialidades', async (req, res) => {
     const { token } = req.session
     if (token != null) {
